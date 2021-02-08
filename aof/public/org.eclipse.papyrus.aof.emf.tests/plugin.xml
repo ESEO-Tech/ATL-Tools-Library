@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Population -->
+      <package
+            uri="http://www.eclipse.org/papyrus/aof-emf-samples/population"
+            class="org.eclipse.papyrus.aof.emf.tests.population.PopulationPackage"
+            genModel="model/Population.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated datatypes -->
+      <package
+            uri="http://www.eclipse.org/papyrus/aof-emf-tests/types"
+            class="org.eclipse.papyrus.aof.emf.tests.types.TypesPackage"
+            genModel="model/datatypes.genmodel"/>
+   </extension>
+
+</plugin>

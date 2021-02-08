@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="test1" URI="test1">
+  <packagedElement xmi:type="uml:Class" xmi:id="test" name="test" isAbstract="true">
+    <ownedAttribute xmi:id="test-attr" name="attr" type="test-EMap_EJavaObject-EMap_EJavaObject-EJavaObject">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="test-attr-_lowerValue"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="test-EMap_EJavaObject-EMap_EJavaObject-EJavaObject" name="EMap_EJavaObject-EMap_EJavaObject-EJavaObject">
+      <templateBinding xmi:id="test-EMap_EJavaObject-EMap_EJavaObject-EJavaObject-_templateBinding.0">
+        <parameterSubstitution xmi:id="test-EMap_EJavaObject-EMap_EJavaObject-EJavaObject-_templateBinding.0-_parameterSubstitution.0">
+          <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+          <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0-_ownedParameter.0"/>
+        </parameterSubstitution>
+        <parameterSubstitution xmi:id="test-EMap_EJavaObject-EMap_EJavaObject-EJavaObject-_templateBinding.0-_parameterSubstitution.1" actual="test-EMap_EJavaObject-EJavaObject">
+          <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0-_ownedParameter.1"/>
+        </parameterSubstitution>
+        <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0"/>
+      </templateBinding>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="test-EMap_EJavaObject-EJavaObject" name="EMap_EJavaObject-EJavaObject">
+      <templateBinding xmi:id="test-EMap_EJavaObject-EJavaObject-_templateBinding.0">
+        <parameterSubstitution xmi:id="test-EMap_EJavaObject-EJavaObject-_templateBinding.0-_parameterSubstitution.0">
+          <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+          <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0-_ownedParameter.0"/>
+        </parameterSubstitution>
+        <parameterSubstitution xmi:id="test-EMap_EJavaObject-EJavaObject-_templateBinding.0-_parameterSubstitution.1">
+          <actual xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+          <formal xmi:type="uml:ClassifierTemplateParameter" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0-_ownedParameter.1"/>
+        </parameterSubstitution>
+        <signature xmi:type="uml:RedefinableTemplateSignature" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap-_ownedElement.0"/>
+      </templateBinding>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="test2" name="test2" isAbstract="true">
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="test2-_ownedTemplateSignature" parameter="test2-_ownedTemplateSignature-_ownedParameter.0">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="test2-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="test2-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" constrainingClassifier="test">
+        <ownedParameteredElement xmi:type="uml:Class" xmi:id="test2-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="E" templateParameter="test2-_ownedTemplateSignature-_ownedParameter.0"/>
+      </ownedParameter>
+    </ownedTemplateSignature>
+    <ownedAttribute xmi:id="test2-attr" name="attr" type="test2-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" association="A_attr_test2">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="test2-attr-_lowerValue"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="test3" name="test3" isAbstract="true">
+    <generalization xmi:id="test3-_generalization.0" general="test3-test2_test"/>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="test3-test2_test" name="test2_test">
+      <templateBinding xmi:id="test3-test2_test-_templateBinding.0" signature="test2-_ownedTemplateSignature">
+        <parameterSubstitution xmi:id="test3-test2_test-_templateBinding.0-_parameterSubstitution.0" actual="test" formal="test2-_ownedTemplateSignature-_ownedParameter.0"/>
+      </templateBinding>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="A_attr_test2" name="A_attr_test2" visibility="private" memberEnd="test2-attr A_attr_test2-test2">
+    <ownedEnd xmi:id="A_attr_test2-test2" name="test2" type="test2" association="A_attr_test2"/>
+  </packagedElement>
+</uml:Package>

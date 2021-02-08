@@ -1,0 +1,291 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @path Constraints=model/constraints.xcore
+module Geometry2Arithmetic;
+create OUT : Constraints from IN : Constraints;
+
+-- TODO:
+--	- drop this code & perform geometru expressions&constraints rewriting in a compiler "plugin"
+--		because
+--			- this is quite hard to implement
+--			- geometry expressions&constraints rewriting can be done at the "template" level
+--				=> this is actually more optimized because done once per transformation compilation instead of once per rule execution
+--	- keep the "Lazy" metamodel idea
+
+--helper context Constraints!VariableExp def: eval : OclAny =
+--	self.pathSegments->iterate(e; acc : OclAny = Tuple {type = self.type, source = self.source} |
+--		if e = 'bottom' then
+--			Tuple {
+--				type = 'Line',
+--				source = acc,
+--				segment = e
+--			}
+--		else if e = 'center' then
+--			Tuple {
+--				type = 'Point',
+--				source = acc,
+--				segment = e
+--			}
+--		else if e = 'x' then
+--			Tuple {
+--				type = 'Property',
+--				source = acc,
+--				segnment = e
+--			}
+--		else
+--			acc
+--		endif endif endif
+--	);
+--
+--helper context OclAny def: eval(segments : Sequence(String)) : OclAny =
+--	let source : OclAny =
+--		if segments->isEmpty() then
+--			self
+--		else
+--			self.eval(segments->subSequence(1, segments->size() - 1))
+--		endif
+--	in let segment : OclAny = segments->first() in
+--	TODO;
+--
+--helper context JFX!Rectangle def: bottom : OclAny =
+--	TODO;
+--
+--
+--rule VariableExp {
+--	from
+--		s : Constraints!VariableExp
+--	to
+--		t : Constraints!VariableExp
+--}
+--
+--
+--
+--unique lazy rule ShapeExp {
+--	from
+--		s : Constraints!ShapeExp (
+--			s.shape.oclIsKindOf(JFX!Rectangle)
+--		)
+--	to
+--		x : Constraints!PropertyExp (
+--			source <- s,
+--			name <- 'x'
+--		),
+--		y : Constraints!PropertyExp (
+--			source <- s,
+--			name <- 'y'
+--		),
+--		width : Constraints!PropertyExp (
+--			source <- s,
+--			name <- 'width'
+--		)
+--}
+--
+--unique lazy rule RectangleTop {
+--	from
+--		s : Constraints!PropertyExp (
+--			s.name = 'top'
+--		)
+--	to
+--		startX : Dummy!Proxy (
+--			value <- s.source->collectTo().x
+--		),
+--		startY : Dummy!Proxy (
+--			value <- s.source->collectTo().y
+--		)
+--}
+--
+--unique lazy rule LineCenter {
+--	from
+--		s : Constraints!PropertyExp (
+--			s.name = 'center' and s.source.isLine
+--		)
+--	to
+--		center : Dummy!Proxy (
+--			x <- xpwd2,
+--			y <- yphd2
+--		),
+--			xpwd2 : Constraints!BinaryExp (
+--				predicate <- '/',
+--				left <- xpw,
+--				right <- _2
+--			),
+--				xpw : Constraints!BinaryExp (
+--					predicate <- '+',
+--					left <- s.source->collectTo().x,
+--					right <- s.source->collectTo().width
+--				),
+--				_2 : Constraints!DoubleExp (
+--					value <- 2
+--				),
+--			yphd2 : Constraints!BinaryExp (
+--				predicate <- '/',
+--				left <- yph,
+--				right <- _2
+--			),
+--				yph : Constraints!BinaryExp (
+--					predicate <- '+',
+--					left <- s.source->collectTo().y,
+--					right <- s.source->collectTo().height
+--				)
+--}
+--
+--unique lazy rule Rectangle {
+--	from
+--		s : JFX!Rectangle
+--	to
+--		t : Lazy!"Tuple" (
+--			x <- s->collectTo('x'),
+--			top <- s->collectTo('Top')
+--		)
+--}
+--
+---- example: r1.top.start.x
+--
+--helper context Constraints!PropertyExp def: eval : OclAny =
+--	let source : OclAny = self.source.eval in
+--	source->collectTo(self.name);
+--
+--helper context Constraints!ShapeExp def: eval : OclAny =
+--	self.shape;
+
+unique lazy rule SimpleConstraint {
+	from
+		s : Constraints!SimpleConstraint
+	to
+		t : Constraints!SimpleConstraint (
+			predicate <- s.predicate,
+			strength <- s.strength->collectTo('Strength'),	-- OR point to the original one? we may not
+															-- need a full blown separate model, if containment is removed
+			arguments <- s.arguments->collectTo(
+							'Expression'
+						 )
+		)
+}
+
+unique lazy rule Expression {
+	from
+		s : Constraints!Expression
+	to
+		t : Constraints!Expression
+}
+
+unique lazy rule PropertyExp extends Expression {
+	from
+		s : Constraints!PropertyExp
+	to
+		
+}
+
+unique lazy rule ShapeExp extends Expression {
+	from
+		s : Constraints!ShapeExp
+	to
+		t : Constraints!ShapeExp (
+			shape <- s.shape
+		)
+}
+
+--- @begin Lazy Geometry model creation 
+
+unique lazy rule Property {
+	from
+		n : JFX!Node,
+		p : String
+	to
+		t : Constraints!VariableExp (
+			source <- n,
+			property <- p
+		)
+}
+
+-- Remark: the Lazy metamodel lazily computes bindings, and can be navigated even as a target
+unique lazy rule RectangleGeometry {
+	from
+		s : JFX!Rectangle
+	to
+		t : Lazy!Rectangle (
+--			x <- Tuple {n = s, p = 'x'}->collectTo('Property'),
+		-- OR possibly better syntax:
+			x <- 'Property'.apply(s, 'x'),
+		-- OR more ATL-like:
+			x <- thisModule.Property(s, 'x'),
+			y <- 'Property'.apply(s, 'y'),
+			width <- 'Property'.apply(s, 'width'),
+			height <- 'Property'.apply(s, 'height'),
+			topLeft <- 'Point'.apply(t.x, t.y),
+			topRight <- 'Point'.apply('Plus'.apply(t.x, t.width), t.y),
+			bottomLeft <- 'Point'.apply(t.x, 'Plus'.apply(t.y, t.height)),
+			bottomRight <- 'Point'.apply(t.topRight.x, t.bottomLeft.y),
+			top <- 'Line'.apply(t.topLeft, t.topRight),
+			bottom <- 'Line'.apply(t.bottomLeft, t.bottomRight),
+			right <- 'Line'.apply(t.topRight, t.bottomRight),
+			left <- 'Line'.apply(t.topLeft, t.bottomLeft)
+		)
+}
+
+unique lazy rule Point {
+	from
+		x : Constraints!Expression,
+		y : Constraints!Expression
+	to
+		t : Lazy!Point (
+			x <- x,
+			y <- y
+		)
+}
+
+unique lazy rule Line {
+	from
+		start : Lazy!Point,
+		end : Lazy!Point
+	to
+		t : Lazy!Line (
+			start <- start,
+			end <- end,
+			center <- 'Point'.apply(
+				'DivConst'.apply('Plus'.apply(start.x, end.x), 2),
+				'DivConst'.apply('Plus'.apply(start.y, end.y), 2)
+			)
+		)
+}
+
+unique lazy rule Plus {
+	from
+		left : Constraints!Expression,
+		right : Constraints!Expression
+	to
+		t : Constraints!BinaryExp (
+			operator <- '+',
+			left <- left,
+			right <- right
+		)
+}
+
+unique lazy rule DivConst {
+	from
+		left : Constraints!Expression,
+		right : Integer
+	to
+		t : Constraints!BinaryExp (
+			operator <- '/',
+			left <- left,
+			right <- rightE
+		),
+			rightE : Constraints!DoubleExp (
+				value <- 2
+			)
+}

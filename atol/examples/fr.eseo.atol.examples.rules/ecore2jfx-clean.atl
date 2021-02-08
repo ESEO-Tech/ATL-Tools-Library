@@ -1,0 +1,118 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+module ecore2jfx;
+
+create OUT : JFX from IN : Ecore;
+
+entrypoint rule Main() {
+	do {
+		Ecore!EPackage.allInstancesFrom('IN')->select(e |
+			e.eSuperPackage.oclIsUndefined()
+		)->collect(e |
+			thisModule.package2rectangle(e)
+		);
+	}
+}
+
+unique lazy rule Package {
+	from 
+		model : Ecore!EPackage
+	to 
+		g : JFX!Figure (
+			nodes <- Sequence {r, t},
+			constraints <-	Sequence {__constraints__},
+			children <-	model.eClassifiers->select(
+							Ecore!EClass
+						)->collectTo('Class').g->concat(
+							model.eSubpackages->collectTo('Package').g
+						)
+		),
+		r : JFX!Rectangle (
+			movable <- true,
+			id <- model.name + '.r',
+			x <- 200.0,
+			y <- 200.0,
+			width <- 200.0,
+			height <- 200.0,
+			stroke <- '0xff0000ff',
+			strokeWidth <- 2.0,
+			fill <- '0xffffffff'
+		),
+		__constraints__ : Constraints!ConstraintGroup (
+			constraints <- Sequence {
+				r.height >= 200
+				,r.width >= 200
+				,r.width.stay('Strong')
+				,r.height.stay('MEDIUM', 10)
+				,r.x.stay('MEDIUM')
+				,r.y.stay('MEDIUM')
+				,t.x = r.x
+				,t.y = r.y
+			}
+		),
+		t : JFX!Text (
+			id <- model.name + '.t',
+			text <- model.name,
+			x <- 205.0,
+			y <- 205.0,
+			textOrigin <- #TOP
+		)
+}
+
+unique lazy rule Class {
+	from
+		c : Ecore!EClass
+	to
+		g : JFX!Figure (
+			nodes <- Sequence {r, t},
+			constraints <-	Sequence {__constraints__}
+		),
+		r : JFX!Rectangle (
+			movable <- true,
+			id <- c.name + '.r',
+			x <- 0.0,
+			y <- 0.0,
+			width <- 100.0,
+			height <- 100.0,
+			stroke <- '0x8000ffff',
+			strokeWidth <- 1.0,
+			fill <- '0xffffffff'
+		),
+		__constraints__ : Constraints!ConstraintGroup (
+			constraints <- Sequence {
+				r.height >= 50
+				,r.width >= 50
+				,t.x = r.x
+				,t.y = r.y
+				,r.x.stay('WEAK')
+				,r.y.stay('WEAK')
+				,r.width >= 1.2 * t.width.toConstant()
+				,r.height >= 1.2 * t.height.toConstant()
+			}
+		),
+		t : JFX!Text (
+			id <- c.name + '.t',
+			text <- c.fullName(),
+			x <- 0.0,
+			y <- 0.0,
+			textOrigin <- #TOP
+		)
+}
+
+helper context Ecore!EClass def: fullName() : String =
+	self.ePackage.name + '::' + self.name;

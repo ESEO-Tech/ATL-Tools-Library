@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc 
+	        	access="private" author="true" 
+	        	classpath="C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.osgi.compatibility.state_1.0.1.v20140709-1414.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.core.jobs_3.6.1.v20141014-1248.jar;D:\git\aof-api\org.eclipse.papyrus.aof.core\bin;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\javax.inject_1.0.0.v20091030.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.equinox.common_3.6.200.v20130402-1505.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.osgi_3.10.2.v20150203-1939.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.equinox.preferences_3.5.200.v20140224-1527.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.emf.common_2.10.1.v20150123-0348.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.core.contenttype_3.4.200.v20140207-1251.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.core.runtime_3.10.0.v20140318-2214.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.core.runtime.compatibility.registry_3.5.300.v20140128-0851\runtime_registry_compatibility.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\javax.annotation_1.2.0.v201401042248.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.equinox.registry_3.5.400.v20140428-1507.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.equinox.app_1.3.200.v20130910-1609.jar;C:\eclipse-dsl-luna-SR2-win32-x86_64\eclipse\plugins\org.eclipse.emf.ecore_2.10.2.v20150123-0348.jar"
+	        	destdir="dev-doc" 
+	        	doctitle="AOF API Implementation Documentation" 
+	        	nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" 
+	        	packagenames="org.eclipse.papyrus.aof.core.impl,org.eclipse.papyrus.aof.core.impl.utils.cache,org.eclipse.papyrus.aof.emf,org.eclipse.papyrus.aof.core.impl.operation,org.eclipse.papyrus.aof.core,org.eclipse.papyrus.aof.core.impl.utils,org.eclipse.papyrus.aof.emf.impl" 
+	        	source="1.6" 
+	        	sourcepath="D:\git\aof-api\org.eclipse.papyrus.aof.core\src;D:\git\aof-api\org.eclipse.papyrus.aof.emf\src" 
+	        	splitindex="true" use="true" version="true">
+            <link href="https://docs.oracle.com/javase/8/docs/api/"/>
+        </javadoc>
+    </target>
+</project>

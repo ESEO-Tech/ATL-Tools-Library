@@ -1,0 +1,347 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @nsURI UML=http://www.eclipse.org/uml2/5.0.0/UML
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+module UML2Ecore;
+create OUT : Ecore from IN : UML;
+
+unique lazy rule Package2EPackage {
+	from
+		s : UML!Package
+	to
+		t : Ecore!EPackage (
+			name <- s.name,
+			nsURI <- s.URI,
+			nsPrefix <- s.name,
+			eSubpackages <- s.packagedElement->select(
+								UML!Package
+							)->collectTo(
+								'Package2EPackage'
+							).t,
+			eClassifiers <- s.packagedElement->select(
+								UML!Classifier
+							)->reject(e |
+								e.oclIsKindOf(UML!Association)
+							)->collectTo(
+								'Classifier2EClassifier'
+							).t
+		)
+}
+
+unique lazy abstract rule Classifier2EClassifier {
+	from
+		s : UML!Classifier
+	to
+		t : Ecore!EClassifier (
+			name <- s.name,
+			eTypeParameters <-	s.ownedTemplateSignature.parameter->collectTo(
+									'TemplateParameter2ETypeParameter'
+								).t
+		)
+}
+
+-- Using this to know the kind of type (Class or DataType) should not be necessary.
+-- It is currently necessary because Ecore2UML always generates Classes in EGenericType2BoundClassifier. 
+helper context UML!Property def: rawType : UML!Type =
+	let template : OclAny =
+		self.type->select(
+			UML!Classifier
+		).templateBinding.signature1.template
+	in
+	if template->notEmpty() then
+		template.oclAsType(UML!Type)
+	else
+		self.type
+	endif;
+
+unique lazy rule Class2EClass extends Classifier2EClassifier {
+	from
+		s : UML!Class
+	to
+		t : Ecore!EClass (
+			abstract <- s.isAbstract,
+--			eSuperTypes <- s.generalization.general->collectTo('Class2EClass').t,
+			eGenericSuperTypes <-	s.generalization.general->collect(g |
+										thisModule.ContextedClassifier2EGenericType(s, g).t
+									),
+--									s.generalization.general->collect(e |
+--										if e.templateBinding->isEmpty() then
+--											thisModule.Class2EClass(e.oclAsType(UML!Class)).t
+--										else
+--											thisModule.ParameterSubstitution2EGenericType(
+--												e.templateBinding.parameterSubstitution
+--											).t
+--										endif
+--									),
+			eStructuralFeatures <-
+									-- TODO: make the following work by supporting rule guards
+--									s.ownedAttribute->collectTo(
+--										'Property2EAttribute',
+--										'Property2EReference'
+--									).t
+									-- until then, we do it manually:
+									s.ownedAttribute->collect(e |
+										if e.rawType.oclIsKindOf(UML!Class) then
+											thisModule.Property2EReference(e)
+										else
+											thisModule.Property2EAttribute(e)
+										endif
+									).t,
+			eOperations <- s.ownedOperation->collectTo('Operation2EOperation').t
+		)
+}
+
+unique lazy rule DataType2EDataType extends Classifier2EClassifier {
+	from
+		s : UML!DataType
+	to
+		t : Ecore!EDataType
+}
+
+unique lazy rule TemplateParameter2ETypeParameter {
+	from
+		s : UML!TemplateParameter
+	to
+		t : Ecore!ETypeParameter (
+			name <- s.parameteredElement->collect(e |
+						e.oclAsType(UML!Classifier).name
+					)
+		)
+}
+
+unique lazy rule ClassifierTemplateParameter2ETypeParameter extends TemplateParameter2ETypeParameter {
+	from
+		s : UML!ClassifierTemplateParameter
+	to
+		t : Ecore!ETypeParameter (
+			eBounds <-	s.constrainingClassifier->collect(e |
+							thisModule.ContextedClassifier2EGenericType(s, e).t
+						)
+		)
+}
+
+unique lazy rule Enumeration2EEnum extends
+		--Classifier2EClassifier {
+		DataType2EDataType {
+	from
+		s : UML!Enumeration
+	to
+		t : Ecore!EEnum (
+			eLiterals <-	s.ownedLiteral->collectTo(
+								'EnumerationLiteral2EEnumLiteral'
+							).t
+		)
+}
+
+unique lazy rule EnumerationLiteral2EEnumLiteral {
+	from
+		s : UML!EnumerationLiteral
+	to
+		t : Ecore!EEnumLiteral (
+			name <- s.name,
+			value <- s.enumeration.ownedLiteral->indexOf(s)
+		)
+}
+
+helper context UML!MultiplicityElement def: lowerB : Integer =
+	self.lowerValue->select(
+		UML!LiteralInteger
+	).value8->reject(e |
+		e.oclIsUndefined()
+	);
+
+helper context UML!MultiplicityElement def: upperB : Integer =
+	self.upperValue->select(
+		UML!LiteralUnlimitedNatural
+	).value11->reject(e |
+		e.oclIsUndefined()
+	);
+
+unique lazy abstract rule MultiplicityElement2ETypedElement {
+	from
+		s : UML!MultiplicityElement
+	to
+		t : Ecore!ETypedElement (
+			lowerBound <- s.lowerB->asOne(1),
+			upperBound <- s.upperB->asOne(1),
+			ordered <- s.isOrdered,
+			unique <- s.isUnique
+		)
+}
+unique lazy abstract rule Property2EStructuralFeature extends MultiplicityElement2ETypedElement {
+	from
+		s : UML!Property
+	to
+		t : Ecore!EStructuralFeature (
+			name <- s.name,
+			changeable <- not s.isReadOnly,
+			derived <- s.isDerived,
+			-- volatile and transient are in theory independant of isDerived, but do not exist in UML
+			volatile <- s.isDerived,
+			transient <- s.isDerived,
+			eGenericType <- thisModule.ContextedClassifier2EGenericType(
+								s,
+								s.type.oclAsType(UML!Classifier)
+							).t	-- TODO: should this correspond to a binding instead of a set? see generated code
+		)
+}
+
+unique lazy rule Property2EAttribute extends Property2EStructuralFeature {
+	from
+		s : UML!Property (
+			s.type.oclIsKindOf(UML!DataType)	-- not working yet
+		)
+	to
+		t : Ecore!EAttribute (
+			defaultValueLiteral <-	s.defaultValue->select(
+										UML!OpaqueExpression	-- TODO: support other kinds of ValueSpecifications
+									)->collect(e | e.body)
+		)
+}
+
+unique lazy rule Property2EReference extends Property2EStructuralFeature {
+	from
+		s : UML!Property (
+			s.type.oclIsKindOf(UML!Class)	-- not working yet
+		)
+	to
+		t : Ecore!EReference (
+			containment <- s.aggregation = #composite,
+			eOpposite <-	s.association.memberEnd->select(e |
+								e <> s
+							)->select(e |
+								e.owningAssociation.oclIsUndefined()
+							)->first()->collectTo(
+								'Property2EReference'
+							).t
+		)
+}
+
+unique lazy rule Operation2EOperation {
+	from
+		s : UML!Operation
+	using {
+		ret : UML!Parameter =	s.ownedParameter->select(e |
+									e.direction = #return
+								);
+	}
+	to
+		t : Ecore!EOperation (
+			name <- s.name,
+			eExceptions <- s.raisedException->collectTo('Classifier2EClassifier').t,
+			eParameters <-	s.ownedParameter->reject(p |
+								p.direction = #return
+							)->collectTo(
+								'Parameter2EParameter'
+							).t,
+			-- TODO: make asOnes non-necessary in the following bindings
+			-- Remark: the default value selected below are the ones used in UML.ecore
+			-- but not in Ecore.ecore. Anyway, they have no meaning because they are only
+			-- used when there is to return type.
+			lowerBound <- ret.lowerB->asOne(1),
+			upperBound <- ret.upperB->asOne(1),
+			ordered <- ret.isOrdered->asOne(false),
+			unique <- ret.isUnique->asOne(true),
+--			eType <-	ret.type->collectTo(
+--							'Classifier2EClassifier'
+--						).t,
+			eGenericType <- ret->collect(e |
+								thisModule.ContextedClassifier2EGenericType(
+									e,
+									e.type.oclAsType(UML!Classifier)
+								).t	-- TODO: should this correspond to a binding instead of a set? see generated code
+							),
+			eTypeParameters <-	s.ownedTemplateSignature.parameter->collectTo(
+									'TemplateParameter2ETypeParameter'
+								).t
+		)
+}
+
+unique lazy rule Parameter2EParameter extends MultiplicityElement2ETypedElement {
+	from
+		s : UML!Parameter
+	to
+		t : Ecore!EParameter (
+			name <- s.name,
+			-- Using an EGenericType without eTypeArguments is apparently
+			-- equivalent to setting eType directly.
+			-- Therefore we keep the EGenericType so that it will be easier
+			-- to handle eTypeArguments once it becomes possible.
+			-- Apparently only works if the eClassifier is set at the right time,
+			-- but works for us.
+			eGenericType <- thisModule.ContextedClassifier2EGenericType(
+								s,
+								s.type.oclAsType(UML!Classifier)
+							).t	-- TODO: should this correspond to a binding instead of a set? see generated code
+		)
+}
+
+helper context UML!Classifier def: templateIfAny : UML!TemplateableElement =
+	self.templateBinding.signature1.template;
+
+unique lazy rule ContextedClassifier2EGenericType {
+	from
+		cont : UML!Element,	-- the element for which we are generating the EGenericType, so that trace links do not get mixed (e.g., if the same classifier is the type of several attributes)
+		s : UML!Classifier
+	to
+		t : Ecore!EGenericType (
+			eClassifier <-	if s.templateParameter.oclIsUndefined() then
+								let template : OclAny = s.templateIfAny in
+								if template->notEmpty() then
+									template->collectTo('Classifier2EClassifier').t
+								else
+									thisModule.Classifier2EClassifier(s).t
+								endif
+							else
+								OclUndefined
+							endif,
+			eTypeParameter <- thisModule.TemplateParameter2ETypeParameter(s.templateParameter).t,
+			eTypeArguments <-	s.templateBinding.parameterSubstitution->collectTo(
+									'ParameterSubstitution2EGenericType'
+								).t
+		)
+}
+
+-- TODO: factor code common with ContextedClassifier2EGenericType
+unique lazy rule ParameterSubstitution2EGenericType {
+	from
+		s : UML!TemplateParameterSubstitution
+	using {
+		c : UML!Classifier = s.actual->select(UML!Classifier)->first();
+	}
+	to
+		t : Ecore!EGenericType (
+			-- TODO: improve Wildcard detection
+			eClassifier <-	if c.templateParameter.oclIsUndefined() and c.name <> 'Wildcard' then
+								let template : OclAny = c.templateIfAny in
+								if template->notEmpty() then
+									template->collectTo('Classifier2EClassifier').t
+								else
+									c->collectTo('Classifier2EClassifier').t
+								endif
+							else
+								OclUndefined
+							endif,
+								
+-- the following does not work because s.actual is not always a Classifier
+--							thisModule.Classifier2EClassifier(s.actual).t
+			eTypeParameter <- thisModule.TemplateParameter2ETypeParameter(c.templateParameter).t,
+			eTypeArguments <-	c.templateBinding.parameterSubstitution->collectTo(
+									'ParameterSubstitution2EGenericType'
+								).t
+		)
+}

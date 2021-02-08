@@ -1,0 +1,1497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Package xmi:id="_0" name="xbase" URI="http://www.eclipse.org/xtext/xbase/Xbase">
+    <packagedElement xmi:type="uml:Class" xmi:id="XExpression" name="XExpression" isAbstract="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="XIfExpression" name="XIfExpression">
+      <generalization xmi:id="XIfExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XIfExpression-if" name="if" type="XExpression" isOrdered="true" aggregation="composite" association="A_if_xIfExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XIfExpression-if-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XIfExpression-then" name="then" type="XExpression" isOrdered="true" aggregation="composite" association="A_then_xIfExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XIfExpression-then-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XIfExpression-else" name="else" type="XExpression" isOrdered="true" aggregation="composite" association="A_else_xIfExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XIfExpression-else-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XSwitchExpression" name="XSwitchExpression">
+      <generalization xmi:id="XSwitchExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XSwitchExpression-switch" name="switch" type="XExpression" isOrdered="true" aggregation="composite" association="A_switch_xSwitchExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSwitchExpression-switch-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XSwitchExpression-cases" name="cases" type="XCasePart" isOrdered="true" aggregation="composite" association="A_cases_xSwitchExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSwitchExpression-cases-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XSwitchExpression-cases-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XSwitchExpression-default" name="default" type="XExpression" isOrdered="true" aggregation="composite" association="A_default_xSwitchExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSwitchExpression-default-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XSwitchExpression-declaredParam" name="declaredParam" type="JvmFormalParameter" isOrdered="true" aggregation="composite" association="A_declaredParam_xSwitchExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSwitchExpression-declaredParam-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XCasePart" name="XCasePart">
+      <ownedAttribute xmi:id="XCasePart-case" name="case" type="XExpression" isOrdered="true" aggregation="composite" association="A_case_xCasePart">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCasePart-case-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XCasePart-then" name="then" type="XExpression" isOrdered="true" aggregation="composite" association="A_then_xCasePart">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCasePart-then-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XCasePart-typeGuard" name="typeGuard" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_typeGuard_xCasePart">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCasePart-typeGuard-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XCasePart-fallThrough" name="fallThrough" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCasePart-fallThrough-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XBlockExpression" name="XBlockExpression">
+      <generalization xmi:id="XBlockExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XBlockExpression-expressions" name="expressions" type="XExpression" isOrdered="true" aggregation="composite" association="A_expressions_xBlockExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBlockExpression-expressions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XBlockExpression-expressions-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XVariableDeclaration" name="XVariableDeclaration">
+      <generalization xmi:id="XVariableDeclaration-_generalization.0" general="XExpression"/>
+      <generalization xmi:id="XVariableDeclaration-_generalization.1" general="JvmIdentifiableElement"/>
+      <ownedAttribute xmi:id="XVariableDeclaration-type" name="type" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_type_xVariableDeclaration">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XVariableDeclaration-type-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XVariableDeclaration-name" name="name" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XVariableDeclaration-name-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XVariableDeclaration-right" name="right" type="XExpression" isOrdered="true" aggregation="composite" association="A_right_xVariableDeclaration">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XVariableDeclaration-right-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XVariableDeclaration-writeable" name="writeable" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XVariableDeclaration-writeable-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XAbstractFeatureCall" name="XAbstractFeatureCall" isAbstract="true">
+      <generalization xmi:id="XAbstractFeatureCall-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-feature" name="feature" type="JvmIdentifiableElement" isOrdered="true" association="A_feature_xAbstractFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-feature-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-typeArguments" name="typeArguments" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_typeArguments_xAbstractFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-typeArguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XAbstractFeatureCall-typeArguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-implicitReceiver" name="implicitReceiver" type="XExpression" isOrdered="true" aggregation="composite" isDerived="true" association="A_implicitReceiver_xAbstractFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-implicitReceiver-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-invalidFeatureIssueCode" name="invalidFeatureIssueCode" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-invalidFeatureIssueCode-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-validFeature" name="validFeature" isOrdered="true" isReadOnly="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-validFeature-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractFeatureCall-implicitFirstArgument" name="implicitFirstArgument" type="XExpression" isOrdered="true" aggregation="composite" isDerived="true" association="A_implicitFirstArgument_xAbstractFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-implicitFirstArgument-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="XAbstractFeatureCall-getConcreteSyntaxFeatureName" name="getConcreteSyntaxFeatureName">
+        <ownedParameter xmi:id="XAbstractFeatureCall-getConcreteSyntaxFeatureName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-getExplicitArguments" name="getExplicitArguments">
+        <ownedParameter xmi:id="XAbstractFeatureCall-getExplicitArguments-_ownedParameter.0" type="XExpression" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-getExplicitArguments-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XAbstractFeatureCall-getExplicitArguments-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isExplicitOperationCallOrBuilderSyntax" name="isExplicitOperationCallOrBuilderSyntax">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isExplicitOperationCallOrBuilderSyntax-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isExplicitOperationCallOrBuilderSyntax-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-getActualReceiver" name="getActualReceiver">
+        <ownedParameter xmi:id="XAbstractFeatureCall-getActualReceiver-_ownedParameter.0" type="XExpression" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-getActualReceiver-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-getActualArguments" name="getActualArguments">
+        <ownedParameter xmi:id="XAbstractFeatureCall-getActualArguments-_ownedParameter.0" type="XExpression" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-getActualArguments-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XAbstractFeatureCall-getActualArguments-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isStatic" name="isStatic">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isStatic-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isStatic-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isExtension" name="isExtension">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isExtension-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isExtension-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isPackageFragment" name="isPackageFragment">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isPackageFragment-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isPackageFragment-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isTypeLiteral" name="isTypeLiteral">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isTypeLiteral-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isTypeLiteral-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="XAbstractFeatureCall-isOperation" name="isOperation">
+        <ownedParameter xmi:id="XAbstractFeatureCall-isOperation-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractFeatureCall-isOperation-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XMemberFeatureCall" name="XMemberFeatureCall">
+      <generalization xmi:id="XMemberFeatureCall-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XMemberFeatureCall-memberCallTarget" name="memberCallTarget" type="XExpression" isOrdered="true" aggregation="composite" association="A_memberCallTarget_xMemberFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-memberCallTarget-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-memberCallArguments" name="memberCallArguments" type="XExpression" isOrdered="true" aggregation="composite" association="A_memberCallArguments_xMemberFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-memberCallArguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XMemberFeatureCall-memberCallArguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-explicitOperationCall" name="explicitOperationCall" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-explicitOperationCall-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-explicitStatic" name="explicitStatic" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-explicitStatic-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-nullSafe" name="nullSafe" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-nullSafe-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-typeLiteral" name="typeLiteral" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-typeLiteral-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-staticWithDeclaringType" name="staticWithDeclaringType" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-staticWithDeclaringType-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XMemberFeatureCall-packageFragment" name="packageFragment" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XMemberFeatureCall-packageFragment-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XFeatureCall" name="XFeatureCall">
+      <generalization xmi:id="XFeatureCall-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XFeatureCall-featureCallArguments" name="featureCallArguments" type="XExpression" isOrdered="true" aggregation="composite" association="A_featureCallArguments_xFeatureCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XFeatureCall-featureCallArguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XFeatureCall-featureCallArguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XFeatureCall-explicitOperationCall" name="explicitOperationCall" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XFeatureCall-explicitOperationCall-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XFeatureCall-typeLiteral" name="typeLiteral" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XFeatureCall-typeLiteral-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XFeatureCall-packageFragment" name="packageFragment" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XFeatureCall-packageFragment-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XConstructorCall" name="XConstructorCall">
+      <generalization xmi:id="XConstructorCall-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XConstructorCall-constructor" name="constructor" type="JvmConstructor" isOrdered="true" association="A_constructor_xConstructorCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-constructor-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-arguments" name="arguments" type="XExpression" isOrdered="true" aggregation="composite" association="A_arguments_xConstructorCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-arguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XConstructorCall-arguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-typeArguments" name="typeArguments" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_typeArguments_xConstructorCall">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-typeArguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XConstructorCall-typeArguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-invalidFeatureIssueCode" name="invalidFeatureIssueCode" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-invalidFeatureIssueCode-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-validFeature" name="validFeature" isOrdered="true" isReadOnly="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-validFeature-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-explicitConstructorCall" name="explicitConstructorCall" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-explicitConstructorCall-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XConstructorCall-anonymousClassConstructorCall" name="anonymousClassConstructorCall" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XConstructorCall-anonymousClassConstructorCall-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XBooleanLiteral" name="XBooleanLiteral">
+      <generalization xmi:id="XBooleanLiteral-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XBooleanLiteral-isTrue" name="isTrue" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBooleanLiteral-isTrue-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XNullLiteral" name="XNullLiteral">
+      <generalization xmi:id="XNullLiteral-_generalization.0" general="XExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XNumberLiteral" name="XNumberLiteral">
+      <generalization xmi:id="XNumberLiteral-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XNumberLiteral-value" name="value" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XNumberLiteral-value-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XStringLiteral" name="XStringLiteral">
+      <generalization xmi:id="XStringLiteral-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XStringLiteral-value" name="value" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XStringLiteral-value-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XCollectionLiteral" name="XCollectionLiteral" isAbstract="true">
+      <generalization xmi:id="XCollectionLiteral-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XCollectionLiteral-elements" name="elements" type="XExpression" isOrdered="true" aggregation="composite" association="A_elements_xCollectionLiteral">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCollectionLiteral-elements-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XCollectionLiteral-elements-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XListLiteral" name="XListLiteral">
+      <generalization xmi:id="XListLiteral-_generalization.0" general="XCollectionLiteral"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XSetLiteral" name="XSetLiteral">
+      <generalization xmi:id="XSetLiteral-_generalization.0" general="XCollectionLiteral"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XClosure" name="XClosure">
+      <generalization xmi:id="XClosure-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XClosure-declaredFormalParameters" name="declaredFormalParameters" type="JvmFormalParameter" isOrdered="true" aggregation="composite" association="A_declaredFormalParameters_xClosure">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XClosure-declaredFormalParameters-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XClosure-declaredFormalParameters-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XClosure-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xClosure">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XClosure-expression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XClosure-explicitSyntax" name="explicitSyntax" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XClosure-explicitSyntax-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XClosure-implicitFormalParameters" name="implicitFormalParameters" type="JvmFormalParameter" isOrdered="true" aggregation="composite" isDerived="true" association="A_implicitFormalParameters_xClosure">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XClosure-implicitFormalParameters-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XClosure-implicitFormalParameters-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="XClosure-getFormalParameters" name="getFormalParameters">
+        <ownedParameter xmi:id="XClosure-getFormalParameters-_ownedParameter.0" type="JvmFormalParameter" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XClosure-getFormalParameters-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XClosure-getFormalParameters-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XCastedExpression" name="XCastedExpression">
+      <generalization xmi:id="XCastedExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XCastedExpression-type" name="type" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_type_xCastedExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCastedExpression-type-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XCastedExpression-target" name="target" type="XExpression" isOrdered="true" aggregation="composite" association="A_target_xCastedExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCastedExpression-target-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XBinaryOperation" name="XBinaryOperation">
+      <generalization xmi:id="XBinaryOperation-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XBinaryOperation-leftOperand" name="leftOperand" type="XExpression" isOrdered="true" aggregation="composite" association="A_leftOperand_xBinaryOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBinaryOperation-leftOperand-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XBinaryOperation-rightOperand" name="rightOperand" type="XExpression" isOrdered="true" aggregation="composite" association="A_rightOperand_xBinaryOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBinaryOperation-rightOperand-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XBinaryOperation-reassignFirstArgument" name="reassignFirstArgument" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBinaryOperation-reassignFirstArgument-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XUnaryOperation" name="XUnaryOperation">
+      <generalization xmi:id="XUnaryOperation-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XUnaryOperation-operand" name="operand" type="XExpression" isOrdered="true" aggregation="composite" association="A_operand_xUnaryOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XUnaryOperation-operand-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XPostfixOperation" name="XPostfixOperation">
+      <generalization xmi:id="XPostfixOperation-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XPostfixOperation-operand" name="operand" type="XExpression" isOrdered="true" aggregation="composite" association="A_operand_xPostfixOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XPostfixOperation-operand-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XForLoopExpression" name="XForLoopExpression">
+      <generalization xmi:id="XForLoopExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XForLoopExpression-forExpression" name="forExpression" type="XExpression" isOrdered="true" aggregation="composite" association="A_forExpression_xForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XForLoopExpression-forExpression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XForLoopExpression-eachExpression" name="eachExpression" type="XExpression" isOrdered="true" aggregation="composite" association="A_eachExpression_xForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XForLoopExpression-eachExpression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XForLoopExpression-declaredParam" name="declaredParam" type="JvmFormalParameter" isOrdered="true" aggregation="composite" association="A_declaredParam_xForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XForLoopExpression-declaredParam-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XBasicForLoopExpression" name="XBasicForLoopExpression">
+      <generalization xmi:id="XBasicForLoopExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XBasicForLoopExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xBasicForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBasicForLoopExpression-expression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XBasicForLoopExpression-eachExpression" name="eachExpression" type="XExpression" isOrdered="true" aggregation="composite" association="A_eachExpression_xBasicForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBasicForLoopExpression-eachExpression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XBasicForLoopExpression-initExpressions" name="initExpressions" type="XExpression" isOrdered="true" aggregation="composite" association="A_initExpressions_xBasicForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBasicForLoopExpression-initExpressions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XBasicForLoopExpression-initExpressions-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XBasicForLoopExpression-updateExpressions" name="updateExpressions" type="XExpression" isOrdered="true" aggregation="composite" association="A_updateExpressions_xBasicForLoopExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XBasicForLoopExpression-updateExpressions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XBasicForLoopExpression-updateExpressions-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XAbstractWhileExpression" name="XAbstractWhileExpression" isAbstract="true">
+      <generalization xmi:id="XAbstractWhileExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XAbstractWhileExpression-predicate" name="predicate" type="XExpression" isOrdered="true" aggregation="composite" association="A_predicate_xAbstractWhileExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractWhileExpression-predicate-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAbstractWhileExpression-body" name="body" type="XExpression" isOrdered="true" aggregation="composite" association="A_body_xAbstractWhileExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAbstractWhileExpression-body-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XDoWhileExpression" name="XDoWhileExpression">
+      <generalization xmi:id="XDoWhileExpression-_generalization.0" general="XAbstractWhileExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XWhileExpression" name="XWhileExpression">
+      <generalization xmi:id="XWhileExpression-_generalization.0" general="XAbstractWhileExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XTypeLiteral" name="XTypeLiteral">
+      <generalization xmi:id="XTypeLiteral-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XTypeLiteral-type" name="type" type="JvmType" isOrdered="true" association="A_type_xTypeLiteral"/>
+      <ownedAttribute xmi:id="XTypeLiteral-arrayDimensions" name="arrayDimensions" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XTypeLiteral-arrayDimensions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XTypeLiteral-arrayDimensions-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XInstanceOfExpression" name="XInstanceOfExpression">
+      <generalization xmi:id="XInstanceOfExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XInstanceOfExpression-type" name="type" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_type_xInstanceOfExpression"/>
+      <ownedAttribute xmi:id="XInstanceOfExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xInstanceOfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XThrowExpression" name="XThrowExpression">
+      <generalization xmi:id="XThrowExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XThrowExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xThrowExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XThrowExpression-expression-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XTryCatchFinallyExpression" name="XTryCatchFinallyExpression">
+      <generalization xmi:id="XTryCatchFinallyExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XTryCatchFinallyExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xTryCatchFinallyExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XTryCatchFinallyExpression-expression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XTryCatchFinallyExpression-finallyExpression" name="finallyExpression" type="XExpression" isOrdered="true" aggregation="composite" association="A_finallyExpression_xTryCatchFinallyExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XTryCatchFinallyExpression-finallyExpression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XTryCatchFinallyExpression-catchClauses" name="catchClauses" type="XCatchClause" isOrdered="true" aggregation="composite" association="A_catchClauses_xTryCatchFinallyExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XTryCatchFinallyExpression-catchClauses-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="XTryCatchFinallyExpression-catchClauses-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XCatchClause" name="XCatchClause">
+      <ownedAttribute xmi:id="XCatchClause-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xCatchClause">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCatchClause-expression-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XCatchClause-declaredParam" name="declaredParam" type="JvmFormalParameter" isOrdered="true" aggregation="composite" association="A_declaredParam_xCatchClause">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XCatchClause-declaredParam-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XAssignment" name="XAssignment">
+      <generalization xmi:id="XAssignment-_generalization.0" general="XAbstractFeatureCall"/>
+      <ownedAttribute xmi:id="XAssignment-assignable" name="assignable" type="XExpression" isOrdered="true" aggregation="composite" association="A_assignable_xAssignment">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAssignment-assignable-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAssignment-value" name="value" type="XExpression" isOrdered="true" aggregation="composite" association="A_value_xAssignment">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAssignment-value-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAssignment-explicitStatic" name="explicitStatic" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAssignment-explicitStatic-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XAssignment-staticWithDeclaringType" name="staticWithDeclaringType" isOrdered="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XAssignment-staticWithDeclaringType-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XReturnExpression" name="XReturnExpression">
+      <generalization xmi:id="XReturnExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XReturnExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xReturnExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XReturnExpression-expression-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="XSynchronizedExpression" name="XSynchronizedExpression">
+      <generalization xmi:id="XSynchronizedExpression-_generalization.0" general="XExpression"/>
+      <ownedAttribute xmi:id="XSynchronizedExpression-param" name="param" type="XExpression" isOrdered="true" aggregation="composite" association="A_param_xSynchronizedExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSynchronizedExpression-param-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="XSynchronizedExpression-expression" name="expression" type="XExpression" isOrdered="true" aggregation="composite" association="A_expression_xSynchronizedExpression">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="XSynchronizedExpression-expression-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_if_xIfExpression" name="A_if_xIfExpression" visibility="private" memberEnd="XIfExpression-if A_if_xIfExpression-xIfExpression">
+      <ownedEnd xmi:id="A_if_xIfExpression-xIfExpression" name="xIfExpression" type="XIfExpression" association="A_if_xIfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_then_xIfExpression" name="A_then_xIfExpression" visibility="private" memberEnd="XIfExpression-then A_then_xIfExpression-xIfExpression">
+      <ownedEnd xmi:id="A_then_xIfExpression-xIfExpression" name="xIfExpression" type="XIfExpression" association="A_then_xIfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_else_xIfExpression" name="A_else_xIfExpression" visibility="private" memberEnd="XIfExpression-else A_else_xIfExpression-xIfExpression">
+      <ownedEnd xmi:id="A_else_xIfExpression-xIfExpression" name="xIfExpression" type="XIfExpression" association="A_else_xIfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_switch_xSwitchExpression" name="A_switch_xSwitchExpression" visibility="private" memberEnd="XSwitchExpression-switch A_switch_xSwitchExpression-xSwitchExpression">
+      <ownedEnd xmi:id="A_switch_xSwitchExpression-xSwitchExpression" name="xSwitchExpression" type="XSwitchExpression" association="A_switch_xSwitchExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_cases_xSwitchExpression" name="A_cases_xSwitchExpression" visibility="private" memberEnd="XSwitchExpression-cases A_cases_xSwitchExpression-xSwitchExpression">
+      <ownedEnd xmi:id="A_cases_xSwitchExpression-xSwitchExpression" name="xSwitchExpression" type="XSwitchExpression" association="A_cases_xSwitchExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_default_xSwitchExpression" name="A_default_xSwitchExpression" visibility="private" memberEnd="XSwitchExpression-default A_default_xSwitchExpression-xSwitchExpression">
+      <ownedEnd xmi:id="A_default_xSwitchExpression-xSwitchExpression" name="xSwitchExpression" type="XSwitchExpression" association="A_default_xSwitchExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_declaredParam_xSwitchExpression" name="A_declaredParam_xSwitchExpression" visibility="private" memberEnd="XSwitchExpression-declaredParam A_declaredParam_xSwitchExpression-xSwitchExpression">
+      <ownedEnd xmi:id="A_declaredParam_xSwitchExpression-xSwitchExpression" name="xSwitchExpression" type="XSwitchExpression" association="A_declaredParam_xSwitchExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_case_xCasePart" name="A_case_xCasePart" visibility="private" memberEnd="XCasePart-case A_case_xCasePart-xCasePart">
+      <ownedEnd xmi:id="A_case_xCasePart-xCasePart" name="xCasePart" type="XCasePart" association="A_case_xCasePart"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_then_xCasePart" name="A_then_xCasePart" visibility="private" memberEnd="XCasePart-then A_then_xCasePart-xCasePart">
+      <ownedEnd xmi:id="A_then_xCasePart-xCasePart" name="xCasePart" type="XCasePart" association="A_then_xCasePart"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_typeGuard_xCasePart" name="A_typeGuard_xCasePart" visibility="private" memberEnd="XCasePart-typeGuard A_typeGuard_xCasePart-xCasePart">
+      <ownedEnd xmi:id="A_typeGuard_xCasePart-xCasePart" name="xCasePart" type="XCasePart" association="A_typeGuard_xCasePart"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expressions_xBlockExpression" name="A_expressions_xBlockExpression" visibility="private" memberEnd="XBlockExpression-expressions A_expressions_xBlockExpression-xBlockExpression">
+      <ownedEnd xmi:id="A_expressions_xBlockExpression-xBlockExpression" name="xBlockExpression" type="XBlockExpression" association="A_expressions_xBlockExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_xVariableDeclaration" name="A_type_xVariableDeclaration" visibility="private" memberEnd="XVariableDeclaration-type A_type_xVariableDeclaration-xVariableDeclaration">
+      <ownedEnd xmi:id="A_type_xVariableDeclaration-xVariableDeclaration" name="xVariableDeclaration" type="XVariableDeclaration" association="A_type_xVariableDeclaration"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_right_xVariableDeclaration" name="A_right_xVariableDeclaration" visibility="private" memberEnd="XVariableDeclaration-right A_right_xVariableDeclaration-xVariableDeclaration">
+      <ownedEnd xmi:id="A_right_xVariableDeclaration-xVariableDeclaration" name="xVariableDeclaration" type="XVariableDeclaration" association="A_right_xVariableDeclaration"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_feature_xAbstractFeatureCall" name="A_feature_xAbstractFeatureCall" visibility="private" memberEnd="XAbstractFeatureCall-feature A_feature_xAbstractFeatureCall-xAbstractFeatureCall">
+      <ownedEnd xmi:id="A_feature_xAbstractFeatureCall-xAbstractFeatureCall" name="xAbstractFeatureCall" type="XAbstractFeatureCall" association="A_feature_xAbstractFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_typeArguments_xAbstractFeatureCall" name="A_typeArguments_xAbstractFeatureCall" visibility="private" memberEnd="XAbstractFeatureCall-typeArguments A_typeArguments_xAbstractFeatureCall-xAbstractFeatureCall">
+      <ownedEnd xmi:id="A_typeArguments_xAbstractFeatureCall-xAbstractFeatureCall" name="xAbstractFeatureCall" type="XAbstractFeatureCall" association="A_typeArguments_xAbstractFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_implicitReceiver_xAbstractFeatureCall" name="A_implicitReceiver_xAbstractFeatureCall" visibility="private" memberEnd="XAbstractFeatureCall-implicitReceiver A_implicitReceiver_xAbstractFeatureCall-xAbstractFeatureCall">
+      <ownedEnd xmi:id="A_implicitReceiver_xAbstractFeatureCall-xAbstractFeatureCall" name="xAbstractFeatureCall" type="XAbstractFeatureCall" association="A_implicitReceiver_xAbstractFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_implicitFirstArgument_xAbstractFeatureCall" name="A_implicitFirstArgument_xAbstractFeatureCall" visibility="private" memberEnd="XAbstractFeatureCall-implicitFirstArgument A_implicitFirstArgument_xAbstractFeatureCall-xAbstractFeatureCall">
+      <ownedEnd xmi:id="A_implicitFirstArgument_xAbstractFeatureCall-xAbstractFeatureCall" name="xAbstractFeatureCall" type="XAbstractFeatureCall" association="A_implicitFirstArgument_xAbstractFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_memberCallTarget_xMemberFeatureCall" name="A_memberCallTarget_xMemberFeatureCall" visibility="private" memberEnd="XMemberFeatureCall-memberCallTarget A_memberCallTarget_xMemberFeatureCall-xMemberFeatureCall">
+      <ownedEnd xmi:id="A_memberCallTarget_xMemberFeatureCall-xMemberFeatureCall" name="xMemberFeatureCall" type="XMemberFeatureCall" association="A_memberCallTarget_xMemberFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_memberCallArguments_xMemberFeatureCall" name="A_memberCallArguments_xMemberFeatureCall" visibility="private" memberEnd="XMemberFeatureCall-memberCallArguments A_memberCallArguments_xMemberFeatureCall-xMemberFeatureCall">
+      <ownedEnd xmi:id="A_memberCallArguments_xMemberFeatureCall-xMemberFeatureCall" name="xMemberFeatureCall" type="XMemberFeatureCall" association="A_memberCallArguments_xMemberFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_featureCallArguments_xFeatureCall" name="A_featureCallArguments_xFeatureCall" visibility="private" memberEnd="XFeatureCall-featureCallArguments A_featureCallArguments_xFeatureCall-xFeatureCall">
+      <ownedEnd xmi:id="A_featureCallArguments_xFeatureCall-xFeatureCall" name="xFeatureCall" type="XFeatureCall" association="A_featureCallArguments_xFeatureCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_constructor_xConstructorCall" name="A_constructor_xConstructorCall" visibility="private" memberEnd="XConstructorCall-constructor A_constructor_xConstructorCall-xConstructorCall">
+      <ownedEnd xmi:id="A_constructor_xConstructorCall-xConstructorCall" name="xConstructorCall" type="XConstructorCall" association="A_constructor_xConstructorCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_arguments_xConstructorCall" name="A_arguments_xConstructorCall" visibility="private" memberEnd="XConstructorCall-arguments A_arguments_xConstructorCall-xConstructorCall">
+      <ownedEnd xmi:id="A_arguments_xConstructorCall-xConstructorCall" name="xConstructorCall" type="XConstructorCall" association="A_arguments_xConstructorCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_typeArguments_xConstructorCall" name="A_typeArguments_xConstructorCall" visibility="private" memberEnd="XConstructorCall-typeArguments A_typeArguments_xConstructorCall-xConstructorCall">
+      <ownedEnd xmi:id="A_typeArguments_xConstructorCall-xConstructorCall" name="xConstructorCall" type="XConstructorCall" association="A_typeArguments_xConstructorCall"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_elements_xCollectionLiteral" name="A_elements_xCollectionLiteral" visibility="private" memberEnd="XCollectionLiteral-elements A_elements_xCollectionLiteral-xCollectionLiteral">
+      <ownedEnd xmi:id="A_elements_xCollectionLiteral-xCollectionLiteral" name="xCollectionLiteral" type="XCollectionLiteral" association="A_elements_xCollectionLiteral"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_declaredFormalParameters_xClosure" name="A_declaredFormalParameters_xClosure" visibility="private" memberEnd="XClosure-declaredFormalParameters A_declaredFormalParameters_xClosure-xClosure">
+      <ownedEnd xmi:id="A_declaredFormalParameters_xClosure-xClosure" name="xClosure" type="XClosure" association="A_declaredFormalParameters_xClosure"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xClosure" name="A_expression_xClosure" visibility="private" memberEnd="XClosure-expression A_expression_xClosure-xClosure">
+      <ownedEnd xmi:id="A_expression_xClosure-xClosure" name="xClosure" type="XClosure" association="A_expression_xClosure"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_implicitFormalParameters_xClosure" name="A_implicitFormalParameters_xClosure" visibility="private" memberEnd="XClosure-implicitFormalParameters A_implicitFormalParameters_xClosure-xClosure">
+      <ownedEnd xmi:id="A_implicitFormalParameters_xClosure-xClosure" name="xClosure" type="XClosure" association="A_implicitFormalParameters_xClosure"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_xCastedExpression" name="A_type_xCastedExpression" visibility="private" memberEnd="XCastedExpression-type A_type_xCastedExpression-xCastedExpression">
+      <ownedEnd xmi:id="A_type_xCastedExpression-xCastedExpression" name="xCastedExpression" type="XCastedExpression" association="A_type_xCastedExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_target_xCastedExpression" name="A_target_xCastedExpression" visibility="private" memberEnd="XCastedExpression-target A_target_xCastedExpression-xCastedExpression">
+      <ownedEnd xmi:id="A_target_xCastedExpression-xCastedExpression" name="xCastedExpression" type="XCastedExpression" association="A_target_xCastedExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_leftOperand_xBinaryOperation" name="A_leftOperand_xBinaryOperation" visibility="private" memberEnd="XBinaryOperation-leftOperand A_leftOperand_xBinaryOperation-xBinaryOperation">
+      <ownedEnd xmi:id="A_leftOperand_xBinaryOperation-xBinaryOperation" name="xBinaryOperation" type="XBinaryOperation" association="A_leftOperand_xBinaryOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_rightOperand_xBinaryOperation" name="A_rightOperand_xBinaryOperation" visibility="private" memberEnd="XBinaryOperation-rightOperand A_rightOperand_xBinaryOperation-xBinaryOperation">
+      <ownedEnd xmi:id="A_rightOperand_xBinaryOperation-xBinaryOperation" name="xBinaryOperation" type="XBinaryOperation" association="A_rightOperand_xBinaryOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_operand_xUnaryOperation" name="A_operand_xUnaryOperation" visibility="private" memberEnd="XUnaryOperation-operand A_operand_xUnaryOperation-xUnaryOperation">
+      <ownedEnd xmi:id="A_operand_xUnaryOperation-xUnaryOperation" name="xUnaryOperation" type="XUnaryOperation" association="A_operand_xUnaryOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_operand_xPostfixOperation" name="A_operand_xPostfixOperation" visibility="private" memberEnd="XPostfixOperation-operand A_operand_xPostfixOperation-xPostfixOperation">
+      <ownedEnd xmi:id="A_operand_xPostfixOperation-xPostfixOperation" name="xPostfixOperation" type="XPostfixOperation" association="A_operand_xPostfixOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_forExpression_xForLoopExpression" name="A_forExpression_xForLoopExpression" visibility="private" memberEnd="XForLoopExpression-forExpression A_forExpression_xForLoopExpression-xForLoopExpression">
+      <ownedEnd xmi:id="A_forExpression_xForLoopExpression-xForLoopExpression" name="xForLoopExpression" type="XForLoopExpression" association="A_forExpression_xForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_eachExpression_xForLoopExpression" name="A_eachExpression_xForLoopExpression" visibility="private" memberEnd="XForLoopExpression-eachExpression A_eachExpression_xForLoopExpression-xForLoopExpression">
+      <ownedEnd xmi:id="A_eachExpression_xForLoopExpression-xForLoopExpression" name="xForLoopExpression" type="XForLoopExpression" association="A_eachExpression_xForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_declaredParam_xForLoopExpression" name="A_declaredParam_xForLoopExpression" visibility="private" memberEnd="XForLoopExpression-declaredParam A_declaredParam_xForLoopExpression-xForLoopExpression">
+      <ownedEnd xmi:id="A_declaredParam_xForLoopExpression-xForLoopExpression" name="xForLoopExpression" type="XForLoopExpression" association="A_declaredParam_xForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xBasicForLoopExpression" name="A_expression_xBasicForLoopExpression" visibility="private" memberEnd="XBasicForLoopExpression-expression A_expression_xBasicForLoopExpression-xBasicForLoopExpression">
+      <ownedEnd xmi:id="A_expression_xBasicForLoopExpression-xBasicForLoopExpression" name="xBasicForLoopExpression" type="XBasicForLoopExpression" association="A_expression_xBasicForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_eachExpression_xBasicForLoopExpression" name="A_eachExpression_xBasicForLoopExpression" visibility="private" memberEnd="XBasicForLoopExpression-eachExpression A_eachExpression_xBasicForLoopExpression-xBasicForLoopExpression">
+      <ownedEnd xmi:id="A_eachExpression_xBasicForLoopExpression-xBasicForLoopExpression" name="xBasicForLoopExpression" type="XBasicForLoopExpression" association="A_eachExpression_xBasicForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_initExpressions_xBasicForLoopExpression" name="A_initExpressions_xBasicForLoopExpression" visibility="private" memberEnd="XBasicForLoopExpression-initExpressions A_initExpressions_xBasicForLoopExpression-xBasicForLoopExpression">
+      <ownedEnd xmi:id="A_initExpressions_xBasicForLoopExpression-xBasicForLoopExpression" name="xBasicForLoopExpression" type="XBasicForLoopExpression" association="A_initExpressions_xBasicForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_updateExpressions_xBasicForLoopExpression" name="A_updateExpressions_xBasicForLoopExpression" visibility="private" memberEnd="XBasicForLoopExpression-updateExpressions A_updateExpressions_xBasicForLoopExpression-xBasicForLoopExpression">
+      <ownedEnd xmi:id="A_updateExpressions_xBasicForLoopExpression-xBasicForLoopExpression" name="xBasicForLoopExpression" type="XBasicForLoopExpression" association="A_updateExpressions_xBasicForLoopExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_predicate_xAbstractWhileExpression" name="A_predicate_xAbstractWhileExpression" visibility="private" memberEnd="XAbstractWhileExpression-predicate A_predicate_xAbstractWhileExpression-xAbstractWhileExpression">
+      <ownedEnd xmi:id="A_predicate_xAbstractWhileExpression-xAbstractWhileExpression" name="xAbstractWhileExpression" type="XAbstractWhileExpression" association="A_predicate_xAbstractWhileExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_body_xAbstractWhileExpression" name="A_body_xAbstractWhileExpression" visibility="private" memberEnd="XAbstractWhileExpression-body A_body_xAbstractWhileExpression-xAbstractWhileExpression">
+      <ownedEnd xmi:id="A_body_xAbstractWhileExpression-xAbstractWhileExpression" name="xAbstractWhileExpression" type="XAbstractWhileExpression" association="A_body_xAbstractWhileExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_xTypeLiteral" name="A_type_xTypeLiteral" visibility="private" memberEnd="XTypeLiteral-type A_type_xTypeLiteral-xTypeLiteral">
+      <ownedEnd xmi:id="A_type_xTypeLiteral-xTypeLiteral" name="xTypeLiteral" type="XTypeLiteral" association="A_type_xTypeLiteral"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_xInstanceOfExpression" name="A_type_xInstanceOfExpression" visibility="private" memberEnd="XInstanceOfExpression-type A_type_xInstanceOfExpression-xInstanceOfExpression">
+      <ownedEnd xmi:id="A_type_xInstanceOfExpression-xInstanceOfExpression" name="xInstanceOfExpression" type="XInstanceOfExpression" association="A_type_xInstanceOfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xInstanceOfExpression" name="A_expression_xInstanceOfExpression" visibility="private" memberEnd="XInstanceOfExpression-expression A_expression_xInstanceOfExpression-xInstanceOfExpression">
+      <ownedEnd xmi:id="A_expression_xInstanceOfExpression-xInstanceOfExpression" name="xInstanceOfExpression" type="XInstanceOfExpression" association="A_expression_xInstanceOfExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xThrowExpression" name="A_expression_xThrowExpression" visibility="private" memberEnd="XThrowExpression-expression A_expression_xThrowExpression-xThrowExpression">
+      <ownedEnd xmi:id="A_expression_xThrowExpression-xThrowExpression" name="xThrowExpression" type="XThrowExpression" association="A_expression_xThrowExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xTryCatchFinallyExpression" name="A_expression_xTryCatchFinallyExpression" visibility="private" memberEnd="XTryCatchFinallyExpression-expression A_expression_xTryCatchFinallyExpression-xTryCatchFinallyExpression">
+      <ownedEnd xmi:id="A_expression_xTryCatchFinallyExpression-xTryCatchFinallyExpression" name="xTryCatchFinallyExpression" type="XTryCatchFinallyExpression" association="A_expression_xTryCatchFinallyExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_finallyExpression_xTryCatchFinallyExpression" name="A_finallyExpression_xTryCatchFinallyExpression" visibility="private" memberEnd="XTryCatchFinallyExpression-finallyExpression A_finallyExpression_xTryCatchFinallyExpression-xTryCatchFinallyExpression">
+      <ownedEnd xmi:id="A_finallyExpression_xTryCatchFinallyExpression-xTryCatchFinallyExpression" name="xTryCatchFinallyExpression" type="XTryCatchFinallyExpression" association="A_finallyExpression_xTryCatchFinallyExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_catchClauses_xTryCatchFinallyExpression" name="A_catchClauses_xTryCatchFinallyExpression" visibility="private" memberEnd="XTryCatchFinallyExpression-catchClauses A_catchClauses_xTryCatchFinallyExpression-xTryCatchFinallyExpression">
+      <ownedEnd xmi:id="A_catchClauses_xTryCatchFinallyExpression-xTryCatchFinallyExpression" name="xTryCatchFinallyExpression" type="XTryCatchFinallyExpression" association="A_catchClauses_xTryCatchFinallyExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xCatchClause" name="A_expression_xCatchClause" visibility="private" memberEnd="XCatchClause-expression A_expression_xCatchClause-xCatchClause">
+      <ownedEnd xmi:id="A_expression_xCatchClause-xCatchClause" name="xCatchClause" type="XCatchClause" association="A_expression_xCatchClause"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_declaredParam_xCatchClause" name="A_declaredParam_xCatchClause" visibility="private" memberEnd="XCatchClause-declaredParam A_declaredParam_xCatchClause-xCatchClause">
+      <ownedEnd xmi:id="A_declaredParam_xCatchClause-xCatchClause" name="xCatchClause" type="XCatchClause" association="A_declaredParam_xCatchClause"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_assignable_xAssignment" name="A_assignable_xAssignment" visibility="private" memberEnd="XAssignment-assignable A_assignable_xAssignment-xAssignment">
+      <ownedEnd xmi:id="A_assignable_xAssignment-xAssignment" name="xAssignment" type="XAssignment" association="A_assignable_xAssignment"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_value_xAssignment" name="A_value_xAssignment" visibility="private" memberEnd="XAssignment-value A_value_xAssignment-xAssignment">
+      <ownedEnd xmi:id="A_value_xAssignment-xAssignment" name="xAssignment" type="XAssignment" association="A_value_xAssignment"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xReturnExpression" name="A_expression_xReturnExpression" visibility="private" memberEnd="XReturnExpression-expression A_expression_xReturnExpression-xReturnExpression">
+      <ownedEnd xmi:id="A_expression_xReturnExpression-xReturnExpression" name="xReturnExpression" type="XReturnExpression" association="A_expression_xReturnExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_param_xSynchronizedExpression" name="A_param_xSynchronizedExpression" visibility="private" memberEnd="XSynchronizedExpression-param A_param_xSynchronizedExpression-xSynchronizedExpression">
+      <ownedEnd xmi:id="A_param_xSynchronizedExpression-xSynchronizedExpression" name="xSynchronizedExpression" type="XSynchronizedExpression" association="A_param_xSynchronizedExpression"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_expression_xSynchronizedExpression" name="A_expression_xSynchronizedExpression" visibility="private" memberEnd="XSynchronizedExpression-expression A_expression_xSynchronizedExpression-xSynchronizedExpression">
+      <ownedEnd xmi:id="A_expression_xSynchronizedExpression-xSynchronizedExpression" name="xSynchronizedExpression" type="XSynchronizedExpression" association="A_expression_xSynchronizedExpression"/>
+    </packagedElement>
+  </uml:Package>
+  <uml:Package xmi:id="_1" name="types" URI="http://www.eclipse.org/xtext/common/JavaVMTypes">
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmIdentifiableElement" name="JvmIdentifiableElement" isAbstract="true">
+      <ownedOperation xmi:id="JvmIdentifiableElement-getIdentifier" name="getIdentifier">
+        <ownedParameter xmi:id="JvmIdentifiableElement-getIdentifier-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIdentifiableElement-getIdentifier-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmIdentifiableElement-getSimpleName" name="getSimpleName">
+        <ownedParameter xmi:id="JvmIdentifiableElement-getSimpleName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIdentifiableElement-getSimpleName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmIdentifiableElement-getQualifiedName" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmIdentifiableElement-getQualifiedName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIdentifiableElement-getQualifiedName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmIdentifiableElement-getQualifiedName.1" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmIdentifiableElement-getQualifiedName.1-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIdentifiableElement-getQualifiedName.1-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmIdentifiableElement-getQualifiedName.1-innerClassDelimiter" name="innerClassDelimiter" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIdentifiableElement-getQualifiedName.1-innerClassDelimiter-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmType" name="JvmType" isAbstract="true">
+      <generalization xmi:id="JvmType-_generalization.0" general="JvmIdentifiableElement"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmVoid" name="JvmVoid">
+      <generalization xmi:id="JvmVoid-_generalization.0" general="JvmType"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmComponentType" name="JvmComponentType" isAbstract="true">
+      <generalization xmi:id="JvmComponentType-_generalization.0" general="JvmType"/>
+      <ownedAttribute xmi:id="JvmComponentType-arrayType" name="arrayType" type="JvmArrayType" isOrdered="true" aggregation="composite" association="A_arrayType_componentType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmComponentType-arrayType-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmPrimitiveType" name="JvmPrimitiveType">
+      <generalization xmi:id="JvmPrimitiveType-_generalization.0" general="JvmComponentType"/>
+      <ownedAttribute xmi:id="JvmPrimitiveType-simpleName" name="simpleName" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmPrimitiveType-simpleName-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmArrayType" name="JvmArrayType">
+      <generalization xmi:id="JvmArrayType-_generalization.0" general="JvmComponentType"/>
+      <ownedAttribute xmi:id="JvmArrayType-componentType" name="componentType" type="JvmComponentType" isOrdered="true" association="A_arrayType_componentType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmArrayType-componentType-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmArrayType-getDimensions" name="getDimensions">
+        <ownedParameter xmi:id="JvmArrayType-getDimensions-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmArrayType-getDimensions-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmDeclaredType" name="JvmDeclaredType" isAbstract="true">
+      <generalization xmi:id="JvmDeclaredType-_generalization.0" general="JvmMember"/>
+      <generalization xmi:id="JvmDeclaredType-_generalization.1" general="JvmComponentType"/>
+      <ownedAttribute xmi:id="JvmDeclaredType-superTypes" name="superTypes" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_superTypes_jvmDeclaredType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-superTypes-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmDeclaredType-superTypes-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmDeclaredType-members" name="members" type="JvmMember" isOrdered="true" aggregation="composite" association="A_members_declaringType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-members-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmDeclaredType-members-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmDeclaredType-abstract" name="abstract" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-abstract-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmDeclaredType-static" name="static" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-static-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmDeclaredType-final" name="final" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-final-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmDeclaredType-packageName" name="packageName" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-packageName-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmDeclaredType-getDeclaredOperations" name="getDeclaredOperations">
+        <ownedParameter xmi:id="JvmDeclaredType-getDeclaredOperations-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmOperation" isOrdered="true" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getDeclaredFields" name="getDeclaredFields">
+        <ownedParameter xmi:id="JvmDeclaredType-getDeclaredFields-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmField" isOrdered="true" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-findAllFeaturesByName" name="findAllFeaturesByName">
+        <ownedParameter xmi:id="JvmDeclaredType-findAllFeaturesByName-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmFeature" isOrdered="true" direction="return"/>
+        <ownedParameter xmi:id="JvmDeclaredType-findAllFeaturesByName-simpleName" name="simpleName" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-findAllFeaturesByName-simpleName-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getAllFeatures" name="getAllFeatures">
+        <ownedParameter xmi:id="JvmDeclaredType-getAllFeatures-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmFeature.1" isOrdered="true" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getExtendedInterfaces" name="getExtendedInterfaces">
+        <ownedParameter xmi:id="JvmDeclaredType-getExtendedInterfaces-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmTypeReference" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-getExtendedInterfaces-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getExtendedClass" name="getExtendedClass">
+        <ownedParameter xmi:id="JvmDeclaredType-getExtendedClass-_ownedParameter.0" type="JvmTypeReference" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-getExtendedClass-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-isInstantiateable" name="isInstantiateable">
+        <ownedParameter xmi:id="JvmDeclaredType-isInstantiateable-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-isInstantiateable-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-findAllNestedTypesByName" name="findAllNestedTypesByName">
+        <ownedParameter xmi:id="JvmDeclaredType-findAllNestedTypesByName-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmDeclaredType" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-findAllNestedTypesByName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmDeclaredType-findAllNestedTypesByName-simpleName" name="simpleName" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-findAllNestedTypesByName-simpleName-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-isLocal" name="isLocal">
+        <ownedParameter xmi:id="JvmDeclaredType-isLocal-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDeclaredType-isLocal-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getDeclaredConstructors" name="getDeclaredConstructors">
+        <ownedParameter xmi:id="JvmDeclaredType-getDeclaredConstructors-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmConstructor" isOrdered="true" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmDeclaredType-getAllNestedTypes" name="getAllNestedTypes">
+        <ownedParameter xmi:id="JvmDeclaredType-getAllNestedTypes-_ownedParameter.0" type="JvmDeclaredType-Iterable_JvmDeclaredType.1" isOrdered="true" direction="return"/>
+      </ownedOperation>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmOperation" name="Iterable_JvmOperation">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmOperation-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmOperation-_templateBinding.0-_parameterSubstitution.0" actual="JvmOperation" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmField" name="Iterable_JvmField">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmField-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmField-_templateBinding.0-_parameterSubstitution.0" actual="JvmField" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmFeature" name="Iterable_JvmFeature">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmFeature-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmFeature-_templateBinding.0-_parameterSubstitution.0" actual="JvmFeature" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmFeature.1" name="Iterable_JvmFeature">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmFeature.1-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmFeature.1-_templateBinding.0-_parameterSubstitution.0" actual="JvmFeature" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmTypeReference" name="Iterable_JvmTypeReference">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmTypeReference-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmTypeReference-_templateBinding.0-_parameterSubstitution.0" actual="JvmTypeReference" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType" name="Iterable_JvmDeclaredType">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType-_templateBinding.0-_parameterSubstitution.0" actual="JvmDeclaredType" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmConstructor" name="Iterable_JvmConstructor">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmConstructor-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmConstructor-_templateBinding.0-_parameterSubstitution.0" actual="JvmConstructor" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType.1" name="Iterable_JvmDeclaredType">
+        <templateBinding xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType.1-_templateBinding.0" signature="Iterable-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmDeclaredType-Iterable_JvmDeclaredType.1-_templateBinding.0-_parameterSubstitution.0" actual="JvmDeclaredType" formal="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmTypeParameter" name="JvmTypeParameter">
+      <generalization xmi:id="JvmTypeParameter-_generalization.0" general="JvmComponentType"/>
+      <generalization xmi:id="JvmTypeParameter-_generalization.1" general="JvmConstraintOwner"/>
+      <ownedAttribute xmi:id="JvmTypeParameter-name" name="name" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeParameter-name-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmTypeParameter-declarator" name="declarator" type="JvmTypeParameterDeclarator" isOrdered="true" association="A_typeParameters_declarator">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeParameter-declarator-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmTypeParameterDeclarator" name="JvmTypeParameterDeclarator" isAbstract="true">
+      <ownedAttribute xmi:id="JvmTypeParameterDeclarator-typeParameters" name="typeParameters" type="JvmTypeParameter" isOrdered="true" aggregation="composite" association="A_typeParameters_declarator">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeParameterDeclarator-typeParameters-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmTypeParameterDeclarator-typeParameters-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmConstraintOwner" name="JvmConstraintOwner" isAbstract="true">
+      <ownedAttribute xmi:id="JvmConstraintOwner-constraints" name="constraints" type="JvmTypeConstraint" isOrdered="true" aggregation="composite" association="A_constraints_owner">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmConstraintOwner-constraints-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmConstraintOwner-constraints-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmTypeConstraint" name="JvmTypeConstraint" isAbstract="true">
+      <ownedAttribute xmi:id="JvmTypeConstraint-typeReference" name="typeReference" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_typeReference_jvmTypeConstraint">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-typeReference-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmTypeConstraint-owner" name="owner" type="JvmConstraintOwner" isOrdered="true" association="A_constraints_owner">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-owner-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmTypeConstraint-getIdentifier" name="getIdentifier">
+        <ownedParameter xmi:id="JvmTypeConstraint-getIdentifier-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-getIdentifier-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeConstraint-getSimpleName" name="getSimpleName">
+        <ownedParameter xmi:id="JvmTypeConstraint-getSimpleName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-getSimpleName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeConstraint-getQualifiedName" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmTypeConstraint-getQualifiedName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-getQualifiedName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeConstraint-getQualifiedName.1" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmTypeConstraint-getQualifiedName.1-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-getQualifiedName.1-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmTypeConstraint-getQualifiedName.1-innerClassDelimiter" name="innerClassDelimiter" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeConstraint-getQualifiedName.1-innerClassDelimiter-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmUpperBound" name="JvmUpperBound">
+      <generalization xmi:id="JvmUpperBound-_generalization.0" general="JvmTypeConstraint"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmLowerBound" name="JvmLowerBound">
+      <generalization xmi:id="JvmLowerBound-_generalization.0" general="JvmTypeConstraint"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnnotationType" name="JvmAnnotationType">
+      <generalization xmi:id="JvmAnnotationType-_generalization.0" general="JvmDeclaredType"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmEnumerationType" name="JvmEnumerationType">
+      <generalization xmi:id="JvmEnumerationType-_generalization.0" general="JvmDeclaredType"/>
+      <ownedAttribute xmi:id="JvmEnumerationType-literals" name="literals" type="JvmEnumerationLiteral" isOrdered="true" isReadOnly="true" isDerived="true" association="A_literals_jvmEnumerationType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmEnumerationType-literals-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmEnumerationType-literals-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmEnumerationLiteral" name="JvmEnumerationLiteral">
+      <generalization xmi:id="JvmEnumerationLiteral-_generalization.0" general="JvmField"/>
+      <ownedOperation xmi:id="JvmEnumerationLiteral-getEnumType" name="getEnumType">
+        <ownedParameter xmi:id="JvmEnumerationLiteral-getEnumType-_ownedParameter.0" type="JvmEnumerationType" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmEnumerationLiteral-getEnumType-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmGenericType" name="JvmGenericType">
+      <generalization xmi:id="JvmGenericType-_generalization.0" general="JvmDeclaredType"/>
+      <generalization xmi:id="JvmGenericType-_generalization.1" general="JvmTypeParameterDeclarator"/>
+      <ownedAttribute xmi:id="JvmGenericType-interface" name="interface" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericType-interface-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmGenericType-strictFloatingPoint" name="strictFloatingPoint" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericType-strictFloatingPoint-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmGenericType-anonymous" name="anonymous" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericType-anonymous-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmTypeReference" name="JvmTypeReference" isAbstract="true">
+      <ownedOperation xmi:id="JvmTypeReference-getType" name="getType">
+        <ownedParameter xmi:id="JvmTypeReference-getType-_ownedParameter.0" type="JvmType" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getType-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-getIdentifier" name="getIdentifier">
+        <ownedParameter xmi:id="JvmTypeReference-getIdentifier-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getIdentifier-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-getSimpleName" name="getSimpleName">
+        <ownedParameter xmi:id="JvmTypeReference-getSimpleName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getSimpleName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-getQualifiedName" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmTypeReference-getQualifiedName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getQualifiedName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-getQualifiedName.1" name="getQualifiedName">
+        <ownedParameter xmi:id="JvmTypeReference-getQualifiedName.1-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getQualifiedName.1-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmTypeReference-getQualifiedName.1-innerClassDelimiter" name="innerClassDelimiter" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-getQualifiedName.1-innerClassDelimiter-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-accept" name="accept">
+        <ownedParameter xmi:id="JvmTypeReference-accept-_ownedParameter.0" type="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-accept-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmTypeReference-accept-visitor" name="visitor" type="JvmTypeReference-ITypeReferenceVisitor_Result" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-accept-visitor-_lowerValue"/>
+        </ownedParameter>
+        <ownedTemplateSignature xmi:id="JvmTypeReference-accept-_ownedTemplateSignature" parameter="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="Result" templateParameter="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmTypeReference-accept.1" name="accept">
+        <ownedParameter xmi:id="JvmTypeReference-accept.1-_ownedParameter.0" type="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-accept.1-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmTypeReference-accept.1-visitor" name="visitor" type="JvmTypeReference-ITypeReferenceVisitorWithParameter_Parameter-Result" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-accept.1-visitor-_lowerValue"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="JvmTypeReference-accept.1-parameter" name="parameter" type="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" isOrdered="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeReference-accept.1-parameter-_lowerValue"/>
+        </ownedParameter>
+        <ownedTemplateSignature xmi:id="JvmTypeReference-accept.1-_ownedTemplateSignature" parameter="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0 JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1">
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="Parameter" templateParameter="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1" parameteredElement="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement">
+            <ownedParameteredElement xmi:type="uml:Class" xmi:id="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement" name="Result" templateParameter="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1"/>
+          </ownedParameter>
+        </ownedTemplateSignature>
+      </ownedOperation>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmTypeReference-ITypeReferenceVisitor_Result" name="ITypeReferenceVisitor_Result">
+        <templateBinding xmi:id="JvmTypeReference-ITypeReferenceVisitor_Result-_templateBinding.0" signature="ITypeReferenceVisitor-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmTypeReference-ITypeReferenceVisitor_Result-_templateBinding.0-_parameterSubstitution.0" actual="JvmTypeReference-accept-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" formal="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0"/>
+        </templateBinding>
+      </nestedClassifier>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="JvmTypeReference-ITypeReferenceVisitorWithParameter_Parameter-Result" name="ITypeReferenceVisitorWithParameter_Parameter-Result">
+        <templateBinding xmi:id="JvmTypeReference-ITypeReferenceVisitorWithParameter_Parameter-Result-_templateBinding.0" signature="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature">
+          <parameterSubstitution xmi:id="JvmTypeReference-ITypeReferenceVisitorWithParameter_Parameter-Result-_templateBinding.0-_parameterSubstitution.0" actual="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" formal="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0"/>
+          <parameterSubstitution xmi:id="JvmTypeReference-ITypeReferenceVisitorWithParameter_Parameter-Result-_templateBinding.0-_parameterSubstitution.1" actual="JvmTypeReference-accept.1-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement" formal="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1"/>
+        </templateBinding>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmParameterizedTypeReference" name="JvmParameterizedTypeReference">
+      <generalization xmi:id="JvmParameterizedTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmParameterizedTypeReference-arguments" name="arguments" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_arguments_jvmParameterizedTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmParameterizedTypeReference-arguments-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmParameterizedTypeReference-arguments-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmParameterizedTypeReference-type" name="type" type="JvmType" isOrdered="true" association="A_type_jvmParameterizedTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmParameterizedTypeReference-type-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmGenericArrayTypeReference" name="JvmGenericArrayTypeReference">
+      <generalization xmi:id="JvmGenericArrayTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmGenericArrayTypeReference-componentType" name="componentType" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_componentType_jvmGenericArrayTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericArrayTypeReference-componentType-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmGenericArrayTypeReference-getDimensions" name="getDimensions">
+        <ownedParameter xmi:id="JvmGenericArrayTypeReference-getDimensions-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericArrayTypeReference-getDimensions-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmGenericArrayTypeReference-getType" name="getType">
+        <ownedParameter xmi:id="JvmGenericArrayTypeReference-getType-_ownedParameter.0" type="JvmArrayType" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmGenericArrayTypeReference-getType-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmWildcardTypeReference" name="JvmWildcardTypeReference">
+      <generalization xmi:id="JvmWildcardTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <generalization xmi:id="JvmWildcardTypeReference-_generalization.1" general="JvmConstraintOwner"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnyTypeReference" name="JvmAnyTypeReference">
+      <generalization xmi:id="JvmAnyTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmAnyTypeReference-type" name="type" type="JvmType" isOrdered="true" association="A_type_jvmAnyTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnyTypeReference-type-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmMultiTypeReference" name="JvmMultiTypeReference">
+      <generalization xmi:id="JvmMultiTypeReference-_generalization.0" general="JvmCompoundTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmMember" name="JvmMember" isAbstract="true">
+      <generalization xmi:id="JvmMember-_generalization.0" general="JvmAnnotationTarget"/>
+      <ownedAttribute xmi:id="JvmMember-declaringType" name="declaringType" type="JvmDeclaredType" isOrdered="true" association="A_members_declaringType">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-declaringType-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmMember-visibility" name="visibility" type="JvmVisibility" isOrdered="true">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-visibility-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmMember-simpleName" name="simpleName" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-simpleName-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmMember-identifier" name="identifier" isOrdered="true" isReadOnly="true" isDerived="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-identifier-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmMember-deprecated" name="deprecated" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-deprecated-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmMember-internalSetIdentifier" name="internalSetIdentifier">
+        <ownedParameter xmi:id="JvmMember-internalSetIdentifier-identifier" name="identifier" isOrdered="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmMember-internalSetIdentifier-identifier-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmFeature" name="JvmFeature" isAbstract="true">
+      <generalization xmi:id="JvmFeature-_generalization.0" general="JvmMember"/>
+      <ownedAttribute xmi:id="JvmFeature-localClasses" name="localClasses" type="JvmGenericType" isOrdered="true" aggregation="composite" association="A_localClasses_jvmFeature">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmFeature-localClasses-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmFeature-localClasses-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmFeature-isStatic" name="isStatic">
+        <ownedParameter xmi:id="JvmFeature-isStatic-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmFeature-isStatic-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmField" name="JvmField">
+      <generalization xmi:id="JvmField-_generalization.0" general="JvmFeature"/>
+      <ownedAttribute xmi:id="JvmField-static" name="static" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-static-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-final" name="final" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-final-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-type" name="type" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_type_jvmField">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-type-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-volatile" name="volatile" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-volatile-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-transient" name="transient" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-transient-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-constant" name="constant" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-constant-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmField-constantValue" name="constantValue" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-constantValue-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsLong" name="getConstantValueAsLong">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsLong-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsLong-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsInt" name="getConstantValueAsInt">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsInt-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsInt-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsShort" name="getConstantValueAsShort">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsShort-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EShort"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsShort-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsByte" name="getConstantValueAsByte">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsByte-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsByte-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsDouble" name="getConstantValueAsDouble">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsDouble-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsDouble-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsFloat" name="getConstantValueAsFloat">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsFloat-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsFloat-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsChar" name="getConstantValueAsChar">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsChar-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsChar-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsBoolean" name="getConstantValueAsBoolean">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsBoolean-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsBoolean-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="JvmField-getConstantValueAsString" name="getConstantValueAsString">
+        <ownedParameter xmi:id="JvmField-getConstantValueAsString-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmField-getConstantValueAsString-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmExecutable" name="JvmExecutable" isAbstract="true">
+      <generalization xmi:id="JvmExecutable-_generalization.0" general="JvmFeature"/>
+      <generalization xmi:id="JvmExecutable-_generalization.1" general="JvmTypeParameterDeclarator"/>
+      <ownedAttribute xmi:id="JvmExecutable-parameters" name="parameters" type="JvmFormalParameter" isOrdered="true" aggregation="composite" association="A_parameters_jvmExecutable">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmExecutable-parameters-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmExecutable-parameters-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmExecutable-exceptions" name="exceptions" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_exceptions_jvmExecutable">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmExecutable-exceptions-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmExecutable-exceptions-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmExecutable-varArgs" name="varArgs" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmExecutable-varArgs-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmConstructor" name="JvmConstructor">
+      <generalization xmi:id="JvmConstructor-_generalization.0" general="JvmExecutable"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmOperation" name="JvmOperation">
+      <generalization xmi:id="JvmOperation-_generalization.0" general="JvmExecutable"/>
+      <ownedAttribute xmi:id="JvmOperation-static" name="static" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-static-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-final" name="final" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-final-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-abstract" name="abstract" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-abstract-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-returnType" name="returnType" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_returnType_jvmOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-returnType-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-defaultValue" name="defaultValue" type="JvmAnnotationValue" isOrdered="true" aggregation="composite" association="A_defaultValue_jvmOperation">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-defaultValue-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-synchronized" name="synchronized" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-synchronized-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-default" name="default" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-default-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-native" name="native" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-native-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmOperation-strictFloatingPoint" name="strictFloatingPoint" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmOperation-strictFloatingPoint-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmFormalParameter" name="JvmFormalParameter">
+      <generalization xmi:id="JvmFormalParameter-_generalization.0" general="JvmAnnotationTarget"/>
+      <ownedAttribute xmi:id="JvmFormalParameter-name" name="name" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmFormalParameter-name-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmFormalParameter-parameterType" name="parameterType" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_parameterType_jvmFormalParameter">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmFormalParameter-parameterType-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnnotationTarget" name="JvmAnnotationTarget" isAbstract="true">
+      <generalization xmi:id="JvmAnnotationTarget-_generalization.0" general="JvmIdentifiableElement"/>
+      <ownedAttribute xmi:id="JvmAnnotationTarget-annotations" name="annotations" type="JvmAnnotationReference" isOrdered="true" aggregation="composite" association="A_annotations_jvmAnnotationTarget">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationTarget-annotations-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmAnnotationTarget-annotations-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnnotationReference" name="JvmAnnotationReference">
+      <ownedAttribute xmi:id="JvmAnnotationReference-annotation" name="annotation" type="JvmAnnotationType" isOrdered="true" association="A_annotation_jvmAnnotationReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationReference-annotation-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmAnnotationReference-explicitValues" name="explicitValues" type="JvmAnnotationValue" isOrdered="true" aggregation="composite" association="A_explicitValues_jvmAnnotationReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationReference-explicitValues-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmAnnotationReference-explicitValues-_upperValue" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmAnnotationReference-getValues" name="getValues">
+        <ownedParameter xmi:id="JvmAnnotationReference-getValues-_ownedParameter.0" type="JvmAnnotationValue" isOrdered="true" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationReference-getValues-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmAnnotationReference-getValues-_ownedParameter.0-_upperValue" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnnotationValue" name="JvmAnnotationValue" isAbstract="true">
+      <ownedAttribute xmi:id="JvmAnnotationValue-operation" name="operation" type="JvmOperation" isOrdered="true" association="A_operation_jvmAnnotationValue">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationValue-operation-_lowerValue"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="JvmAnnotationValue-getValueName" name="getValueName">
+        <ownedParameter xmi:id="JvmAnnotationValue-getValueName-_ownedParameter.0" isOrdered="true" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationValue-getValueName-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmIntAnnotationValue" name="JvmIntAnnotationValue">
+      <generalization xmi:id="JvmIntAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmIntAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmIntAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmIntAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmBooleanAnnotationValue" name="JvmBooleanAnnotationValue">
+      <generalization xmi:id="JvmBooleanAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmBooleanAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmBooleanAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmBooleanAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmByteAnnotationValue" name="JvmByteAnnotationValue">
+      <generalization xmi:id="JvmByteAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmByteAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmByteAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmByteAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmShortAnnotationValue" name="JvmShortAnnotationValue">
+      <generalization xmi:id="JvmShortAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmShortAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EShort"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmShortAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmShortAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmLongAnnotationValue" name="JvmLongAnnotationValue">
+      <generalization xmi:id="JvmLongAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmLongAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmLongAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmLongAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmDoubleAnnotationValue" name="JvmDoubleAnnotationValue">
+      <generalization xmi:id="JvmDoubleAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmDoubleAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDoubleAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmDoubleAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmFloatAnnotationValue" name="JvmFloatAnnotationValue">
+      <generalization xmi:id="JvmFloatAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmFloatAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmFloatAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmFloatAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmCharAnnotationValue" name="JvmCharAnnotationValue">
+      <generalization xmi:id="JvmCharAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmCharAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmCharAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmCharAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmStringAnnotationValue" name="JvmStringAnnotationValue">
+      <generalization xmi:id="JvmStringAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmStringAnnotationValue-values" name="values" isOrdered="true" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmStringAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmStringAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmTypeAnnotationValue" name="JvmTypeAnnotationValue">
+      <generalization xmi:id="JvmTypeAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmTypeAnnotationValue-values" name="values" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_values_jvmTypeAnnotationValue">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmTypeAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmTypeAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmAnnotationAnnotationValue" name="JvmAnnotationAnnotationValue">
+      <generalization xmi:id="JvmAnnotationAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmAnnotationAnnotationValue-values" name="values" type="JvmAnnotationReference" isOrdered="true" aggregation="composite" association="A_values_jvmAnnotationAnnotationValue">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmAnnotationAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmAnnotationAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmEnumAnnotationValue" name="JvmEnumAnnotationValue">
+      <generalization xmi:id="JvmEnumAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmEnumAnnotationValue-values" name="values" type="JvmEnumerationLiteral" isOrdered="true" isUnique="false" association="A_values_jvmEnumAnnotationValue">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmEnumAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmEnumAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmDelegateTypeReference" name="JvmDelegateTypeReference">
+      <generalization xmi:id="JvmDelegateTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmDelegateTypeReference-delegate" name="delegate" type="JvmTypeReference" isOrdered="true" association="A_delegate_jvmDelegateTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmDelegateTypeReference-delegate-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmSpecializedTypeReference" name="JvmSpecializedTypeReference" isAbstract="true">
+      <generalization xmi:id="JvmSpecializedTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmSpecializedTypeReference-equivalent" name="equivalent" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_equivalent_jvmSpecializedTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmSpecializedTypeReference-equivalent-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmSynonymTypeReference" name="JvmSynonymTypeReference">
+      <generalization xmi:id="JvmSynonymTypeReference-_generalization.0" general="JvmCompoundTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmUnknownTypeReference" name="JvmUnknownTypeReference">
+      <generalization xmi:id="JvmUnknownTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmUnknownTypeReference-qualifiedName" name="qualifiedName" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmUnknownTypeReference-qualifiedName-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmCompoundTypeReference" name="JvmCompoundTypeReference" isAbstract="true">
+      <generalization xmi:id="JvmCompoundTypeReference-_generalization.0" general="JvmTypeReference"/>
+      <ownedAttribute xmi:id="JvmCompoundTypeReference-type" name="type" type="JvmType" isOrdered="true" association="A_type_jvmCompoundTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmCompoundTypeReference-type-_lowerValue"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="JvmCompoundTypeReference-references" name="references" type="JvmTypeReference" isOrdered="true" aggregation="composite" association="A_references_jvmCompoundTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmCompoundTypeReference-references-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmCompoundTypeReference-references-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmCustomAnnotationValue" name="JvmCustomAnnotationValue">
+      <generalization xmi:id="JvmCustomAnnotationValue-_generalization.0" general="JvmAnnotationValue"/>
+      <ownedAttribute xmi:id="JvmCustomAnnotationValue-values" name="values" isOrdered="true" association="A_values_jvmCustomAnnotationValue">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EObject"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmCustomAnnotationValue-values-_lowerValue"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="JvmCustomAnnotationValue-values-_upperValue" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="JvmInnerTypeReference" name="JvmInnerTypeReference">
+      <generalization xmi:id="JvmInnerTypeReference-_generalization.0" general="JvmParameterizedTypeReference"/>
+      <ownedAttribute xmi:id="JvmInnerTypeReference-outer" name="outer" type="JvmParameterizedTypeReference" isOrdered="true" aggregation="composite" association="A_outer_jvmInnerTypeReference">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="JvmInnerTypeReference-outer-_lowerValue"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="JvmVisibility" name="JvmVisibility">
+      <ownedLiteral xmi:id="JvmVisibility-DEFAULT" name="DEFAULT"/>
+      <ownedLiteral xmi:id="JvmVisibility-PRIVATE" name="PRIVATE"/>
+      <ownedLiteral xmi:id="JvmVisibility-PROTECTED" name="PROTECTED"/>
+      <ownedLiteral xmi:id="JvmVisibility-PUBLIC" name="PUBLIC"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Iterable" name="Iterable">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="Iterable-_ownedTemplateSignature" parameter="Iterable-_ownedTemplateSignature-_ownedParameter.0">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="Iterable-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="Iterable-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="Iterable-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="E" templateParameter="Iterable-_ownedTemplateSignature-_ownedParameter.0"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="ITypeReferenceVisitor" name="ITypeReferenceVisitor">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="ITypeReferenceVisitor-_ownedTemplateSignature" parameter="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="Result" templateParameter="ITypeReferenceVisitor-_ownedTemplateSignature-_ownedParameter.0"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="ITypeReferenceVisitorWithParameter" name="ITypeReferenceVisitorWithParameter">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature" parameter="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0 ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0" parameteredElement="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="Parameter" templateParameter="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.0"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1" parameteredElement="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1-_ownedParameteredElement" name="Result" templateParameter="ITypeReferenceVisitorWithParameter-_ownedTemplateSignature-_ownedParameter.1"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_arrayType_componentType" name="A_arrayType_componentType" visibility="private" memberEnd="JvmComponentType-arrayType JvmArrayType-componentType"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_members_declaringType" name="A_members_declaringType" visibility="private" memberEnd="JvmDeclaredType-members JvmMember-declaringType"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_typeParameters_declarator" name="A_typeParameters_declarator" visibility="private" memberEnd="JvmTypeParameterDeclarator-typeParameters JvmTypeParameter-declarator"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_constraints_owner" name="A_constraints_owner" visibility="private" memberEnd="JvmConstraintOwner-constraints JvmTypeConstraint-owner"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_superTypes_jvmDeclaredType" name="A_superTypes_jvmDeclaredType" visibility="private" memberEnd="JvmDeclaredType-superTypes A_superTypes_jvmDeclaredType-jvmDeclaredType">
+      <ownedEnd xmi:id="A_superTypes_jvmDeclaredType-jvmDeclaredType" name="jvmDeclaredType" type="JvmDeclaredType" association="A_superTypes_jvmDeclaredType"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_typeReference_jvmTypeConstraint" name="A_typeReference_jvmTypeConstraint" visibility="private" memberEnd="JvmTypeConstraint-typeReference A_typeReference_jvmTypeConstraint-jvmTypeConstraint">
+      <ownedEnd xmi:id="A_typeReference_jvmTypeConstraint-jvmTypeConstraint" name="jvmTypeConstraint" type="JvmTypeConstraint" association="A_typeReference_jvmTypeConstraint"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_literals_jvmEnumerationType" name="A_literals_jvmEnumerationType" visibility="private" memberEnd="JvmEnumerationType-literals A_literals_jvmEnumerationType-jvmEnumerationType">
+      <ownedEnd xmi:id="A_literals_jvmEnumerationType-jvmEnumerationType" name="jvmEnumerationType" type="JvmEnumerationType" association="A_literals_jvmEnumerationType"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_arguments_jvmParameterizedTypeReference" name="A_arguments_jvmParameterizedTypeReference" visibility="private" memberEnd="JvmParameterizedTypeReference-arguments A_arguments_jvmParameterizedTypeReference-jvmParameterizedTypeReference">
+      <ownedEnd xmi:id="A_arguments_jvmParameterizedTypeReference-jvmParameterizedTypeReference" name="jvmParameterizedTypeReference" type="JvmParameterizedTypeReference" association="A_arguments_jvmParameterizedTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_jvmParameterizedTypeReference" name="A_type_jvmParameterizedTypeReference" visibility="private" memberEnd="JvmParameterizedTypeReference-type A_type_jvmParameterizedTypeReference-jvmParameterizedTypeReference">
+      <ownedEnd xmi:id="A_type_jvmParameterizedTypeReference-jvmParameterizedTypeReference" name="jvmParameterizedTypeReference" type="JvmParameterizedTypeReference" association="A_type_jvmParameterizedTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_componentType_jvmGenericArrayTypeReference" name="A_componentType_jvmGenericArrayTypeReference" visibility="private" memberEnd="JvmGenericArrayTypeReference-componentType A_componentType_jvmGenericArrayTypeReference-jvmGenericArrayTypeReference">
+      <ownedEnd xmi:id="A_componentType_jvmGenericArrayTypeReference-jvmGenericArrayTypeReference" name="jvmGenericArrayTypeReference" type="JvmGenericArrayTypeReference" association="A_componentType_jvmGenericArrayTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_jvmAnyTypeReference" name="A_type_jvmAnyTypeReference" visibility="private" memberEnd="JvmAnyTypeReference-type A_type_jvmAnyTypeReference-jvmAnyTypeReference">
+      <ownedEnd xmi:id="A_type_jvmAnyTypeReference-jvmAnyTypeReference" name="jvmAnyTypeReference" type="JvmAnyTypeReference" association="A_type_jvmAnyTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_localClasses_jvmFeature" name="A_localClasses_jvmFeature" visibility="private" memberEnd="JvmFeature-localClasses A_localClasses_jvmFeature-jvmFeature">
+      <ownedEnd xmi:id="A_localClasses_jvmFeature-jvmFeature" name="jvmFeature" type="JvmFeature" association="A_localClasses_jvmFeature"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_jvmField" name="A_type_jvmField" visibility="private" memberEnd="JvmField-type A_type_jvmField-jvmField">
+      <ownedEnd xmi:id="A_type_jvmField-jvmField" name="jvmField" type="JvmField" association="A_type_jvmField"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_parameters_jvmExecutable" name="A_parameters_jvmExecutable" visibility="private" memberEnd="JvmExecutable-parameters A_parameters_jvmExecutable-jvmExecutable">
+      <ownedEnd xmi:id="A_parameters_jvmExecutable-jvmExecutable" name="jvmExecutable" type="JvmExecutable" association="A_parameters_jvmExecutable"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_exceptions_jvmExecutable" name="A_exceptions_jvmExecutable" visibility="private" memberEnd="JvmExecutable-exceptions A_exceptions_jvmExecutable-jvmExecutable">
+      <ownedEnd xmi:id="A_exceptions_jvmExecutable-jvmExecutable" name="jvmExecutable" type="JvmExecutable" association="A_exceptions_jvmExecutable"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_returnType_jvmOperation" name="A_returnType_jvmOperation" visibility="private" memberEnd="JvmOperation-returnType A_returnType_jvmOperation-jvmOperation">
+      <ownedEnd xmi:id="A_returnType_jvmOperation-jvmOperation" name="jvmOperation" type="JvmOperation" association="A_returnType_jvmOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_defaultValue_jvmOperation" name="A_defaultValue_jvmOperation" visibility="private" memberEnd="JvmOperation-defaultValue A_defaultValue_jvmOperation-jvmOperation">
+      <ownedEnd xmi:id="A_defaultValue_jvmOperation-jvmOperation" name="jvmOperation" type="JvmOperation" association="A_defaultValue_jvmOperation"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_parameterType_jvmFormalParameter" name="A_parameterType_jvmFormalParameter" visibility="private" memberEnd="JvmFormalParameter-parameterType A_parameterType_jvmFormalParameter-jvmFormalParameter">
+      <ownedEnd xmi:id="A_parameterType_jvmFormalParameter-jvmFormalParameter" name="jvmFormalParameter" type="JvmFormalParameter" association="A_parameterType_jvmFormalParameter"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_annotations_jvmAnnotationTarget" name="A_annotations_jvmAnnotationTarget" visibility="private" memberEnd="JvmAnnotationTarget-annotations A_annotations_jvmAnnotationTarget-jvmAnnotationTarget">
+      <ownedEnd xmi:id="A_annotations_jvmAnnotationTarget-jvmAnnotationTarget" name="jvmAnnotationTarget" type="JvmAnnotationTarget" association="A_annotations_jvmAnnotationTarget"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_annotation_jvmAnnotationReference" name="A_annotation_jvmAnnotationReference" visibility="private" memberEnd="JvmAnnotationReference-annotation A_annotation_jvmAnnotationReference-jvmAnnotationReference">
+      <ownedEnd xmi:id="A_annotation_jvmAnnotationReference-jvmAnnotationReference" name="jvmAnnotationReference" type="JvmAnnotationReference" association="A_annotation_jvmAnnotationReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_explicitValues_jvmAnnotationReference" name="A_explicitValues_jvmAnnotationReference" visibility="private" memberEnd="JvmAnnotationReference-explicitValues A_explicitValues_jvmAnnotationReference-jvmAnnotationReference">
+      <ownedEnd xmi:id="A_explicitValues_jvmAnnotationReference-jvmAnnotationReference" name="jvmAnnotationReference" type="JvmAnnotationReference" association="A_explicitValues_jvmAnnotationReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_operation_jvmAnnotationValue" name="A_operation_jvmAnnotationValue" visibility="private" memberEnd="JvmAnnotationValue-operation A_operation_jvmAnnotationValue-jvmAnnotationValue">
+      <ownedEnd xmi:id="A_operation_jvmAnnotationValue-jvmAnnotationValue" name="jvmAnnotationValue" type="JvmAnnotationValue" association="A_operation_jvmAnnotationValue"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_values_jvmTypeAnnotationValue" name="A_values_jvmTypeAnnotationValue" visibility="private" memberEnd="JvmTypeAnnotationValue-values A_values_jvmTypeAnnotationValue-jvmTypeAnnotationValue">
+      <ownedEnd xmi:id="A_values_jvmTypeAnnotationValue-jvmTypeAnnotationValue" name="jvmTypeAnnotationValue" type="JvmTypeAnnotationValue" association="A_values_jvmTypeAnnotationValue"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_values_jvmAnnotationAnnotationValue" name="A_values_jvmAnnotationAnnotationValue" visibility="private" memberEnd="JvmAnnotationAnnotationValue-values A_values_jvmAnnotationAnnotationValue-jvmAnnotationAnnotationValue">
+      <ownedEnd xmi:id="A_values_jvmAnnotationAnnotationValue-jvmAnnotationAnnotationValue" name="jvmAnnotationAnnotationValue" type="JvmAnnotationAnnotationValue" association="A_values_jvmAnnotationAnnotationValue"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_values_jvmEnumAnnotationValue" name="A_values_jvmEnumAnnotationValue" visibility="private" memberEnd="JvmEnumAnnotationValue-values A_values_jvmEnumAnnotationValue-jvmEnumAnnotationValue">
+      <ownedEnd xmi:id="A_values_jvmEnumAnnotationValue-jvmEnumAnnotationValue" name="jvmEnumAnnotationValue" type="JvmEnumAnnotationValue" association="A_values_jvmEnumAnnotationValue"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_delegate_jvmDelegateTypeReference" name="A_delegate_jvmDelegateTypeReference" visibility="private" memberEnd="JvmDelegateTypeReference-delegate A_delegate_jvmDelegateTypeReference-jvmDelegateTypeReference">
+      <ownedEnd xmi:id="A_delegate_jvmDelegateTypeReference-jvmDelegateTypeReference" name="jvmDelegateTypeReference" type="JvmDelegateTypeReference" association="A_delegate_jvmDelegateTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_equivalent_jvmSpecializedTypeReference" name="A_equivalent_jvmSpecializedTypeReference" visibility="private" memberEnd="JvmSpecializedTypeReference-equivalent A_equivalent_jvmSpecializedTypeReference-jvmSpecializedTypeReference">
+      <ownedEnd xmi:id="A_equivalent_jvmSpecializedTypeReference-jvmSpecializedTypeReference" name="jvmSpecializedTypeReference" type="JvmSpecializedTypeReference" association="A_equivalent_jvmSpecializedTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_type_jvmCompoundTypeReference" name="A_type_jvmCompoundTypeReference" visibility="private" memberEnd="JvmCompoundTypeReference-type A_type_jvmCompoundTypeReference-jvmCompoundTypeReference">
+      <ownedEnd xmi:id="A_type_jvmCompoundTypeReference-jvmCompoundTypeReference" name="jvmCompoundTypeReference" type="JvmCompoundTypeReference" association="A_type_jvmCompoundTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_references_jvmCompoundTypeReference" name="A_references_jvmCompoundTypeReference" visibility="private" memberEnd="JvmCompoundTypeReference-references A_references_jvmCompoundTypeReference-jvmCompoundTypeReference">
+      <ownedEnd xmi:id="A_references_jvmCompoundTypeReference-jvmCompoundTypeReference" name="jvmCompoundTypeReference" type="JvmCompoundTypeReference" association="A_references_jvmCompoundTypeReference"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_values_jvmCustomAnnotationValue" name="A_values_jvmCustomAnnotationValue" visibility="private" memberEnd="JvmCustomAnnotationValue-values A_values_jvmCustomAnnotationValue-jvmCustomAnnotationValue">
+      <ownedEnd xmi:id="A_values_jvmCustomAnnotationValue-jvmCustomAnnotationValue" name="jvmCustomAnnotationValue" type="JvmCustomAnnotationValue" association="A_values_jvmCustomAnnotationValue"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="A_outer_jvmInnerTypeReference" name="A_outer_jvmInnerTypeReference" visibility="private" memberEnd="JvmInnerTypeReference-outer A_outer_jvmInnerTypeReference-jvmInnerTypeReference">
+      <ownedEnd xmi:id="A_outer_jvmInnerTypeReference-jvmInnerTypeReference" name="jvmInnerTypeReference" type="JvmInnerTypeReference" association="A_outer_jvmInnerTypeReference"/>
+    </packagedElement>
+  </uml:Package>
+</xmi:XMI>

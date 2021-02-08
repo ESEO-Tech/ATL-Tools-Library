@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="test1" nsURI="test1" nsPrefix="test1">
+  <eClassifiers xsi:type="ecore:EClass" name="test" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attr" ordered="false" transient="true">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+            <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          </eTypeArguments>
+        </eGenericType>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="test2" abstract="true">
+    <eTypeParameters name="E">
+	<eBounds eClassifier="#//test"/>
+    </eTypeParameters>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attr" ordered="false">
+      <eGenericType eTypeParameter="#//test2/E"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="test3" abstract="true">
+    <eGenericSuperTypes eClassifier="#//test2">
+      <eTypeArguments eClassifier="#//test"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+</ecore:EPackage>

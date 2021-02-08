@@ -1,0 +1,28 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @nsURI UML=http://www.eclipse.org/uml2/4.0.0/UML
+library CommonDiagramHelpers;
+
+helper def: transparentWhite : String = '0xffffff00';
+
+helper def: opaqueWhite : String = '0xffffffff';
+
+helper def: opaqueBlack : String = '0x000000ff';
+
+helper def: opaqueGray : String = '0xc0c0c0ff';
+
+helper def: MARGIN : Real = 10.0;

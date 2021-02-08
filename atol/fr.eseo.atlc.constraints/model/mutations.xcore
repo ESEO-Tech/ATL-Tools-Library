@@ -1,0 +1,11 @@
+@Ecore(nsURI="http://eris.eseo.fr/ATLC/Mutation")
+
+package fr.eseo.atlc.mutation
+
+class ObjectSelector {
+	Object selected
+	String name
+}
+
+//type EJavaObject<E> wraps java.util.function.Predicate
+type JavaObject wraps Object

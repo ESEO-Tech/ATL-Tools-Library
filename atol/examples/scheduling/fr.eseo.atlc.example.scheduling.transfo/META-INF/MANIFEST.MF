@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Transfo
+Bundle-SymbolicName: fr.eseo.atlc.example.scheduling.transfo
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: fr.eseo.atlc.example.scheduling.transfo
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: fr.eseo.atlc.example.scheduling,
+ fr.eseo.atol.gen.plugin.constraints,
+ org.eclipse.emf.ecore.xmi,
+ fr.eseo.atol.javafx

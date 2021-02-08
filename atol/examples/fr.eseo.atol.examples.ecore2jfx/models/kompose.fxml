@@ -1,0 +1,66 @@
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.Group?>	
+<Group>
+	<Rectangle id="kompose" strokeWidth="2.0" height="200.0" width="200.0" x="200.0" y="200.0" fill="#FFFFFF">
+		<stroke>
+			<Color red="1.0" green="0.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+	<Text id="kompose" text="kompose" x="205.0" y="210.0"/>
+	<Rectangle id="Matcher" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+  	<Text id="Matcher" text="Matcher" x="0.0" y="0.0"/>
+  	<Rectangle id="Context" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+  	<Text id="Context" text="Context" x="0.0" y="0.0"/>
+  	<Rectangle id="Merger" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+  	<Text id="Merger" text="Merger" x="0.0" y="0.0"/>
+  	<Rectangle id="Composer" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+  	<Text id="Composer" text="Composer" x="0.0" y="0.0"/>
+  	<Rectangle id="Engine" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+ 	<Text id="Engine" text="Engine" x="0.0" y="0.0"/>
+  	<Rectangle id="ConflictResolver" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+	<Text id="ConflictResolver" text="ConflictResolver" x="0.0" y="0.0"/>
+ 	<Rectangle id="Mergeable" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+ 	<Text id="Mergeable" text="Mergeable" x="0.0" y="0.0"/>
+ 	<Rectangle id="Signature" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+ 	<Text id="Signature" text="Signature" x="0.0" y="0.0"/>
+ 	<Rectangle id="Match" fill="#FFFFFF" strokeWidth="1.0" height="100.0" width="100.0" x="0.0" y="0.0">
+		<stroke>
+			<Color red="0.0" green="1.0" blue="0.0"/>
+		</stroke>
+	</Rectangle>
+  	<Text id="Match" text="Match" x="0.0" y="0.0"/>
+</Group>

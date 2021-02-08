@@ -1,0 +1,4 @@
+/bin/
+/*.plantuml
+/*.svg
+/xtend-gen/

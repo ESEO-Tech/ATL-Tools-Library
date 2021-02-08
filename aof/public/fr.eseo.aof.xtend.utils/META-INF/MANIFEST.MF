@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utils
+Bundle-SymbolicName: fr.eseo.aof.xtend.utils
+Bundle-Version: 1.0.0.qualifier
+Export-Package: fr.eseo.aof.xtend.utils
+Require-Bundle: org.eclipse.emf.ecore

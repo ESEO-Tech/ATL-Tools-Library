@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AOF Debug Utils
+Bundle-SymbolicName: fr.eseo.aof.debug.utils
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: fr.eseo.aof.debug.utils
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.papyrus.aof.emf;bundle-version="1.0.0",
+ com.google.guava,
+ org.eclipse.xtend.lib
+Export-Package: fr.eseo.aof.debug.utils

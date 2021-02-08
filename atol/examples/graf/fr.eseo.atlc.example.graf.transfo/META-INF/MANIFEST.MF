@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: fr.eseo.atlc.example.graf.transfo;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Require-Bundle: fr.eseo.atol.gen.plugin.constraints,
+ org.eclipse.emf.ecore.xmi,
+ fr.eseo.atlc.example.graf,
+ fr.eseo.atol.javafx
+

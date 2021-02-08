@@ -1,0 +1,366 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @atlcompiler emftvm
+-- @path Constraints=/fr.eseo.atlc.constraints/model/constraints.xcore
+
+-- Current status:
+--	- too complex, because of
+--		- VariableVector.source : JavaObject instead of IBox...
+--			- or possible instead of JavaObject[*]
+--		- virtual target metaelement ExpressionVector
+--			- used to generate multiple target elements in rules
+--			- complex to use (requires many calls to unwrap and oclAsType)
+--				- which is a kind of target model navigation
+--	- does not work
+--		- notably because there is no sharing in the metamodel
+--			- and therefore some expressions would have to be duplicated
+--				- depending on the presence of variable vectors in other branches of the AST
+
+-- New ATOL mechanisms that could be useful to make this transformation less complex
+--	- a way to generate an arbitrary number of target elements in a rule
+--		- to replace the ExpressionVector virtual metaelement
+--		- which was not necessary for ATL2ASM because there was no need to further expand
+--			- a simple block tree traversal was enough
+--			- but we would a priori need a fixpoint computation here
+--	- non-unique lazy rules
+--		- for duplication (instead of modifying the metamodel with sharing)
+--		- but there should be some trace (e.g., with the execution context as key)
+--			- so that we do not recreate during propagation
+module FlattenConstraints;
+create OUT : Constraints from IN : Constraints;
+
+unique lazy rule ConstraintGroup {
+	from 
+		s : Constraints!ConstraintGroup
+	to
+		t : Constraints!ConstraintGroup (
+			solver <- s.solver,
+			constraints <- s.constraints.collectTo('SimpleConstraint').t
+		)
+}
+
+unique lazy rule SimpleConstraint {
+	from
+		s : Constraints!SimpleConstraint
+	to
+		t : Constraints!ConstraintGroup (
+			constraints <-
+				if s.arguments->size().debug('nbArgs') = 1 then
+					-- unary
+					let args : OclAny = s.arguments->collect(e |
+						thisModule.Expression(e)
+					).t->flatten()->toISequence() in
+					if thisModule.arrayPredicates->includes(s.predicate->asOne('')) then
+						thisModule.SimpleConstraintElement(s, Sequence {args}).t
+					else
+						args->collect(e |
+							thisModule.SimpleConstraintElement(s, Sequence {e->asSequence()}).t
+						)
+					endif
+				else if s.arguments->size() = 2 then
+					-- binary
+					let left : OclAny = s.arguments->first().debug('leftArg') in
+					let right : OclAny = s.arguments->any(e | e <> left).debug('rightArg') in
+					if thisModule.cartesianOperators->includes(s.predicate->asOne('')) then
+						thisModule.Expression(left).t.unwrap().oclAsType(Constraints!Expression).debug('cartesianLeft')->collect(l |
+							thisModule.Expression(right).t.unwrap().oclAsType(Constraints!Expression).debug('cartesianRight')->collect(r |
+								thisModule.SimpleConstraintElement(s, Sequence {Sequence {l, r}}).t
+							)
+						)
+					else
+						Tuple {
+							-- TODO: rather call an abstract ArExp rule (everywhere we need to cast to ArExp, not just here)
+							-- how to extend Expression with abstract rule ArExp but keep consistant type for output ?
+							left = thisModule.Expression(left).t.unwrap().oclAsType(Constraints!Expression).debug('left'),
+							right = thisModule.Expression(right).t.unwrap().oclAsType(Constraints!Expression).debug('right')
+						}->zipWith(l, r |
+							thisModule.SimpleConstraintElement(s, Sequence {Sequence {l, r}}).t
+						)->flatten()
+					endif.oclAsType(Constraints!Constraint)
+				else
+					-- ERROR
+					OclUndefined
+				endif endif
+		)
+}
+
+unique lazy rule SimpleConstraintElement {
+	from
+		s : Constraints!SimpleConstraint,
+		a : Constraints!ExpressionVector
+	to
+		t : Constraints!SimpleConstraint (
+			predicate <- s.predicate,
+			strength <- st,
+			arguments <- a->toSequence().oclAsType(Constraints!ArExp)
+		),
+			st : Constraints!Strength (
+				weight <- s.strength.weight,
+				strength <- s.strength.strength1
+			)
+}
+
+unique lazy abstract rule Expression {
+	from
+		s : Constraints!Expression
+	to
+		t : Constraints!ExpressionVector
+--		t : Sequence(Constraints!Expression) = ...
+}
+
+-- TODO: separate binary operators (e.g., .+) & constraint operators (e.g., .=), that are called predicate
+helper def: cartesianOperators : Collection(String) =
+	Set {'.+', '.-', '.*', './', '.^', '.=', '.!=', '.<', '.>', '.<=', '.>=', '.<>'};--.__immutable();
+
+unique lazy rule BinaryExp extends Expression {
+	from
+		s : Constraints!BinaryExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <-
+				if thisModule.cartesianOperators->includes(s.operator->asOne('')) then
+					thisModule.Expression(s.left).t.oclAsType(Constraints!ArExp)->collect(l |
+						thisModule.Expression(s.right).t.oclAsType(Constraints!ArExp)->collect(r |
+							thisModule.BinaryElement(l, r, s.operator).t
+						)
+					)
+				else
+					Tuple {
+						-- TODO: rather call an abstract ArExp rule (everywhere we need to cast to ArExp, not just here)
+						-- how to extend Expression with abstract rule ArExp but keep consistant type for output ?
+						left = thisModule.Expression(s.left).t.oclAsType(Constraints!ArExp),
+						right = thisModule.Expression(s.right).t.oclAsType(Constraints!ArExp)
+					}->zipWith(l, r |
+						thisModule.BinaryElement(l, r, s.operator).t.oclAsType(Constraints!Expression)
+					)->flatten()
+				endif
+		)
+}
+
+unique lazy rule BinaryElement {
+	from
+		l : Constraints!ArExp,
+		r : Constraints!ArExp,
+		o : String
+	to
+		t : Constraints!BinaryExp (
+				left <- l,
+				right <- r,
+				operator <- o
+		)
+}
+
+-- TODO: separate UnaryExps & SimpleConstraints in different helpers?
+helper def: arrayPredicates : Collection(String) =
+	Set {
+		-- UnaryExps
+		'sum',
+		'product',
+
+		-- SimpleConstraints
+		'allDifferent'
+	};--.__immutable();
+
+helper context Constraints!UnaryExp def: elems : Collection(Constraints!ArExp) =
+	-- flatten necessary here because ATOLGen does not know that t isMutable
+	-- (it is supposed to be an immutable target object with mutable properties)
+	thisModule.Expression(self.operand).t->flatten().oclAsType(Constraints!ArExp);
+
+unique lazy rule UnaryExp extends Expression {
+	from
+		s : Constraints!UnaryExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <-
+				if thisModule.arrayPredicates->includes(s.operator->asOne('')) then
+					thisModule.NAryExp(s).t
+				else
+					s.elems->collect(e |
+						thisModule.UnaryElement(e, s.operator).t
+					)
+				endif
+		)
+}
+
+unique lazy rule UnaryElement {
+	from
+		s : Constraints!ArExp,
+		o : String
+	to
+		t : Constraints!UnaryExp (
+				operand <- s,
+				operator <- o
+		)
+}
+
+unique lazy rule NAryExp {
+	from
+		s : Constraints!UnaryExp
+	to
+		t : Constraints!NaryExp (
+				operands <- s.elems,
+				operator <- s.operator
+		)
+}
+
+unique lazy rule ReifyExp extends Expression {
+	from
+		s : Constraints!ReifyExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!ReifyExp (
+			operand <- s.operand.collectTo('SimpleConstraint').t
+		)
+}
+
+unique lazy rule VariableExp extends Expression {
+	from
+		s : Constraints!VariableExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!VariableExp (
+			source <- s.source,
+			propertyName <- s.propertyName
+		)
+}
+
+unique lazy rule VariableRelationExp extends Expression {
+	from
+		s : Constraints!VariableRelationExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!VariableRelationExp (
+			source <- s.source,
+			propertyPath <- s.propertyPath,
+			relationName <- s.relationName
+		)
+}
+
+unique lazy rule ConstantExp extends Expression {
+	from
+		s : Constraints!ConstantExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!DoubleExp (
+			doubleValue <- s.source.toReadOnlyBox(s.propertyName)
+		)
+}
+
+unique lazy rule DoubleExp extends Expression {
+	from
+		s : Constraints!DoubleExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!DoubleExp (
+			doubleValue <- s.value
+		)
+}
+
+unique lazy rule IntExp extends Expression {
+	from
+		s : Constraints!IntExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <- e
+		),
+		e : Constraints!IntExp (
+			intValue <- s.value
+		)
+}
+
+unique lazy rule VariableVectorExp extends Expression {
+	from
+		s : Constraints!VariableVectorExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <-	s.source.unwrap.oclAsType(OclAny)->reject(e |
+							e.oclIsUndefined()
+						)->collect(e |
+							thisModule.VariableVectorElement(e, s.propertyName).t
+						)
+		)
+}
+
+unique lazy rule VariableVectorElement {
+	from
+		s : OclAny,
+		pn : String
+	to
+		t : Constraints!VariableExp (
+			source <- s,
+			propertyName <- pn
+		)
+}
+
+unique lazy rule ConstantVectorExp extends Expression {
+	from
+		s : Constraints!ConstantVectorExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <-	s.source->reject(e |
+							e.oclIsUndefined()
+						)->collect(e |
+							thisModule.ConstantVectorElement(e, s.propertyName).t
+						)
+		)
+}
+
+unique lazy rule ConstantVectorElement {
+	from
+		s : OclAny,
+		pn : String
+	to
+		t : Constraints!DoubleExp (
+			doubleValue <- s.toReadOnlyBox(pn)
+		)
+}
+
+unique lazy rule VariableRelationVectorExp extends Expression {
+	from
+		s : Constraints!VariableRelationVectorExp
+	to
+		t : Constraints!ExpressionVector (
+			contents <-	s.source->reject(e |
+							e.oclIsUndefined()
+						)->collect(e |
+							thisModule.RelationVectorElement(e, s.propertyPath, s.relationName).t
+						)
+		)
+}
+
+unique lazy rule RelationVectorElement {
+	from
+		s : OclAny,
+		pp : String,
+		rn : String
+	to
+		t : Constraints!VariableRelationExp (
+			source <- s,
+			propertyPath <- pp,
+			relationName <- rn
+		)
+}

@@ -1,0 +1,74 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+module ecore2jfx;
+
+create OUT : JFX from IN : Ecore;
+
+-- TODO create helper to layout classes : create integer sequence to increase x,y
+
+-- this entrypoint is necessary for execution by classical ATL VM
+-- but will not be used in code generation
+entrypoint rule Main() {
+	do {
+		Ecore!EPackage.allInstancesFrom('IN')->collect(e | thisModule.package2rectangle(e));
+		Ecore!EClass.allInstancesFrom('IN')->collect(e | thisModule.class2rectangle(e));
+	}
+}
+
+unique lazy rule package2rectangle {
+	from 
+		model : Ecore!EPackage
+	to 
+		r : JFX!Rectangle (
+			iD <- model.name,
+			x <- 200.0,
+			y <- 200.0,
+			width <- 200.0,
+			height <- 200.0,
+			stroke <- 'Color.RED',
+			strokeWidth <- 2.0,
+			fill <- '#FFFFFF'
+		),
+		t : JFX!Text (
+			iD <- model.name,
+			text <- model.name,
+			x <- 205.0,
+			y <- 205.0
+		)
+}
+
+unique lazy rule class2rectangle {
+	from
+		c : Ecore!EClass
+	to
+		r : JFX!Rectangle (
+			iD <- c.name,
+			x <- 0.0,
+			y <- 0.0,
+			width <- 100.0,
+			height <- 100.0,
+			stroke <- 'Color.Green',
+			strokeWidth <- 1.0,
+			fill <- '#FFFFFF'
+		),
+		t : JFX!Text (
+			iD <- c.name,
+			text <- c.name,
+			x <- 0.0,
+			y <- 0.0
+		)
+}

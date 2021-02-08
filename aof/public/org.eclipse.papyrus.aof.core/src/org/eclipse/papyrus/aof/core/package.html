@@ -1,0 +1,27 @@
+<body>
+Defines AOF core interfaces that allows writing active incremental transformations and mappings between 
+metamodels in a platform-independent manner.
+<p>
+Reader would follow this document reading order, since the document gives numerous examples based on a single sample meta-model:
+<p>
+<ol>
+<li>Platform-independence of metamodel manipulation: 
+ {@link org.eclipse.papyrus.aof.core.IMetaClass}, 
+ {@link org.eclipse.papyrus.aof.core.IFactory}, 
+  and {@link org.eclipse.papyrus.aof.core.AOFFactory}
+ - see also {@link org.eclipse.papyrus.aof.emf.EMFFactory} of the EMF package 
+<li>AOF box types: 
+ {@link org.eclipse.papyrus.aof.core.IConstraints}, 
+ and concrete box classes
+ {@link org.eclipse.papyrus.aof.core.ISet}, 
+ {@link org.eclipse.papyrus.aof.core.IOrderedSet}, 
+ {@link org.eclipse.papyrus.aof.core.ISequence}, 
+ {@link org.eclipse.papyrus.aof.core.IBag}, 
+ {@link org.eclipse.papyrus.aof.core.IOption}, and
+ {@link org.eclipse.papyrus.aof.core.IOne}
+<li>Operations on AOF boxes: {@link org.eclipse.papyrus.aof.core.IReadable} and {@link org.eclipse.papyrus.aof.core.IWritable} 
+<li>Observability of AOF boxes: {@link org.eclipse.papyrus.aof.core.IObservable} and {@link org.eclipse.papyrus.aof.core.IObserver} 
+<li><b>Active operations (numerous examples given): {@link org.eclipse.papyrus.aof.core.IBox}</b>
+</ol>
+</p>
+</body>

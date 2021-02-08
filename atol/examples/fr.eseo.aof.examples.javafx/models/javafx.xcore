@@ -1,0 +1,74 @@
+@Ecore(nsURI="http://trame.eseo.fr/ATOL/JavaFX")
+//@GenModel(modelDirectory="/test3/src", importerID="org.eclipse.emf.importer.ecore")
+package JavaFX
+
+class Group extends Node {
+	contains Node[0..*] children
+}
+
+/**
+ * represents a kind of graph "function/template" which will be called with proper 
+ * instances of boxes when needed.
+ * The idea is to reuse a generic subgraph with no additional object node 
+ * instantiation.
+ */
+abstract class Node {
+	boolean movable
+	String iD
+	double scaleX
+	double scaleY
+	double scaleZ
+	double translateX
+	double translateY
+	double translateZ
+	double rotate
+	double rotationAxisX
+	double rotationAxisY
+	double rotationAxisZ
+	boolean visible
+	String style
+	boolean mouseTransparent
+	double layoutBoundX
+	double layoutBoundY
+	refers Node parent
+//	refers ParameterBox[0..*] boxParameters
+//	contains Box[0..*] boxes
+//	contains Operation[0..*] operations
+//	contains ObjectParameter[0..*] objectParameters
+//	refers Box[*] outputs
+}
+
+abstract class Shape extends Node {
+	String fill
+	String stroke
+	double strokeWidth
+}
+
+class Circle extends Shape {
+	double centerX
+	double centerY
+	double radius
+}
+
+class Line extends Shape {
+	double startX
+	double startY
+	double endX
+	double endY
+}
+
+class Rectangle extends Shape {
+	double height
+	double width
+	double x
+	double y
+}
+
+class Text extends Shape {
+	String text
+	String textAlignment
+	String textOrigin
+	boolean underline
+	double x
+	double y
+}

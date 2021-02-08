@@ -1,0 +1,11 @@
+@Ecore(nsPrefix="pop", nsURI="http://www.eclipse.org/papyrus/aof-emf-samples/population")
+@GenModel(importerID="org.eclipse.emf.importer.ecore")
+package org.eclipse.papyrus.aof.emf.tests.population
+
+class Person {
+	String[1] name = "Name"
+	int age
+	unique String[] emails
+	refers Person parent opposite children
+	refers unordered Person[] children opposite parent
+}

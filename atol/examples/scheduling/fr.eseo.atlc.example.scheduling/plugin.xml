@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated curriculum -->
+      <package
+            uri="http://eris.eseo.fr/ATLC/Example/scheduling"
+            class="fr.eseo.atlc.example.scheduling.SchedulingPackage"
+            genModel="model/scheduling.xcore"/>
+   </extension>
+
+</plugin>

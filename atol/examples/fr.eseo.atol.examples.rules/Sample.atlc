@@ -1,0 +1,67 @@
+module UMLClassDiagram2JavaFX;
+create OUT : JFX from IN : UML;
+
+rule Package2Rectangle {
+	from
+		p : UML!Package
+	to
+		r : JFX!Rectangle (
+			fill <- 'lightblue',
+			stroke <- 'black'
+		),
+		t : JFX!Text (
+			stroke <- 'black',
+			text <- p.name,
+			origin <- #TOP
+		)
+	with {
+		r.topLeft.stay(#medium, 90, 120),
+		t.topLeft = r.topLeft.dx(5),
+		r.width >= 100,
+		r.height >= 100,
+		r.contains(p.packagedElement) 
+	}
+}
+
+rule Class2Rectangle {
+	from
+		c : UML!Class
+	to
+		r : JFX!Rectangle (
+			fill <- 'white',
+			stroke <- 'black'
+		),
+		t : JFX!Text (
+			stroke <- 'black',
+			text <- c.name,
+			origin <- #TOP
+		)
+	with {
+		r.topLeft.stay(#medium, 350, 350),
+		r.height.minimize(#medium),
+		r.height >= 25,
+		r.width >= t.width + thisModule.CLASS_NAME_OFFSET * 2,
+		r.width.minimize(#medium),
+		t.bottomLeft.x >= r.topLeft.x + thisModule.CLASS_NAME_OFFSET,
+		t.bottomLeft.x >= r.topLeft.x + (r.width - t.width) / 2,
+		t.topLeft.y = r.topLeft.y + thisModule.CLASS_MARGIN,
+		r.bottomRight.y >= t.bottomRight.y
+	}
+}
+
+rule Association2Line {
+	from
+		a : UML!Association
+	to
+		l : JFX!Line (
+			stroke <- 'black'
+		)
+	with {
+		a.memberEnd->first().type.contains(l.start),
+		a.memberEnd->last().type.contains(l.end),
+		l.start.minimizeDistance(l.end, #weak),
+		l.start.minimizeDistance(a.memberEnd->last().type.center, #weak),
+		l.start.minimizeDistance(a.memberEnd->first().type.center, #weak)
+	}
+}
+

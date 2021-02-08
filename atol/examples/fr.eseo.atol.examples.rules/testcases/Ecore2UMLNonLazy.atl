@@ -1,0 +1,386 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+-- @nsURI UML=http://www.eclipse.org/uml2/5.0.0/UML
+module Ecore2UMLNonLazy;
+create OUT : UML from IN : Ecore;
+
+-- redefining an existing derived features because
+-- - derived features are generally not incremental in EMF (i.e., they do not notify when they change)
+-- - ATOL does not support them anyway (for the previous reason)
+helper context Ecore!EClass def: eReferences : OrderedSet(Ecore!EReference) =
+	self.eStructuralFeatures->select(Ecore!EReference);
+
+rule EPackage2Package {
+	from
+		s : Ecore!EPackage
+	to
+		t : UML!Package (
+			name <- s.name,
+			URI <- s.nsURI,
+			packagedElement <-
+				let assEnds : OclAny = s.eClassifiers->select(
+						Ecore!EClass
+					).eReferences->select(e |
+						not e.eOpposite.oclIsUndefined() -- TODO: cross-package associations
+					)
+				in
+				let ass : OclAny =
+					assEnds
+					->collect(e |
+						e.eOpposite->collect(f |
+							thisModule.EReferencePair2Association(
+								e, f
+							).t
+						)
+					).debug('association members')
+				in
+				s.eSubpackages->collectTo(
+					'EPackage2Package'
+--				)->concat(	-- TODO: make this work
+--					s.eClassifiers
+--						->select(Ecore!EClass).eReferences
+--						->select(e | e.eOpposite.oclIsUndefined())
+----						->collect(e | Set {e, e.eOpposite})
+--						->collect(e | e.eOpposite->collect(f | Set {e, f}.debug('PAIR')))
+----						asSet()->collectTo('EReferencePair2Association')
+--				)->select(	-- only when patterns are compiled to tuples + requires IBox.select to be modified to allow to select to arbitrary classes
+--					UML!PackageableElement
+				).t->collect(e |	-- only when patterns are compiled to tuples (better than above because no need to modify IBox)
+					e.oclAsType(UML!PackageableElement)
+				)->concat(
+					-- WARNING: rule order in collectTo is significant (notably because EEnum extends EDataType)
+					s.eClassifiers->collectTo(
+						'EClassifier2Classifier'
+					).t
+				)->concat(
+					ass->collect(e |
+						e	-- TODO: make this unnecessary
+					)
+				)
+		)
+}
+
+unique lazy rule EReferencePair2Association {
+	from
+--		s : Set(Ecore!EReference)
+		s1 : Ecore!EReference,
+		s2 : Ecore!EReference
+	to
+		t : UML!Association (
+			name <- s1.eContainingClass.name + '_' + s1.name + '_' +
+					s2.eContainingClass.name + '_' + s2.name,
+--			ownedEnd <- Sequence {s1, s2}->collectTo('EReference2Property').t,
+			memberEnd <- Sequence {s1, s2}
+		)
+}
+
+abstract rule EClassifier2Classifier {
+	from
+		s : Ecore!EClassifier
+	to
+		t : UML!Classifier (
+			name <- s.name,
+			ownedTemplateSignature <-	s.eTypeParameters->first()->collect(e |
+											s
+										)->collectTo(
+											'EClassifier2TemplateSignature'
+										).t
+		)
+}
+
+rule EClass2Class extends EClassifier2Classifier {
+	from
+		s : Ecore!EClass
+	to
+		t : UML!Class (
+			isAbstract <- s.abstract,
+			generalization <-	s.eSuperTypes->collect(e |
+									thisModule.EClass2Generalization(
+										e, s
+									).t
+								),
+			ownedAttribute <-	s.eStructuralFeatures,
+			ownedOperation <-	s.eOperations,
+			nestedClassifier <- s.eStructuralFeatures.eGenericType->concat(
+									s.eOperations.eParameters.eGenericType
+								)->concat(
+									s.eOperations.eGenericType->select(e |
+										-- excluding "void" return types
+										not e.oclIsUndefined()
+									)
+								)->select(e |
+									e.eTypeArguments->notEmpty()
+								)->collectTo(
+									'EGenericType2BoundClass'
+								).t
+		)
+}
+
+unique lazy rule EClassifier2TemplateSignature {
+	from
+		s : Ecore!EClassifier
+	to
+		t : UML!RedefinableTemplateSignature (
+			name <- s.name,
+			parameter <-	s.eTypeParameters->collectTo(
+								'EGenericType2ClassifierTemplateParameter'
+							).t,
+			ownedParameter <-	s.eTypeParameters->collectTo(
+									'EGenericType2ClassifierTemplateParameter'
+								).t
+		)
+}
+
+unique lazy rule EGenericType2ClassifierTemplateParameter {
+	from
+		s : Ecore!ETypeParameter
+	to
+		t : UML!ClassifierTemplateParameter (
+			parameteredElement <- ope,
+			ownedParameteredElement <- ope
+		),
+			ope : UML!Class (
+				name <- s.name
+			)
+}
+
+unique lazy rule EClass2Generalization {
+	from
+		general : Ecore!EClass,
+		specific : Ecore!EClass
+	to
+		t : UML!Generalization (
+			general <- general
+		)
+}
+
+rule EDataType2DataType extends EClassifier2Classifier {
+	from
+		s : Ecore!EDataType
+	to
+		t : UML!DataType
+}
+
+rule EEnum2Enumeration extends EClassifier2Classifier {
+	from
+		s : Ecore!EEnum
+	to
+		t : UML!Enumeration (
+			ownedLiteral <- s.eLiterals
+		)
+}
+
+rule EEnumLiteral2EnumerationLiteral {
+	from
+		s : Ecore!EEnumLiteral
+	to
+		t : UML!EnumerationLiteral (
+			name <- s.name
+		)
+}
+
+abstract rule ETypedElement2MultiplicityElement {
+	from
+		s : Ecore!ETypedElement
+	to
+		t : UML!MultiplicityElement (
+			lowerValue <- lb,
+			upperValue <- ub,
+			isOrdered <- s.ordered,
+			isUnique <- s.unique
+		),
+			lb : UML!LiteralInteger (
+				value <- s.lowerBound
+			),
+			ub : UML!LiteralUnlimitedNatural (
+				value <- s.upperBound
+			)
+}
+
+abstract rule EStructuralFeature2Property extends ETypedElement2MultiplicityElement {
+	from
+		s : Ecore!EStructuralFeature
+	to
+		t : UML!Property (
+			name <- s.name,
+			visibility <- #public,
+			isReadOnly <- s.changeable,
+			isDerived <- s.derived,
+			type <- s.actualType
+		)
+}
+
+helper context Ecore!ETypedElement def: actualType : UML!Type =
+	if self.eGenericType.eTypeArguments->isEmpty() then
+		self.eType->collectTo(
+			'EClassifier2Classifier'
+		).t
+--			With regular ATL (i.e., without collectTo), one would have to write something like:
+--			type <- s.eType->collect(e |
+--						if e.oclIsKindOf(Ecore!EClass) then
+--							thisModule.EClass2Class(e)
+--						else if e.oclIsKindOf(Ecore!EEnum) then
+--							thisModule.EEnum2Enumeration(e)
+--						else
+--							thisModule.EDataType2DataType
+--						endif endif
+--					)
+-- OR use rule inheritance instead:
+--			type <- s.eType->collect(e | thisModule.EClassifier2Classifier(e))
+	else
+		self.eGenericType->collectTo(
+			'EGenericType2BoundClass'
+		).t
+	endif;
+
+rule EAttribute2Property extends EStructuralFeature2Property {
+	from
+		s : Ecore!EAttribute
+	to
+		t : UML!Property (
+			defaultValue <- s.defaultValueLiteral->collect(e | s)->collectTo('EAttribute2DefaultValue').t
+		)
+}
+
+unique lazy rule EAttribute2DefaultValue {
+	from
+		s : Ecore!EAttribute
+	to
+		t : UML!OpaqueExpression (
+			-- Remark: actual UML.metamodel.uml uses specific classes like LiteralBoolean, LiteralInteger...
+			name <- 'literal',
+			body <- s.defaultValueLiteral
+		)
+}
+
+rule EReference2Property extends EStructuralFeature2Property {
+	from
+		s : Ecore!EReference
+	to
+		t : UML!Property (
+			aggregation <- if s.containment then #composite else #none endif
+		)
+}
+
+rule EOperation2Operation {
+	from
+		s : Ecore!EOperation
+	to
+		t : UML!Operation (
+			name <- s.name,
+			raisedException <- s.eExceptions,
+			ownedParameter <-	s.eType->select(e |
+									not e.oclIsUndefined()
+								)->collect(e |
+									thisModule.EOperation2RetParameter(s).t
+								)->concat(
+									s.eParameters->collectTo(
+										'EParameter2Parameter'
+									).t
+								)
+		)
+}
+
+unique lazy rule EOperation2RetParameter extends ETypedElement2MultiplicityElement {
+	from
+		s : Ecore!EOperation
+	to
+		t : UML!Parameter(
+			name <- 'ret',
+			direction <- #return,
+			type <- s.actualType
+		)
+}
+
+helper context Ecore!EGenericType def: actualName : String =
+	let n : String = self.eClassifier.name in 
+	if self.eTypeArguments->notEmpty() then
+		let f : OclAny = self.eTypeArguments->first() in
+		n + '<' + f.actualName +
+		self.eTypeArguments->select(e |
+			e <> f
+		)->collect(e |
+			', ' + e.actualName
+		)->first()->concat(Sequence {''}) +
+--		if self.eTypeArguments->size() > 1 then
+--			self.eTypeArguments->select(e |
+--				e <> f
+--			)->first()
+--		else
+--			''
+--		endif +
+		'>'
+	else
+		n
+	endif;
+
+-- DONE: put template bindings in nested classifiers (see Ecore.metamodel.uml)
+-- TODO: switch c to be the first element t
+-- TODO: compare what we generate from Ecore to Ecore.metamodel.uml
+unique lazy rule EGenericType2BoundClass {
+	from
+		s : Ecore!EGenericType
+	to
+		-- TODO: generate the proper kind of Classifier, not always a Class
+		t : UML!Class (
+			name <- s.actualName,
+			templateBinding <- Sequence {b}
+		),
+			b : UML!TemplateBinding (
+					-- NO: we should not navigate the target
+					-- we should rather have a subrule of EClass2Class
+					-- that creates template signatures, and register EMap
+					-- with it
+				signature <-	s.eClassifier->collectTo(
+									'EClassifier2TemplateSignature'
+								).t,
+				parameterSubstitution <-
+					s.eTypeArguments->collectTo(
+						'EGenericType2ParameterSubstitution'
+					).t
+			)
+}
+
+-- TODO: recursive generics
+unique lazy rule EGenericType2ParameterSubstitution {
+	from
+		s : Ecore!EGenericType
+	to
+		t : UML!TemplateParameterSubstitution (
+--			formal <- TODO
+			-- TODO: rule call should call the corresponding method and not rule.apply
+			-- because we do not generate fields for abstract rules (at least for now)
+--			actual <- thisModule.EClassifier2Classifier(s.eClassifier)
+			actual <-	s.eClassifier->collectTo(
+							'EClassifier2Classifier'
+						-- TODO: mutable oclAsType
+						).t->collect(e |
+							e.oclAsType(UML!ParameterableElement)
+						)
+		)
+}
+
+rule EParameter2Parameter extends ETypedElement2MultiplicityElement {
+	from
+		s : Ecore!EParameter
+	to
+		t : UML!Parameter (
+			name <- s.name,
+			type <- s.actualType
+		)
+}

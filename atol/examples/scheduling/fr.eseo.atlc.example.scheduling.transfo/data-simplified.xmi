@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scheduling:Project
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:scheduling="http://eris.eseo.fr/ATLC/Example/scheduling"
+    name="McGill"
+    numberOfPeriods="3"
+    maxLoad="50">
+  <tasks title="0"
+      code="000"
+      description="0"
+      cost="5.0"
+      requisitedBy="//@tasks.2/@requisites.0">
+    <terms>fall</terms>
+    <terms>winter</terms>
+  </tasks>
+  <tasks title="1"
+      code="001"
+      description="1"
+      cost="6.0"
+      requisitedBy="//@tasks.2/@requisites.1">
+    <terms>fall</terms>
+    <terms>winter</terms>
+  </tasks>
+  <tasks title="2"
+      code="002"
+      description="2"
+      cost="7.0">
+    <terms>winter</terms>
+    <requisites
+        target="//@tasks.0"/>
+    <requisites
+        target="//@tasks.1"/>
+  </tasks>
+</scheduling:Project>
