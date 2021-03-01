@@ -1,0 +1,53 @@
+-- The ATL typing test cases from this library should not type
+-- Notably to increase test coverage
+module NonTypingTestCases;
+create OUT : ATL from IN : ATL;
+
+helper def: test1() : String =
+	1;
+
+helper def: test2 : String =
+	1;
+
+helper def: test3 : String =
+	let a : String = 1 in
+	a;
+
+helper def: test4 : String =
+	1 + Sequence {}->unsupportedIterator(e | 1);
+
+helper context Map(TP!V, TP!V) def: a(i : TP!K) : TP!V =
+	self.get(i);
+
+-- TODO: should not find a compatibale a()
+helper def: test5 : TupleType(v : Collection(String)) =
+	Map {(1, Tuple {v = Sequence {'1'}})}.a(1);
+
+-- SuperExp unsupported
+helper def: test6 : String =
+	super.test6;
+
+-- thisModule unsupported
+helper def: test7 : String =
+	thisModule;
+
+-- should not be able to unify the argument
+helper def: test8 : String =
+	Map {(1, '1')}.get('1');
+
+-- "Imperative" OCL extensions
+helper def: test9 : String =
+	1.__then().__block().__loop().__until().refRemoveAt().refRemoveAt('test');
+
+helper def: test10 : String =
+	true + false;
+
+rule A {
+	from
+		s : ATL!OclExpression
+	to
+		t : ATL!IfExp (
+			then <- 1,
+			thenExpression <- 1
+		)
+}

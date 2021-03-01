@@ -1,0 +1,42 @@
+<use id="arc12"
+xlink:href="#arc"
+>
+    <param name="source" value="node1"/>
+    <param name="target" value="node2"/>
+</use>
+
+<use id="arc13"
+xlink:href="#arc"
+>
+    <param name="source" value="node1"/>
+    <param name="target" value="node3"/>
+</use>
+
+<use id="arc23"
+xlink:href="#arc"
+>
+    <param name="source" value="node2"/>
+    <param name="target" value="node3"/>
+</use>
+
+<use id="node1"
+xlink:href="#node"
+xinit="100"
+yinit="100"
+>
+    <param name="label" value="node1"/>
+</use>
+<use id="node2"
+xlink:href="#node"
+xinit="150"
+yinit="100"
+>
+    <param name="label" value="node2"/>
+</use>
+<use id="node3"
+xlink:href="#node"
+xinit="150"
+yinit="150"
+>
+    <param name="label" value="node3"/>
+</use>

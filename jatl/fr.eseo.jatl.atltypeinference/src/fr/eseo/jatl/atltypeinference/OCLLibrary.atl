@@ -1,0 +1,277 @@
+-- This library is only used by ATLTypeInference for typing
+-- It does not itself type, but this is irrelevant
+-- ATL also reports many duplicate helpers because it does not distinguish them by signature, but just by name
+library OCLLibrary;
+
+-- MISC (should not be here)
+helper context OclAny def: isAssignableFrom(o : OclAny) : Boolean =
+	'only for typing';
+
+-- OclType
+helper context OclType def: name : String =
+	-- TODO: only on model elements?
+	'only for typing';
+
+-- OclAny
+helper context OclAny def: refImmediateComposite() : OclAny =
+	-- TODO: only on model elements?
+	'only for typing';
+
+helper context OclAny def: toString() : String =
+	'only for typing';
+
+helper context OclAny def: oclType() : OclType =
+	'only for typing';
+
+helper context OclAny def: "="(o : OclAny) : Boolean =
+	'only for typing';
+
+helper context OclAny def: "<>"(o : OclAny) : Boolean =
+	'only for typing';
+
+helper context OclAny def: oclIsKindOf(o : OclType) : Boolean =
+	'only for typing';
+
+helper context OclAny def: oclIsTypeOf(o : OclType) : Boolean =
+	'only for typing';
+
+helper context OclAny def: oclIsUndefined() : Boolean =
+	'only for typing';
+
+-- TODO: check if we can use this instead of ATLTypeInferenceToEcore's hardcoded version
+--helper context OclAny def: oclIsUndefined() : Boolean =
+--	'only for typing';
+
+
+-- TODO: implement Integer extends Real like in OCL standard?
+--		This would significantly reduce the number of required signatures
+-- Integer operations
+helper context Integer def: "-"() : Integer =
+	'only for typing';
+
+helper context Integer def: "-"(o : Integer) : Integer =
+	'only for typing';
+
+helper context Integer def: "+"(o : Integer) : Integer =
+	'only for typing';
+
+helper context Integer def: "*"(o : Integer) : Integer =
+	'only for typing';
+
+helper context Integer def: "/"(o : Integer) : Real =
+	'only for typing';
+
+helper context Integer def: ">="(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Integer def: ">"(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Integer def: "<="(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Integer def: "<"(o : Integer) : Boolean =
+	'only for typing';
+
+
+helper context Integer def: "-"(o : Real) : Real =
+	'only for typing';
+
+helper context Integer def: "+"(o : Real) : Real =
+	'only for typing';
+
+helper context Integer def: "*"(o : Real) : Real =
+	'only for typing';
+
+helper context Integer def: "/"(o : Real) : Real =
+	'only for typing';
+
+helper context Integer def: ">="(o : Real) : Boolean =
+	'only for typing';
+
+helper context Integer def: ">"(o : Real) : Boolean =
+	'only for typing';
+
+helper context Integer def: "<="(o : Real) : Boolean =
+	'only for typing';
+
+helper context Integer def: "<"(o : Real) : Boolean =
+	'only for typing';
+
+
+
+-- Real operations
+helper context Real def: "-"() : Real =
+	'only for typing';
+
+helper context Real def: "-"(o : Real) : Real =
+	'only for typing';
+
+helper context Real def: "+"(o : Real) : Real =
+	'only for typing';
+
+helper context Real def: "*"(o : Real) : Real =
+	'only for typing';
+
+helper context Real def: "/"(o : Real) : Real =
+	'only for typing';
+
+helper context Real def: ">="(o : Real) : Boolean =
+	'only for typing';
+
+helper context Real def: ">"(o : Real) : Boolean =
+	'only for typing';
+
+helper context Real def: "<="(o : Real) : Boolean =
+	'only for typing';
+
+helper context Real def: "<"(o : Real) : Boolean =
+	'only for typing';
+
+helper context Real def: sin() : Real =
+	'only for typing';
+
+helper context Real def: cos() : Real =
+	'only for typing';
+
+helper context Real def: tan() : Real =
+	'only for typing';
+
+helper context Real def: atan2(o : Real) : Real =
+	'only for typing';
+
+
+helper context Real def: "-"(o : Integer) : Real =
+	'only for typing';
+
+helper context Real def: "+"(o : Integer) : Real =
+	'only for typing';
+
+helper context Real def: "*"(o : Integer) : Real =
+	'only for typing';
+
+helper context Real def: "/"(o : Integer) : Real =
+	'only for typing';
+
+helper context Real def: ">="(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Real def: ">"(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Real def: "<="(o : Integer) : Boolean =
+	'only for typing';
+
+helper context Real def: "<"(o : Integer) : Boolean =
+	'only for typing';
+
+
+
+-- Collections
+helper context Collection(TP!E) def: asOrderedSet() : OrderedSet(TP!E) =
+	'only for typing';
+
+helper context Collection(TP!E) def: asSet() : Set(TP!E) =
+	'only for typing';
+
+-- TODO: common supertype
+helper context Collection(TP!E) def: concat(o : Collection(TP!E)) : Collection(TP!E) =
+	'only for typing';
+
+-- TODO: only for sequences
+helper context Collection(TP!E) def: subSequence(lower : Integer, upper : Integer) : Collection(TP!E) =
+	'only for typing';
+
+-- TODO: only on ordered collections
+helper context Collection(TP!E) def: reverse() : Collection(TP!E) =
+	'only for typing';
+
+-- TODO: only on ordered collections
+helper context Collection(TP!E) def: prepend(e : TP!E) : Collection(TP!E) =
+	'only for typing';
+
+-- only if there is a + operation on TP!E
+helper context Collection(TP!E) def: sum() : TP!E =
+	'only for typing';
+
+helper context Collection(TP!E) def: first() : TP!E =
+--helper context Collection(OclAny) def: first() : OclAny =
+	'only for typing';
+
+helper context Collection(TP!E) def: last() : TP!E =
+	'only for typing';
+
+helper context Collection(TP!E) def: includes(o : TP!E) : Boolean =
+	'only for typing';
+
+helper context Collection(TP!E) def: indexOf(o : TP!E) : Integer =
+	'only for typing';
+
+helper context Collection(TP!E) def: notEmpty() : Boolean =
+	'only for typing';
+
+helper context Collection(TP!E) def: isEmpty() : Boolean =
+	'only for typing';
+
+helper context Collection(TP!E) def: size() : Integer =
+	'only for typing';
+
+helper context Collection(TP!E) def: get(i : Integer) : TP!E =
+--helper context Collection(OclAny) def: get(i : Integer) : OclAny =
+	'only for typing';
+
+helper context Collection(TP!E) def: union(k : Collection(TP!E)) : Collection(TP!E) =
+	'only for typing';
+
+
+-- Maps
+helper context Map(TP!K, TP!V) def: get(k : TP!K) : TP!V =
+--helper context Map(OclAny, OclAny) def: get(k : OclAny) : OclAny =
+	'only for typing';
+
+helper context Map(TP!K, TP!V) def: containsKey(k : TP!K) : Boolean =
+--helper context Map(OclAny, OclAny) def: get(k : OclAny) : OclAny =
+	'only for typing';
+
+helper context Map(TP!K, TP!V) def: getKeys() : Set(TP!K) =
+--helper context Map(OclAny, OclAny) def: get(k : OclAny) : OclAny =
+	'only for typing';
+
+helper context Map(TP!K, TP!V) def: union(k : Map(TP!K, TP!V)) : Map(TP!K, TP!V) =
+	'only for typing';
+
+
+-- Strings
+helper context String def: size() : Integer =
+	'only for typing';
+
+helper context String def: toInteger() : Integer =
+	'only for typing';
+
+helper context String def: "+"(o : String) : String =
+	'only for typing';
+
+
+-- Booleans
+helper context Boolean def: "not"() : Boolean =
+	'only for typing';
+
+helper context Boolean def: "and"(o : Boolean) : Boolean =
+	'only for typing';
+
+helper context Boolean def: "or"(o : Boolean) : Boolean =
+	'only for typing';
+
+helper context Boolean def: "implies"(o : Boolean) : Boolean =
+	'only for typing';
+
+-- EMF
+-- TODO: better types
+--helper context Ecore!EObject def: eResource() : Ecore!EResource =
+helper context Ecore!EObject def: eResource() : OclAny =
+--helper context OclAny def: eResource() : OclAny =
+	'only for typing';
+
+-- TODO: better types
+helper context OclAny def: getURI() : String =
+	'only for typing';

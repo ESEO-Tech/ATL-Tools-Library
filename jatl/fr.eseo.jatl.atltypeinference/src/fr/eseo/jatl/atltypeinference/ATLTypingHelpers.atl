@@ -1,0 +1,28 @@
+-- @atlcompiler emftvm
+library ATLTypingHelpers;
+
+helper context OclAny def: feature: ATL!OclFeature =
+	if self.refImmediateComposite().oclIsKindOf(ATL!OclFeature) then
+		self.refImmediateComposite().oclAsType(ATL!OclFeature)
+	else
+		self.refImmediateComposite().oclAsType(OclAny).feature
+	endif;
+
+helper context ATL!OclFeature def: contextType : ATL!"OclType" =
+	let c : ATL!OclContextDefinition = self.definition.context_ in
+	if c.oclIsUndefined() then
+		OclUndefined
+	else
+		c.context_
+	endif;
+
+helper context ATL!VariableDeclaration def: shouldInfer : Boolean =
+	if self.type.oclIsKindOf(ATL!OclModelElement) then
+		if self.type.oclAsType(ATL!OclModelElement).model.name = 'INFER' then
+			true
+		else
+			false
+		endif
+	else
+		false
+	endif;

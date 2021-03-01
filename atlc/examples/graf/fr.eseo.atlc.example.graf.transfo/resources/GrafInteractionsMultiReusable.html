@@ -1,0 +1,186 @@
+<script>
+/*
+	This model
+		- assumes that click & press events are broadcast to all active objects.
+		- lacks coordination between interactor active objects
+
+		- requires improvements to AnimUML
+			- support for class-defined state machines
+				- DONE as part of model definition
+				- TODO displayed in class diagram
+				- TODO in AnimUMLEngine
+			- fixing default value display
+				- to avoid seeing things like:
+					- actionKey = "\"e\""
+				- but instead:
+					- actionKey = "e"
+*/
+const model = {
+    name: 'GrafInteractionMultiReusable',
+    classes: `
+	class KeyInteractor {
+		executeAction()
+		key : Key
+		actionKey : Key
+		behavior {
+			state choice0 <<choice>>
+
+			[*] --> Waiting
+
+			Waiting --> choice0 : press(k)/this.key = k;
+			choice0 --> Waiting : [this.key == this.actionKey]/this.executeAction();
+			choice0 --> Waiting : [else]
+		}
+	}
+	class SelectKeyInteractor {
+		executeAction()
+		key : Key
+		actionKey : Key
+		first : Element
+		behavior {
+			state choice0 <<choice>>
+
+			[*] --> Waiting
+
+			Waiting --> SelectedOne : click(element)/this.first = element;
+			SelectedOne --> choice0 : press(k)/this.key = k;
+			choice0 --> Waiting : [this.key == this.actionKey]/this.executeAction();
+			choice0 --> Waiting : [else]
+		}
+	}
+	class Select2KeyInteractor {
+		executeAction()
+		key : Key
+		actionKey : Key
+		first : Element
+		second : Element
+		behavior {
+			state choice0 <<choice>>
+
+			[*] --> Waiting
+
+			Waiting --> SelectedOne : click(element)/this.first = element;
+			SelectedOne --> SelectedTwo : click(element)/this.second = element;
+
+
+			SelectedTwo --> choice0 : press(k)/this.key = k;
+			choice0 --> Waiting : [this.key == this.actionKey]/this.executeAction();
+			choice0 --> Waiting : [else]
+
+			SelectedTwo : click(element)/this.second = this.first;\\nthis.first = element;
+		}
+	}
+    `,
+    objects: [
+        {
+            name: 'createNodeInteractor',
+	    class: "KeyInteractor",
+	    features: `
+		executeAction() {
+			actions.addNode();
+		}
+		actionKey = "n"
+	    `,
+	},
+	{
+            name: 'deleteInteractor',
+	    class: "SelectKeyInteractor",
+	    features: `
+		executeAction() {
+			actions.remove(this.first);
+		}
+		actionKey = "d"
+	    `,
+	},
+	{
+            name: 'incInteractor',
+	    class: "SelectKeyInteractor",
+	    features: `
+		executeAction() {
+			actions.increment(this.first);
+		}
+		actionKey = "i"
+	    `,
+	},
+	{
+            name: 'createEdgeInteractor',
+	    class: "Select2KeyInteractor",
+	    features: `
+		executeAction() {
+			actions.addEdge(this.first, this.second);
+		}
+		actionKey = 'e'
+	    `,
+        },
+    ],
+    connectorByName: {
+    },
+    watchExpressions: {
+    },
+    LTLProperties: {
+    },
+    settings: {
+        display: {
+            // these settings are described in the "display" menu of the user interface where they appear in the same order
+
+            hideLinks: false,
+
+            // structural diagram
+            hideClasses: false,
+            hideOperations: false,
+            hideMethods: false,
+            showPorts: false,
+            showEndNames: false,
+
+            // state diagram
+            hideStateMachines: false,
+            hideOuterSMBoxes: false,
+            showExplicitSM: false,
+
+            // history/trace interaction diagram
+            hideStates: false,
+            showPseudostateInvariants: false,
+            hideSets: false,
+            showTransitions: false,
+        },
+        semantics: {
+            // these settings are described in the "semantics" menu of the user interface where they appear in the same order
+
+            fireInitialTransitions: true,
+            autoFireAfterChoice: true,
+            autoReceiveDisabled: false,
+            considerGuardsTrue: false,
+            checkEvents: true,
+            keepOneMessagePerTrigger: true,
+            enableEventPools: true,
+            matchFirst: true,
+            symbolicValues: false,
+            reactiveSystem: true,
+        },
+        interface: {
+            hideEmptyHistory: false,
+            disableInteractionSelection: false,
+            disableModelSelection: false,
+            disableObjectSelection: false,
+            disableDoc: false,
+            disableSettings: false,
+            disableHistorySettings: false,
+            disableReset: false,
+            disableSwitchDiagram: false,
+            onlyInteraction: false,
+            hideInteraction: false,
+            disableExports: false,
+            hideHistory: false,
+            disableEdit: false,
+            historyType: "TCSVG sequence",
+            interaction: undefined,
+//            styleMode: "dark",
+//            displayedObjects: [],
+        },
+    },
+};
+const jsonModel = encodeURIComponent(JSON.stringify(model)).replace(/'/g, "%27");
+document.write(`
+    <iframe width="100%" height="100%" src='http://localhost:8082/AnimUML.html#${jsonModel}'></iframe>
+`);
+</script>

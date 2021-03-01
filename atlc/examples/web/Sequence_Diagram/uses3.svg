@@ -1,0 +1,91 @@
+<use id="button" xlink:href="#actor" x="100" y="0">
+  <param name="name" value="button : Button"/>
+ </use>
+ <use id="lamp" xlink:href="#object" after="button">
+  <param name="name" value="lamp : Lamp"/>
+ </use>
+ <use id="bulb" xlink:href="#object" after="lamp">
+  <param name="name" value="bulb : Bulb"/>
+ </use>
+ 
+ 
+ <use id="msg[0]"
+  xlink:href="#invariant"
+ >
+  <param name="on" value="button"/>
+  <param name="invariant" value="Waiting"/>
+  <param name="link" value="javascript:backTo(1);"/>
+ </use>
+ <use id="msg[1]"
+  xlink:href="#invariant"
+  after="msg[0]"
+ >
+  <param name="on" value="lamp"/>
+  <param name="invariant" value="Off"/>
+  <param name="link" value="javascript:backTo(2);"/>
+ </use>
+ <use id="msg[2]"
+  xlink:href="#call"
+  after="msg[1]"
+ >
+  <param name="on" value="button"/>
+ </use>
+ <use id="msg[3]"
+  xlink:href="#accept"
+  after="msg[2]"
+  call="msg[2]"
+ >
+  <param name="on" value="lamp"/>
+  <param name="signature" value="onButton()"/>
+ </use>
+ <use id="msg[4]"
+  xlink:href="#call"
+  after="msg[3]"
+ >
+  <param name="on" value="lamp"/>
+ </use>
+ <use id="msg[5]"
+  xlink:href="#invariant"
+  after="msg[4]"
+ >
+  <param name="on" value="lamp"/>
+  <param name="invariant" value="On"/>
+  <param name="link" value="javascript:backTo(4);"/>
+ </use>
+ <use id="msg[6]"
+  xlink:href="#accept"
+  after="msg[5]"
+  call="msg[4]"
+ >
+  <param name="on" value="bulb"/>
+  <param name="signature" value="turnOn()"/>
+ </use>
+ <use id="msg[7]"
+  xlink:href="#after"
+  after="msg[6]"
+ >
+  <param name="on" value="button,lamp,bulb"/>
+  <param name="signature" value="after(10min)"/>
+ </use>
+ <use id="msg[8]"
+  xlink:href="#call"
+  after="msg[7]"
+ >
+  <param name="on" value="lamp"/>
+ </use>
+ <use id="msg[9]"
+  xlink:href="#invariant"
+  after="msg[8]"
+ >
+  <param name="on" value="lamp"/>
+  <param name="invariant" value="Off"/>
+  <param name="link" value="javascript:backTo(6);"/>
+ </use>
+ <use id="msg[10]"
+  xlink:href="#accept"
+  after="msg[9]"
+  call="msg[8]"
+ >
+  <param name="on" value="bulb"/>
+  <param name="signature" value="turnOff()"/>
+ </use>

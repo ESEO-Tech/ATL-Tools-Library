@@ -1,0 +1,52 @@
+-- @nsURI ATL=http://www.eclipse.org/gmt/2005/ATL
+library TestCases;
+
+helper def: test0 : Integer =
+	if true then
+		1
+	else
+		'test'.size()
+	endif;
+
+helper def: test1 : Integer =
+	1 + 2;
+
+helper def: test2 : Integer =
+	if true then
+		1
+	else
+		'test'.size()
+	endif * 2;
+
+helper context ATL!Attribute def: test3 : String =
+	if self.initExpression.oclIsKindOf(ATL!StringExp) then
+		self.initExpression.oclAsType(ATL!StringExp).stringSymbol
+	else
+		'NOT FOUND'
+	endif;
+
+helper context Ecore!EPackage def: test4 : OrderedSet(Ecore!EClassifier) =
+	let a : OrderedSet(Ecore!EClassifier) = self.eClassifiers in
+	a;
+
+helper context Ecore!EPackage def: test5 : OrderedSet(Ecore!EClassifier) =
+	let a : INFER!TYPE = self.eClassifiers in
+	a;
+
+helper context String def: test6 : Integer =
+	Tuple {
+		s = 1
+	}.s;
+
+helper context Collection(TupleType(name : String, value : Integer)) def: find1(name : String) : Integer =
+	self.debug('SHOWTYPE')->get(1).debug('SHOWTYPE').value.debug('SHOWTYPE');
+
+-- TODO: allow INFER!TYPE as helper return type
+--helper context Collection(TupleType(name : String, value : TP!A)) def: find(name : String) : INFER!TYPE =
+-- TODO: actually check return type variables? but that would be hard given that we drop the information
+-- It currently works because the return TP!A is transformed into OclAny 
+helper context Collection(TupleType(name : String, value : TP!A)) def: find2(name : String) : TP!A =
+	self->any(e | e.name = name).value;
+
+helper def: testFind2 : Boolean =
+	Sequence {Tuple {name = 'name', value = true}}.find2('');

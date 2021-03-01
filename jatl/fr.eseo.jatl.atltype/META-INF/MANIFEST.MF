@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: fr.eseo.jatl.atltype;singleton:=true
+Automatic-Module-Name: fr.eseo.jatl.atltype
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: fr.eseo.jatl.ATLType,
+ fr.eseo.jatl.ATLType.impl,
+ fr.eseo.jatl.ATLType.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.m2m.atl.common;bundle-version="4.1.0"
+Bundle-ActivationPolicy: lazy

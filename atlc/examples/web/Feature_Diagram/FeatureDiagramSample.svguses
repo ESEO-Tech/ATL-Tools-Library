@@ -1,0 +1,102 @@
+<!-- Sample model (inspired from https://en.wikipedia.org/wiki/Feature_model#/media/File:E-shopFM.jpg)
+
+"E-Shop" {
+	mandatory Catalogue
+
+	mandatory Payment {
+		or {
+			"Bank transfer"
+			"Credit card"
+		}
+	}
+	mandatory Security {
+		xor {
+			High
+			Standard
+			High
+		}
+	}
+
+	optional Search
+}
+
+-->
+		<use id="E-ShopCatalogue" xlink:href="#Arc" parent="E-Shop" child="Catalogue" r="5">
+			<param name="label" value="none"/>
+			<param name="circleStroke" value="black"/>
+			<param name="circleFill" value="black"/>
+		</use>
+		<use id="E-ShopPayment" xlink:href="#Arc" parent="E-Shop" child="Payment" r="5">
+			<param name="label" value="none"/>
+			<param name="circleStroke" value="black"/>
+			<param name="circleFill" value="black"/>
+		</use>
+			<use id="PaymentBankTransfer" xlink:href="#Arc" parent="Payment" child="BankTransfer">
+				<param name="label" value="none"/>
+			</use>
+			<use id="PaymentCreditCard" xlink:href="#Arc" parent="Payment" child="CreditCard">
+				<param name="label" value="none"/>
+			</use>
+		<use id="E-ShopSecurity" xlink:href="#Arc" parent="E-Shop" child="Security" r="5">
+			<param name="label" value="none"/>
+			<param name="circleStroke" value="black"/>
+			<param name="circleFill" value="black"/>
+		</use>
+			<use id="SecurityLow" xlink:href="#Arc" parent="Security" child="Low">
+				<param name="label" value="none"/>
+			</use>
+			<use id="SecurityHigh" xlink:href="#Arc" parent="Security" child="High">
+				<param name="label" value="none"/>
+			</use>
+			<use id="SecurityStandard" xlink:href="#Arc" parent="Security" child="Standard">
+				<param name="label" value="none"/>
+			</use>
+		<use id="E-ShopSearch" xlink:href="#Arc" parent="E-Shop" child="Search" r="5">
+			<param name="label" value="none"/>
+			<param name="circleStroke" value="black"/>
+			<param name="circleFill" value="none"/>
+		</use>
+
+	<use id="E-Shop" xlink:href="#Feature">
+		<param name="label" value="E-Shop"/>
+	</use>
+		<use id="E-ShopAlt" xlink:href="#Alternative" arcs="E-ShopCatalogue,E-ShopPayment,E-ShopSecurity,E-ShopSearch">
+			<param name="label" value="none"/>
+			<param name="fill" value="none"/>
+			<param name="stroke" value="none"/>
+		</use>
+			<use id="Catalogue" xlink:href="#Feature">
+				<param name="label" value="Catalogue"/>
+			</use>
+			<use id="Payment" xlink:href="#Feature">
+				<param name="label" value="Payment"/>
+			</use>
+				<use id="PaymentAlt" xlink:href="#Alternative" arcs="PaymentBankTransfer,PaymentCreditCard">
+					<param name="label" value="PaymentAlt"/>
+				</use>
+					<use id="BankTransfer" xlink:href="#Feature">
+						<param name="label" value="Bank transfer"/>
+					</use>
+					<use id="CreditCard" xlink:href="#Feature">
+						<param name="label" value="Credit card"/>
+					</use>
+			<use id="Security" xlink:href="#Feature">
+				<param name="label" value="Security"/>
+			</use>
+				<use id="SecurityAlt" xlink:href="#Alternative" arcs="SecurityHigh,SecurityStandard,SecurityLow">
+					<param name="label" value="SecurityAlt"/>
+					<param name="fill" value="white"/>
+					<param name="stroke" value="black"/>
+				</use>
+					<use id="Low" xlink:href="#Feature">
+						<param name="label" value="Low"/>
+					</use>
+					<use id="High" xlink:href="#Feature">
+						<param name="label" value="High"/>
+					</use>
+					<use id="Standard" xlink:href="#Feature">
+						<param name="label" value="Standard"/>
+					</use>
+			<use id="Search" xlink:href="#Feature">
+				<param name="label" value="Search"/>
+			</use>

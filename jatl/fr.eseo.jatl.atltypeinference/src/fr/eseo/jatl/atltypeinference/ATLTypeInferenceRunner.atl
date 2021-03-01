@@ -1,0 +1,22 @@
+-- @atlcompiler emftvm
+module ATLTypeInferenceRunner;
+create OUT : ATL refining IN : ATL, OCLLibrary : ATL, MMS : Ecore;
+
+-- this file seems to be necessary for EMFTVM, which will apparently not automatically
+-- evaluate thisModule.check
+
+-- But anyway, EMFTVM does not support allInstancesFrom(<metamodel name>)
+
+uses ATLTypeInference;
+
+helper def: test : String =
+	'test'.debug();	-- not called, like ATLTypeInference.check
+
+rule Unit {
+	from
+		s : ATL!Unit (
+			thisModule.check.debug().oclIsUndefined()
+		)
+	to
+		t : ATL!Unit
+}

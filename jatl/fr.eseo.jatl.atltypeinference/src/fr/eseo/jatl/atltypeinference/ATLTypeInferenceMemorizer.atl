@@ -1,0 +1,159 @@
+-- @atlcompiler emftvm
+-- ATL Type Inference by Frédéric Jouault
+-- @nsURI ATL=http://www.eclipse.org/gmt/2005/OCL
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+module ATLTypeInferenceMemorizer;
+create OUT : ATL refining IN : ATL, OCLLibrary : ATL;	-- + source & target metamodels
+
+uses ATLTypeInference;
+
+rule OclExpression {
+	from
+		s : ATL!OclExpression
+--		(
+--			not self.inferredType
+--		)
+	to
+		t : ATL!OclExpression (
+			type <- thisModule.ToOCL(s.inferredType).t
+		)
+}
+
+lazy abstract rule ToOCL {
+	from
+		s : OclAny
+	to
+		t : ATL!"OclType"
+}
+
+lazy rule Collections extends ToOCL {
+	from
+		s : TupleType(ttype : String) (
+			s.ttype = 'Collection'
+		)
+	to
+		t : ATL!CollectionType (
+			elementType <- thisModule.ToOCL(s.elementType).t
+		)
+}
+
+lazy rule Maps extends ToOCL {
+	from
+		s : TupleType(ttype : String) (
+			s.ttype = 'Map'
+		)
+	to
+		t : ATL!MapType (
+			keyType <- thisModule.ToOCL(s.keyType).t,
+			valueType <- thisModule.ToOCL(s.valueType).t
+		)
+}
+
+lazy rule Tuples extends ToOCL {
+	from
+		s : TupleType(ttype : String) (
+			s.ttype = 'Tuple'
+		)
+	to
+		t : ATL!"TupleType" (
+			attributes <- s.navigableProperties->collect(e | thisModule.TupleAttribute(e).t)
+		)
+}
+
+lazy rule Enums extends ToOCL {
+	from
+		s : TupleType(ttype : String) (
+			s.ttype = 'Enum'
+		)
+	to
+		-- there is no way to represent this type correctly
+		t : ATL!OclAnyType
+}
+
+lazy rule TupleAttribute {
+	from
+		s : TupleType(name : String, type : OclAny)
+	to
+		t : ATL!TupleTypeAttribute (
+			name <- s.name,
+			type <- thisModule.ToOCL(s.type).t
+		)
+}
+
+lazy rule EClasses extends ToOCL {
+	from
+		s : Ecore!EClass
+	to
+		t : ATL!OclModelElement (
+			name <- s.name,
+			model <- thisModule.Metamodel(s.ePackage().name).t
+		)
+}
+
+unique lazy rule Metamodel {
+	from
+		s : String
+	to
+		t : ATL!OclModel (
+			name <- s
+		)
+}
+
+lazy rule Booleans extends ToOCL {
+	from
+		s : Ecore!EDataType (
+				s.instanceClassName = 'java.lang.Boolean'
+			or
+				s.instanceClassName = 'boolean'
+		)
+	to
+		t : ATL!BooleanType
+}
+
+lazy rule Integers extends ToOCL {
+	from
+		s : Ecore!EDataType (
+				s.instanceClassName = 'java.lang.Integer'
+			or
+				s.instanceClassName = 'int'
+		)
+	to
+		t : ATL!IntegerType
+}
+
+lazy rule Reals extends ToOCL {
+	from
+		s : Ecore!EDataType (
+				s.instanceClassName = 'java.lang.Double'
+			or
+				s.instanceClassName = 'double'
+		)
+	to
+		t : ATL!RealType
+}
+
+lazy rule Strings extends ToOCL {
+	from
+		s : Ecore!EDataType (
+			s.instanceClassName = 'java.lang.String'
+		)
+	to
+		t : ATL!StringType
+}
+
+lazy rule EEnums extends ToOCL {
+	from
+		s : Ecore!EEnum
+	to
+		t : ATL!OclModelElement (
+			name <- s.name,
+			model <- thisModule.Metamodel(s.ePackage().name).t
+		)
+}
+
+lazy rule OclTypes extends ToOCL {
+	from
+		s : OclType
+	to
+		t : ATL!"OclType"
+}

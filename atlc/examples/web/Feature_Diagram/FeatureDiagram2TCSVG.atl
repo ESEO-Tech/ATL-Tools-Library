@@ -1,0 +1,140 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+module FeatureDiagram2TCSVG;
+create OUT : SVG, constraints : Constraints from IN : FeatureDiagram;
+
+helper def: MARGIN : INFER!TYPE = 20;
+helper def: VERTICAL_SEPARATION : INFER!TYPE = 50;
+helper def: HORIZONTAL_SEPARATION : INFER!TYPE = 50;
+
+unique lazy rule Feature {
+	from
+		s : FeatureDiagram!Feature
+	to
+		t: SVG!Group (
+			class <- 'feature',
+			movable <- 'outline',
+			content <- '
+				<rect id=".box" fill="none" stroke="none"/>
+				<rect id=".outline" fill="white" stroke="black"/>
+				<text id=".label" pointer-events="none">${s.label}</text>
+			'
+		),
+		cstr: Constraints!ExpressionGroup (
+			constraints <- 
+					outline.width = label.width + thisModule.MARGIN
+				and
+					outline.height = label.height + thisModule.MARGIN
+				and
+					outline.center = label.center
+				and
+					outline.topLeft.stay('medium')
+				and
+					box.mustContain(outline)
+				and
+					box.center.x = outline.center.x
+				and
+					box.width = 0	-- strong
+				and
+					box.height = 0	-- strong
+				and
+					box.x >= 0
+				and
+					box.y >= 0
+		)
+}
+
+unique lazy rule Arc {
+	from
+		s: FeatureDiagram!Arc
+	to
+		t: SVG!Group (
+			class <- 'arc',
+			content <- '
+				<line id=".line" stroke="black"/>
+				<circle id=".circle" stroke="${s.circleStroke}" fill="${s.circleFill}"/>
+			'
+		),
+		cstr: Constraints!ExpressionGroup (
+			constraints <- 
+				let r : INFER!TYPE = if s.r.oclIsUndefined() then 0 else s.r.toInteger() endif in
+				let parent : INFER!TYPE = thisModule.Feature(s.parent) in
+				let child : INFER!TYPE = thisModule.Feature(s.child) in
+					line.p1 = parent.outline.bottom.center
+				and
+					line.p2 = circle.top
+				and
+					circle.bottom = child.outline.top.center
+				and
+					circle.r = r
+				and
+					parent.box.mustContain(child.outline)
+				and
+					child.outline.y = parent.outline.bottomRight.y + thisModule.VERTICAL_SEPARATION
+		)
+}
+
+unique lazy rule Alternative {
+	from
+		s: FeatureDiagram!Alternative
+	to
+		t: SVG!Group (
+			class <- 'arc',
+			content <- '
+				<clipPath id=".clipPath">
+					<polygon id=".poly" fill="pink" stroke="red" fill-rule="nonzero" opacity="30%"/>
+				</clipPath>
+				<circle id=".outline" fill="${s.fill}" stroke="${s.stroke}" clip-path="url(#%this%.clipPath)"/>
+			'
+		),
+		cstr: Constraints!ExpressionGroup (
+			constraints <- 
+				-- WONTFIX: support more than two arcs whatever the child order (e.g., by using min and max points) => seems impossible + finally we enforce ordering anyway
+
+				let parent : INFER!TYPE = thisModule.Feature(s.arcs->first().parent) in
+				let firstChild : INFER!TYPE = thisModule.Feature(s.arcs->first().child) in
+				let lastChild : INFER!TYPE = thisModule.Feature(s.arcs->last().child) in
+
+					outline.center = parent.outline.bottom.center
+				and
+					outline.r = parent.outline.height
+				and
+					poly.pointEq(0, parent.outline.bottom.center)
+				and
+					poly.pointEq(1, firstChild.outline.top.center)
+				and
+					poly.pointEq(2, lastChild.outline.top.center)
+				and
+					firstChild.outline.x = parent.box.x
+				and
+					lastChild.outline.topRight.x = parent.box.topRight.x
+				and (
+					let childArcs : INFER!TYPE =	s.arcs->collect(arc |
+										thisModule.Feature(arc.child)
+									)
+					in
+					Tuple {
+						left = childArcs,
+						right = childArcs->subSequence(2, childArcs->size())
+					}->zipWith(cur, next |
+							cur.box.topRight.x + thisModule.HORIZONTAL_SEPARATION
+						=
+							next.box.x
+					)->forAll(e | e)
+				)
+		)
+}
+

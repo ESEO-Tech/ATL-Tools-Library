@@ -1,0 +1,250 @@
+<use id="participant.speaker" xlink:href="#object" x="100" y="0">
+<param name="name" value="speaker : Speaker"/>
+</use>
+
+<use id="participant.interpret" xlink:href="#object" after="participant.speaker">
+<param name="name" value="interpret : Interpret"/>
+</use>
+
+<use id="participant.lcd" xlink:href="#object" after="participant.interpret">
+<param name="name" value="lcd : LCD"/>
+</use>
+
+
+
+<use id="event[0]"
+xlink:href="#found"
+
+
+leftmost="participant.speaker"
+>
+<param name="on" value="participant.speaker"/>
+<param name="signature" value="showScreen(IDScreen)"/>
+<param name="circle" value="none"/>
+
+</use>
+
+
+<use id="event[1]"
+xlink:href="#fragment"
+after="event[0]"
+
+>
+<param name="on" value="participant.speaker,participant.interpret,participant.lcd"/>
+<param name="label" value="loop"/>
+<param name="condition" value="[Prend les informations à afficher pour l'écran(IDScreen)]"/>
+
+</use>
+
+<use id="event[1.0]"
+xlink:href="#call" 
+
+parent="event[1]"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.1]"
+xlink:href="#selfaccept"
+after="event[1.0]"
+call="event[1.0]"
+parent="event[1]"
+>
+<param name="on" value="participant.speaker"/>
+<param name="signature" value="Prendre informations pour la ieme ligne()"/>
+
+</use>
+
+
+<use id="event[1.2]"
+xlink:href="#fragment"
+after="event[1.1]"
+parent="event[1]"
+>
+<param name="on" value="participant.speaker,participant.interpret"/>
+<param name="label" value="loop"/>
+<param name="condition" value="[Pour chaque ligne, parcours les différents éléments (box) à afficher]"/>
+
+</use>
+
+<use id="event[1.2.0]"
+xlink:href="#fragment"
+
+parent="event[1.2]"
+>
+<param name="on" value="participant.speaker,participant.interpret"/>
+<param name="label" value="alt"/>
+<param name="condition" value=" "/>
+</use>
+
+<use id="1.2.0.0"
+xlink:href="#compartment"
+
+parent="event[1.2.0]"
+>
+<param name="condition" value="box.typeBox == Message à afficher"/>
+</use>
+
+<use id="event[1.2.0.0.0]"
+xlink:href="#call" 
+
+parent="1.2.0.0"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.2.0.0.1]"
+xlink:href="#accept"
+after="event[1.2.0.0.0]"
+call="event[1.2.0.0.0]"
+parent="1.2.0.0"
+>
+<param name="on" value="participant.interpret"/>
+<param name="signature" value="getMsg(currentLine,box.msg)"/>
+
+</use>
+
+
+<use id="event[1.2.0.0.2]"
+xlink:href="#direct"
+after="event[1.2.0.0.1]"
+parent="1.2.0.0"
+from="participant.interpret"
+to="participant.speaker"
+class="dashed"
+>
+<param name="signature" value="string"/>
+
+</use>
+
+
+
+<use id="1.2.0.1"
+xlink:href="#compartment"
+after="1.2.0.0"
+parent="event[1.2.0]"
+>
+<param name="condition" value="box.typeBox == Symbole à afficher"/>
+</use>
+
+<use id="event[1.2.0.1.0]"
+xlink:href="#call" 
+
+parent="1.2.0.1"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.2.0.1.1]"
+xlink:href="#accept"
+after="event[1.2.0.1.0]"
+call="event[1.2.0.1.0]"
+parent="1.2.0.1"
+>
+<param name="on" value="participant.interpret"/>
+<param name="signature" value="getSymbol(box.symb)"/>
+
+</use>
+
+
+<use id="event[1.2.0.1.2]"
+xlink:href="#direct"
+after="event[1.2.0.1.1]"
+parent="1.2.0.1"
+from="participant.interpret"
+to="participant.speaker"
+class="dashed"
+>
+<param name="signature" value="string"/>
+
+</use>
+
+
+
+<use id="1.2.0.2"
+xlink:href="#compartment"
+after="1.2.0.1"
+parent="event[1.2.0]"
+>
+<param name="condition" value="box.typeBox == Valeur a afficher"/>
+</use>
+
+<use id="event[1.2.0.2.0]"
+xlink:href="#call" 
+
+parent="1.2.0.2"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.2.0.2.1]"
+xlink:href="#selfaccept"
+after="event[1.2.0.2.0]"
+call="event[1.2.0.2.0]"
+parent="1.2.0.2"
+>
+<param name="on" value="participant.speaker"/>
+<param name="signature" value="translateIndex(box.id)"/>
+
+</use>
+
+
+
+
+<use id="event[1.2.1]"
+xlink:href="#call" 
+after="event[1.2.0]"
+parent="event[1.2]"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.2.2]"
+xlink:href="#selfaccept"
+after="event[1.2.1]"
+call="event[1.2.1]"
+parent="event[1.2]"
+>
+<param name="on" value="participant.speaker"/>
+<param name="signature" value="fabrique la ligne à afficher(string)"/>
+
+</use>
+
+
+
+<use id="event[1.3]"
+xlink:href="#call" 
+after="event[1.2]"
+parent="event[1]"
+>
+<param name="on" value="participant.speaker"/>
+
+</use>
+
+
+
+<use id="event[1.4]"
+xlink:href="#accept"
+after="event[1.3]"
+call="event[1.3]"
+parent="event[1]"
+>
+<param name="on" value="participant.lcd"/>
+<param name="signature" value="writeLine(string)"/>
+
+</use>

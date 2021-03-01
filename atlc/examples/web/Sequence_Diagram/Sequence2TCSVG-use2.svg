@@ -1,0 +1,1957 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:c="http://myconstraints">
+	<script><![CDATA[
+		
+		var OCLLibrary = {
+		    __asArray(x) {
+		        if (Array.isArray(x)) {
+		            return x;
+		        }
+		        else {
+		            return [x];
+		        }
+		    },
+		
+		    size(collection) {
+		        return this.__asArray(collection).length;
+		    },
+		
+		    notEmpty(collection) {
+		        return this.size(collection) != 0;
+		    },
+		
+		    empty(collection) {
+		        return this.size(collection) == 0;
+		    },
+		
+		    union(lhs, rhs) {
+		        return lhs.concat(rhs);
+		    },
+		
+		    at(collection, idx) {
+		        return this.__asArray(collection)[idx - 1];
+		    },
+		
+		    subSequence(collection, start, end) {
+		        return this.__asArray(collection).slice(start - 1, end);
+		    },
+		
+		    sum(collection) {
+		        return this.__asArray(collection).reduce((acc, val) => acc + val);
+		    },
+		
+		    iterate(collection, seed, lambda) {
+		        return this.__asArray(collection).reduce(lambda, seed);
+		    },
+		
+		    collect(collection, lambda) {
+		        return this.__asArray(collection).map(lambda);
+		    },
+		
+		    zipWith(left, right, lambda) {
+			const length = Math.min(left.length, right.length);
+		        return left.slice(0, length).map((v, idx) => lambda(v, right[idx]));
+		    },
+		
+		    prepend(collection, element) {
+		        return [element].concat(collection);
+		    },
+		
+		    includes(collection, element) {
+		        return this.__asArray(collection).includes(element);
+		    },
+		
+		    oclIsUndefined(val) {
+		        return val ? false : true;
+		    },
+		
+		    oclType(val) {
+		        //TODO implement oclType
+		    },
+		
+		    oclIsKindOf(val, type) {
+		        //TODO implement oclIsKindOf
+		    },
+		
+		    toString(val) {
+		        return val.toString();
+		    },
+		
+		    asOrderedSet(collection) {
+		        return new Set(collection);
+		    },
+		
+		    startWiths(str, prefix) {
+		        return str.startWiths(prefix);
+		    },
+		
+		    first(collection) {
+		        return this.__asArray(collection)[0];
+		    },
+		
+		    last(collection) {
+		        let c = this.__asArray(collection);
+		        return c[c.length - 1];
+		    },
+		
+		    toInteger(string) {
+		        return string * 1;
+		    },
+		}
+		
+		
+
+		// 19:1-19:34
+		function __attribute__HEAD_R() {
+			return 8
+			;
+		}
+		// 20:1-20:40
+		function __attribute__BODY_LENGTH() {
+			return 27
+			;
+		}
+		// 21:1-21:39
+		function __attribute__ARM_LENGTH() {
+			return 26
+			;
+		}
+		// 22:1-22:37
+		function __attribute__HEAD2ARMS() {
+			return 8
+			;
+		}
+		// 23:1-23:39
+		function __attribute__LEG_HEIGHT() {
+			return 15
+			;
+		}
+		// 25:1-25:48
+		function __attribute__INTER_OBJECT_MARGIN() {
+			return 100
+			;
+		}
+		// 26:1-26:48
+		function __attribute__INTER_MESSAGE_MARGIN() {
+			return 50
+			;
+		}
+		// 27:1-27:34
+		function __attribute__MARGIN() {
+			return 10
+			;
+		}
+		// 29:1-29:32
+		function __attribute__scale() {
+			return 10.0
+			;
+		}
+		// 34:1-36:35
+		function SVG__Rectangle__mustContainX(self, other) {
+			return new tcsvg.Constraints().and(		other
+				.ge(
+					self.x
+				)
+			.and(
+					other
+				.le(
+						self.x
+					.plus(
+						self.width
+					)
+				)
+			)
+			);
+		}
+		// 39:1-41:37
+		function SVG__Rectangle__mustContainX_2(self, other) {
+			return new tcsvg.Constraints().and(		other.x
+				.ge(
+					self.x
+				)
+			.and(
+					other.x
+				.le(
+						self.x
+					.plus(
+						self.width
+					)
+				)
+			)
+			);
+		}
+		// 44:1-46:38
+		function SVG__Rectangle__mustContainY(self, other) {
+			return new tcsvg.Constraints().and(		other.y
+				.ge(
+					self.y
+				)
+			.and(
+					other.y
+				.le(
+						self.y
+					.plus(
+						self.height
+					)
+				)
+			)
+			);
+		}
+		// 49:1-51:31
+		function SVG__Rectangle__mustContain(self, other) {
+			return new tcsvg.Constraints().and(	SVG__Rectangle__mustContainX_2(self, other)
+			.and(
+				SVG__Rectangle__mustContainY(self, other)
+			)
+			);
+		}
+		// 54:1-56:42
+		function SVG__Rectangle__mustContain_2(self, other) {
+			return new tcsvg.Constraints().and(	SVG__Rectangle__mustContain(self, other.topLeft)
+			.and(
+				SVG__Rectangle__mustContain(self, other.bottomRight)
+			)
+			);
+		}
+		// 59:1-62:56
+		function textOutline(outline, name) {
+			return new tcsvg.Constraints().and(			outline.width
+					.ge(
+							name.width
+						.plus(
+								(new tcsvg.Expression(__attribute__MARGIN()))
+							.times(
+								(new tcsvg.Expression(2))
+							)
+						)
+					)
+				.and(
+						name.center
+					.eq(
+						outline.center
+					)
+				)
+			.and(
+					outline.height
+				.ge(
+						name.height
+					.plus(
+						(new tcsvg.Expression(__attribute__MARGIN()))
+					)
+				)
+			)
+			);
+		}
+		// 65:1-85:45
+		function participantConstraints(part) {
+			return new tcsvg.Constraints().and(((tgt) => (
+				((afterTgt) => (
+														((! (OCLLibrary.oclIsUndefined(part.x))) ?
+																	tgt.outline.x
+																.eq(
+																	part.x
+																)
+															.and(
+																	tgt.outline.y
+																.eq(
+																	part.y
+																)
+															)
+														: new tcsvg.Constraints())
+													.and(
+														((! (OCLLibrary.oclIsUndefined(part.after))) ?
+																		tgt.outline.bottom.p1.y
+																	.eq(
+																		afterTgt.outline.bottom.p1.y
+																	)
+																.and(
+																		tgt.outline.center.x
+																	.ge(
+																				afterTgt.outline.center.x
+																			.plus(
+																						tgt.outline.width
+																					.plus(
+																						afterTgt.outline.width
+																					)
+																				.div(
+																					(new tcsvg.Expression(2))
+																				)
+																			)
+																		.plus(
+																			(new tcsvg.Expression(__attribute__INTER_OBJECT_MARGIN()))
+																		)
+																	)
+																)
+															.and(
+																	tgt.line.p2.y
+																.eq(
+																	afterTgt.line.p2.y
+																)
+															)
+														: new tcsvg.Constraints())
+													)
+												.and(
+														tgt.line.p1
+													.eq(
+														tgt.outline.bottom.center
+													)
+												)
+											.and(
+													tgt.line.p2.x
+												.eq(
+													tgt.line.p1.x
+												)
+											)
+										.and(
+												tgt.line.p2.y
+											.ge(
+													tgt.line.p1.y
+												.plus(
+													(new tcsvg.Expression(20))
+												)
+											)
+										)
+									.and(
+										textOutline(tgt.outline, tgt.name)
+									)
+								.and(
+									textOutline(tgt.outline2, tgt.name2)
+								)
+							.and(
+									tgt.line2.p1
+								.eq(
+									tgt.line.p2
+								)
+							)
+						.and(
+								tgt.line2.p2
+							.eq(
+								tgt.line2.p1.dy((new tcsvg.Expression(40)))
+							)
+						)
+					.and(
+							tgt.line2.p2
+						.eq(
+							tgt.outline2.top.center
+						)
+					)
+				))(part.after)
+			))(part)
+			);
+		}
+		// 120:1-129:85
+		function actor(head, body, arms, leftLeg, rightLeg) {
+			return new tcsvg.Constraints().and(									head.r
+											.eq(
+												(new tcsvg.Expression(__attribute__HEAD_R()))
+											)
+										.and(
+												body.p1
+											.eq(
+												head.center.dy((new tcsvg.Expression(__attribute__HEAD_R())))
+											)
+										)
+									.and(
+											body.p2
+										.eq(
+											body.p1.dy((new tcsvg.Expression(__attribute__BODY_LENGTH())))
+										)
+									)
+								.and(
+										arms.p1
+									.eq(
+										body.p1.plus(	(new tcsvg.Expression(__attribute__ARM_LENGTH())).neg
+										.div(
+											(new tcsvg.Expression(2))
+										), (new tcsvg.Expression(__attribute__HEAD2ARMS())))
+									)
+								)
+							.and(
+									arms.p2
+								.eq(
+									body.p1.plus(	(new tcsvg.Expression(__attribute__ARM_LENGTH()))
+									.div(
+										(new tcsvg.Expression(2))
+									), (new tcsvg.Expression(__attribute__HEAD2ARMS())))
+								)
+							)
+						.and(
+								leftLeg.p1
+							.eq(
+								body.p2
+							)
+						)
+					.and(
+							leftLeg.p2
+						.eq(
+							leftLeg.p1.plus(	(new tcsvg.Expression(__attribute__ARM_LENGTH())).neg
+							.div(
+								(new tcsvg.Expression(2))
+							), (new tcsvg.Expression(__attribute__LEG_HEIGHT())))
+						)
+					)
+				.and(
+						rightLeg.p1
+					.eq(
+						body.p2
+					)
+				)
+			.and(
+					rightLeg.p2
+				.eq(
+					rightLeg.p1.plus(	(new tcsvg.Expression(__attribute__ARM_LENGTH()))
+					.div(
+						(new tcsvg.Expression(2))
+					), (new tcsvg.Expression(__attribute__LEG_HEIGHT())))
+				)
+			)
+			);
+		}
+		// 169:1-172:52
+		function eventConstraints(e, on) {
+			return new tcsvg.Constraints().and(((tgt) => (
+				eventConstraints2(e, on, tgt.outline)
+			))(e)
+			);
+		}
+		// 175:1-179:52
+		function eventConstraints2(e, on, outline) {
+			return new tcsvg.Constraints().and(((tgt) => (
+						outline.center.x
+					.eq(
+						tgt.line.p1.x
+					)
+				.and(
+					eventConstraintsY2(e, on, outline)
+				)
+			))(on)
+			);
+		}
+		// 183:1-186:53
+		function eventConstraintsY(e, on) {
+			return new tcsvg.Constraints().and(((tgt) => (
+				eventConstraintsY2(e, on, tgt.outline)
+			))(e)
+			);
+		}
+		// 190:1-210:4
+		function eventConstraintsY2(e, on, outline) {
+			return new tcsvg.Constraints().and(((scale) => (
+				((onTgt) => (
+					((afterTgt) => (
+						((parentTgt) => (
+										onTgt.line.p2.y
+									.ge(
+										outline.bottomLeft.y
+									)
+								.and(
+									((! (OCLLibrary.oclIsUndefined(e.after)))) ? (
+											outline.y
+										.eq(
+												afterTgt.outline.bottomLeft.y
+											.plus(
+												scale
+											)
+										)
+									) : (
+										((! (OCLLibrary.oclIsUndefined(e.parent)))) ? (
+											((! (OCLLibrary.oclIsUndefined(parentTgt.label)))) ? (
+													outline.y
+												.eq(
+														parentTgt.label.bottomLeft.y
+													.plus(
+														scale
+													)
+												)
+											) : (
+													outline.y
+												.eq(
+														parentTgt.outline.y
+													.plus(
+														scale
+													)
+												)
+											)
+										) : (
+												outline.y
+											.eq(
+													onTgt.line.p1.y
+												.plus(
+														scale
+													.times(
+														(new tcsvg.Expression(2))
+													)
+												)
+											)
+										)
+									)
+								)
+							.and(
+								((! (OCLLibrary.oclIsUndefined(e.parent))) ?
+									SVG__Rectangle__mustContain_2(parentTgt.outline, outline.enlarge((new tcsvg.Expression(5))))
+								: new tcsvg.Constraints())
+							)
+						))(e.parent)
+					))(e.after)
+				))(on)
+			))((new tcsvg.Expression(__attribute__scale())))
+			);
+		}
+	]]></script>
+	<defs>
+		<!-- 95:1-117:2 -->
+		<g id="object" >
+			<line class="lifeline" id=".line"/>
+			<rect class="participant" id=".outline"/>
+			<text class="participantName" content-value="param(name)" id=".name">default</text>
+			<line class="lifeline" id=".line2"/>
+			<rect class="participant" id=".outline2"/>
+			<text class="participantName" content-value="param(name)" id=".name2">default</text>
+			<!-- constraints -->
+			<constraints>
+				{
+					let s = this;
+					return participantConstraints(s);
+				}
+			</constraints>
+		</g>
+		<!-- 131:1-166:2 -->
+		<g id="actor" class="actor">
+			<line class="lifeline" id=".line"/>
+			<rect display="none" id=".outline"/>
+			<text class="participantName" content-value="param(name)" id=".name">default</text>
+			<circle id=".head"/>
+			<line id=".body"/>
+			<line id=".arms"/>
+			<line id=".leftLeg"/>
+			<line id=".rightLeg"/>
+			<line class="lifeline" id=".line2"/>
+			<rect display="none" fill="none" id=".outline2"/>
+			<text class="participantName" content-value="param(name)" id=".name2">default</text>
+			<circle id=".head2"/>
+			<line id=".body2"/>
+			<line id=".arms2"/>
+			<line id=".leftLeg2"/>
+			<line id=".rightLeg2"/>
+			<!-- constraints -->
+			<constraints name="participant">
+				{
+					let s = this;
+					return participantConstraints(s);
+			}
+			</constraints>
+			<constraints name="actorTop">
+				{
+					let s = this;
+					return 	actor(this.head, this.body, this.arms, this.leftLeg, this.rightLeg)
+					.and(
+							this.outline.top.center
+						.eq(
+							this.body.p2.dy((new tcsvg.Expression(__attribute__LEG_HEIGHT())))
+						)
+					);
+			}
+			</constraints>
+			<constraints name="actorBot">
+				{
+					let s = this;
+					return 	actor(this.head2, this.body2, this.arms2, this.leftLeg2, this.rightLeg2)
+					.and(
+							this.outline2.bottom.center
+						.eq(
+							this.head2.center.dy((new tcsvg.Expression(__attribute__HEAD_R())).neg)
+						)
+					);
+			}
+			</constraints>
+		</g>
+		<!-- 220:1-232:2 -->
+		<g id="call" >
+			<rect display="param(cursor) none" height="10" id=".outline" width="10"/>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+		</g>
+		<!-- 234:1-254:2 -->
+		<g id="accept" >
+			<rect display="param(cursor) none" height="10" id=".outline" width="10"/>
+			<line class="messageArrow" id=".line"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+			<constraints name="acceptCstr">
+				{
+					let s = this;
+					return ((callTgt) => (
+									this.line.p1
+								.eq(
+									callTgt.outline.center
+								)
+							.and(
+									this.line.p2
+								.eq(
+									this.outline.center
+								)
+							)
+						.and(
+								this.text.bottom.center
+							.eq(
+								this.line.center
+							)
+						)
+					))(s.call);
+			}
+			</constraints>
+		</g>
+		<!-- 256:1-276:2 -->
+		<g id="direct" >
+			<rect display="param(cursor) none" height="10" id=".outline" width="10"/>
+			<rect display="param(cursor) none" fill="none" height="10" id=".source" width="10"/>
+			<line class="messageArrow" id=".line"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="eventCstrFrom">
+				{
+					let s = this;
+					return eventConstraints2(s, s.from, this.source);
+			}
+			</constraints>
+			<constraints name="eventCstrTo">
+				{
+					let s = this;
+					return eventConstraints2(s, s.to, this.outline);
+			}
+			</constraints>
+			<constraints name="directCstr">
+				{
+					let s = this;
+					return 			this.line.p1
+							.eq(
+								this.source.center
+							)
+						.and(
+								this.line.p2
+							.eq(
+								this.outline.center
+							)
+						)
+					.and(
+							this.text.bottom.center
+						.eq(
+							this.line.center
+						)
+					);
+			}
+			</constraints>
+		</g>
+		<!-- 278:1-305:2 -->
+		<g id="selfaccept" >
+			<rect display="none" height="10" id=".outline" width="10"/>
+			<line class="messagePart" id=".line1"/>
+			<line class="messagePart" id=".line2"/>
+			<line class="messageArrow" id=".line3"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+			<constraints name="selfAcceptCstr">
+				{
+					let s = this;
+					return ((DX) => (
+						((callTgt) => (
+														this.line1.p1
+													.eq(
+														callTgt.outline.center
+													)
+												.and(
+														this.line1.p2
+													.eq(
+														this.line1.p1.dx(DX)
+													)
+												)
+											.and(
+													this.line2.p1
+												.eq(
+													this.line1.p2
+												)
+											)
+										.and(
+												this.line3.p1
+											.eq(
+												this.line2.p2
+											)
+										)
+									.and(
+											this.line3.p2
+										.eq(
+											this.line3.p1.dx(DX.neg)
+										)
+									)
+								.and(
+										this.line3.p2
+									.eq(
+										this.outline.center
+									)
+								)
+							.and(
+									this.text.left.center
+								.eq(
+									this.line2.center.dx((new tcsvg.Expression(5)))
+								)
+							)
+						))(s.call)
+					))((new tcsvg.Expression(20)));
+			}
+			</constraints>
+		</g>
+		<!-- 307:1-327:2 -->
+		<g id="unaccepted" >
+			<line class="messageArrow" id=".line"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="unacceptedCstr">
+				{
+					let s = this;
+					return ((callTgt) => (
+						((rightmostTgt) => (
+											this.line.p1
+										.eq(
+											callTgt.outline.center
+										)
+									.and(
+											this.line.p2.y
+										.eq(
+											this.line.p1.y
+										)
+									)
+								.and(
+										this.line.p2.x
+									.eq(
+											rightmostTgt.line.p1.x
+										.plus(
+											(new tcsvg.Expression(150))
+										)
+									)
+								)
+							.and(
+									this.text.bottom.center
+								.eq(
+									this.line.center
+								)
+							)
+						))(s.rightmost)
+					))(s.call);
+			}
+			</constraints>
+		</g>
+		<!-- 329:1-353:2 -->
+		<g id="found" class="found">
+			<rect display="none" height="10" id=".outline" width="10"/>
+			<line class="messageArrow" id=".line"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<circle class="circle" display="param(circle) yes" id=".circle" r="5"/>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+			<constraints name="unacceptedCstr">
+				{
+					let s = this;
+					return ((leftmostTgt) => (
+											this.line.p1.x
+										.eq(
+												leftmostTgt.line.p1.x
+											.minus(
+												(new tcsvg.Expression(150))
+											)
+										)
+									.and(
+											this.line.p1.y
+										.eq(
+											this.line.p2.y
+										)
+									)
+								.and(
+										this.line.p2
+									.eq(
+										this.outline.center
+									)
+								)
+							.and(
+									this.circle.center.dx((new tcsvg.Expression(5)))
+								.eq(
+									this.line.p1
+								)
+							)
+						.and(
+								this.text.bottom.center
+							.eq(
+								this.line.center
+							)
+						)
+					))(s.leftmost);
+			}
+			</constraints>
+		</g>
+		<!-- 355:1-383:2 -->
+		<g id="setevent" class="set">
+			<rect display="none" height="10" id=".outline" width="10"/>
+			<line class="messagePart" id=".line1"/>
+			<line class="messagePart" id=".line2"/>
+			<line class="messageArrow" id=".line3"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+			<constraints name="selfAcceptCstr">
+				{
+					let s = this;
+					return ((DX) => (
+						((DY) => (
+														this.line1.p1
+													.eq(
+														this.outline.center
+													)
+												.and(
+														this.line1.p2
+													.eq(
+														this.line1.p1.dx(DX)
+													)
+												)
+											.and(
+													this.line2.p1
+												.eq(
+													this.line1.p2
+												)
+											)
+										.and(
+												this.line2.p2
+											.eq(
+												this.line2.p1.dy(DY)
+											)
+										)
+									.and(
+											this.line3.p1
+										.eq(
+											this.line2.p2
+										)
+									)
+								.and(
+										this.line3.p2
+									.eq(
+										this.line3.p1.dx(DX.neg)
+									)
+								)
+							.and(
+									this.text.left.center
+								.eq(
+									this.line2.center.dx((new tcsvg.Expression(5)))
+								)
+							)
+						))((new tcsvg.Expression(15)))
+					))((new tcsvg.Expression(20)));
+			}
+			</constraints>
+		</g>
+		<!-- 385:1-408:2 -->
+		<g id="after" >
+			<rect fill="url(#horizontalWhiteStripes)" id=".outline" stroke="none"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="onCstr">
+				{
+					let s = this;
+					return (OCLLibrary.iterate(OCLLibrary.collect(s.on, (o) => ((oTgt) => (
+								eventConstraintsY(s, o)
+							.and(
+									oTgt.outline.center.x
+								.ge(
+										this.outline.x
+									.plus(
+										(new tcsvg.Expression(5))
+									)
+								)
+							)
+						.and(
+								oTgt.outline.center.x
+							.le(
+									this.outline.topRight.x
+								.minus(
+									(new tcsvg.Expression(5))
+								)
+							)
+						)
+					))(o)), (new tcsvg.Constraints()),
+						(acc, c) => 	acc
+						.and(
+							c
+						)
+					))
+					;
+			}
+			</constraints>
+			<constraints name="cstr">
+				{
+					let s = this;
+					return 		this.outline.height
+						.ge(
+								this.text.height
+							.times(
+								(new tcsvg.Expression(2))
+							)
+						)
+					.and(
+							this.text.center
+						.eq(
+							this.outline.center
+						)
+					);
+			}
+			</constraints>
+		</g>
+		<!-- 410:1-447:2 -->
+		<g id="note" >
+			<rect class="note" display="none" height="10" id=".outline" width="10"/>
+			<polygon class="note" id=".polygon"/>
+			<text content-value="param(note)" id=".text"><title content-value="param(title)">no title</title>default</text>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraintsY(s, OCLLibrary.first(s.on));
+			}
+			</constraints>
+			<constraints name="outlCstr">
+				{
+					let s = this;
+					return ((first) => (
+						((last) => (
+									this.outline.center.x
+								.eq(
+											last.outline.center.x
+										.plus(
+											first.outline.center.x
+										)
+									.div(
+										(new tcsvg.Expression(2))
+									)
+								)
+							.and(
+									this.text.center
+								.eq(
+									this.outline.center
+								)
+							)
+						))(OCLLibrary.last(s.on))
+					))(OCLLibrary.first(s.on));
+			}
+			</constraints>
+			<constraints name="polyCstr">
+				{
+					let s = this;
+					return ((DELTA) => (
+						((M) => (
+																SVG__Rectangle__mustContain_2(this.outline, this.text.enlarge(M, M, 	M
+																.plus(
+																	DELTA
+																), M))
+															.and(
+																this.polygon.pointEq((new tcsvg.Expression(0)), this.outline.topLeft)
+															)
+														.and(
+															this.polygon.pointEq((new tcsvg.Expression(1)), this.outline.topRight.dx(DELTA.neg))
+														)
+													.and(
+														this.polygon.pointEq((new tcsvg.Expression(2)), this.outline.topRight.plus(DELTA.neg, DELTA))
+													)
+												.and(
+													this.polygon.pointEq((new tcsvg.Expression(3)), this.outline.topRight.dx(DELTA.neg))
+												)
+											.and(
+												this.polygon.pointEq((new tcsvg.Expression(4)), this.outline.topRight.dy(DELTA))
+											)
+										.and(
+											this.polygon.pointEq((new tcsvg.Expression(5)), this.outline.topRight.plus(DELTA.neg, DELTA))
+										)
+									.and(
+										this.polygon.pointEq((new tcsvg.Expression(6)), this.outline.topRight.dy(DELTA))
+									)
+								.and(
+									this.polygon.pointEq((new tcsvg.Expression(7)), this.outline.bottomRight)
+								)
+							.and(
+								this.polygon.pointEq((new tcsvg.Expression(8)), this.outline.bottomLeft)
+							)
+						))(	(new tcsvg.Expression(__attribute__MARGIN()))
+						.div(
+							(new tcsvg.Expression(3))
+						))
+					))((new tcsvg.Expression(10)));
+			}
+			</constraints>
+		</g>
+		<!-- 449:1-474:2 -->
+		<g id="invariant" >
+			<rect display="none" id=".outline" width="10"/>
+			<rect display="none" height="10" id=".helpr" width="10"/>
+			<polygon class="invariant" id=".polygon"/>
+			<a href="param(link) default">
+									<text class="invariantText" content-value="param(invariant)" id=".text">default</text>
+								</a>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraints(s, s.on);
+			}
+			</constraints>
+			<constraints name="invCstr">
+				{
+					let s = this;
+					return ((width) => (
+						((height) => (
+											this.outline.height
+										.eq(
+											height
+										)
+									.and(
+										this.polygon.constrainTEllipse(this.helpr.x, this.helpr.y, 	width
+										.plus(
+												height
+											.div(
+												(new tcsvg.Expression(2))
+											)
+										), width)
+									)
+								.and(
+										this.polygon.center
+									.eq(
+										this.outline.center
+									)
+								)
+							.and(
+									this.text.center
+								.eq(
+									this.outline.center
+								)
+							)
+						))(	this.text.height
+						.plus(
+								(new tcsvg.Expression(__attribute__MARGIN()))
+							.times(
+								(new tcsvg.Expression(2))
+							)
+						))
+					))(this.text.width);
+			}
+			</constraints>
+		</g>
+		<!-- 476:1-513:2 -->
+		<g id="fragment" class="fragment">
+			<rect id=".outline"/>
+			<polygon id=".polygon"/>
+			<text content-value="param(label)" id=".label">default</text>
+			<text content-value="param(condition)" id=".condition">default</text>
+			<!-- constraints -->
+			<constraints name="eventCstr">
+				{
+					let s = this;
+					return eventConstraintsY(s, OCLLibrary.first(s.on));
+			}
+			</constraints>
+			<constraints name="outlCstr">
+				{
+					let s = this;
+					return ((lblOutline) => (
+						((first) => (
+							((last) => (
+																		this.outline.center.x
+																	.eq(
+																				last.outline.center.x
+																			.plus(
+																				first.outline.center.x
+																			)
+																		.div(
+																			(new tcsvg.Expression(2))
+																		)
+																	)
+																.and(
+																	(OCLLibrary.iterate(OCLLibrary.collect(s.on, (o) => ((DX) => (
+																		((oTgt) => (
+																				this.outline.mustContainX(	oTgt.line.p1.x
+																				.plus(
+																					DX
+																				))
+																			.and(
+																				this.outline.mustContainX(	oTgt.line.p1.x
+																				.minus(
+																					DX
+																				))
+																			)
+																		))(o)
+																	))((new tcsvg.Expression(5)))), (new tcsvg.Constraints()),
+																		(acc, c) => 	acc
+																		.and(
+																			c
+																		)
+																	))
+																)
+															.and(
+																	lblOutline.topLeft
+																.eq(
+																	this.outline.topLeft
+																)
+															)
+														.and(
+															this.polygon.pointEq((new tcsvg.Expression(0)), lblOutline.topLeft)
+														)
+													.and(
+														this.polygon.pointEq((new tcsvg.Expression(1)), lblOutline.topRight.dx((new tcsvg.Expression(10))))
+													)
+												.and(
+													this.polygon.pointEq((new tcsvg.Expression(2)), lblOutline.topRight.plus((new tcsvg.Expression(10)), (new tcsvg.Expression(10))))
+												)
+											.and(
+												this.polygon.pointEq((new tcsvg.Expression(3)), lblOutline.bottomRight)
+											)
+										.and(
+											this.polygon.pointEq((new tcsvg.Expression(4)), lblOutline.bottomLeft)
+										)
+									.and(
+											this.condition.topLeft
+										.eq(
+											lblOutline.topRight.dx((new tcsvg.Expression(20)))
+										)
+									)
+								.and(
+									SVG__Rectangle__mustContain_2(this.outline, this.condition)
+								)
+							))(OCLLibrary.last(s.on))
+						))(OCLLibrary.first(s.on))
+					))(this.label.enlarge((new tcsvg.Expression(__attribute__MARGIN())), (new tcsvg.Expression(0))));
+			}
+			</constraints>
+		</g>
+		<!-- 515:1-544:2 -->
+		<g id="compartment" class="compartment">
+			<rect display="none" id=".outline"/>
+			<line id=".line"/>
+			<text content-value="param(condition)" id=".label">default</text>
+			<!-- constraints -->
+			<constraints name="compCstr">
+				{
+					let s = this;
+					return ((parTgt) => (
+						((afterTgt) => (
+														this.outline.x
+													.eq(
+														parTgt.outline.x
+													)
+												.and(
+														this.outline.width
+													.eq(
+														parTgt.outline.width
+													)
+												)
+											.and(
+												(OCLLibrary.oclIsUndefined(s.after)) ? (
+														this.outline.y
+													.eq(
+														parTgt.outline.y
+													)
+												) : (
+														this.outline.y
+													.eq(
+															afterTgt.outline.bottomLeft.y
+														.plus(
+															(new tcsvg.Expression(__attribute__scale()))
+														)
+													)
+												)
+											)
+										.and(
+												this.line
+											.eq(
+												this.outline.top
+											)
+										)
+									.and(
+											this.label.topLeft.x
+										.eq(
+												parTgt.label.enlarge((new tcsvg.Expression(__attribute__MARGIN())), (new tcsvg.Expression(0))).topRight.x
+											.plus(
+												(new tcsvg.Expression(20))
+											)
+										)
+									)
+								.and(
+									SVG__Rectangle__mustContain_2(this.outline, this.label)
+								)
+							.and(
+								SVG__Rectangle__mustContain_2(parTgt.outline, this.outline)
+							)
+						))(s.after)
+					))(s.parent);
+			}
+			</constraints>
+		</g>
+		<!-- 546:1-568:2 -->
+		<g id="textcompartment" class="textcompartment">
+			<rect display="none" id=".outline"/>
+			<text content-value="param(label)" id=".label">default</text>
+			<!-- constraints -->
+			<constraints name="compCstr">
+				{
+					let s = this;
+					return ((parTgt) => (
+												this.outline.x
+											.eq(
+												parTgt.outline.x
+											)
+										.and(
+												this.outline.width
+											.eq(
+												parTgt.outline.width
+											)
+										)
+									.and(
+											this.outline.y
+										.eq(
+											parTgt.label.bottomLeft.y
+										)
+									)
+								.and(
+										this.label.center
+									.eq(
+										this.outline.center
+									)
+								)
+							.and(
+								SVG__Rectangle__mustContain_2(this.outline, this.label.enlarge((new tcsvg.Expression(10))))
+							)
+						.and(
+							SVG__Rectangle__mustContain_2(parTgt.outline, this.outline)
+						)
+					))(s.parent);
+			}
+			</constraints>
+		</g>
+		<!-- 570:1-592:2 -->
+		<g id="actualgate" class="fragment">
+			<rect display="param(cursor) none" height="10" id=".outline" width="10"/>
+			<line class="messageArrow" id=".line"/>
+			<text class="messageSignature" content-value="param(signature)" id=".text">default</text>
+			<!-- constraints -->
+			<constraints name="compCstr">
+				{
+					let s = this;
+					return ((fragTgt) => (
+						((callTgt) => (
+										this.outline.center.onSegment(fragTgt.outline.left)
+									.and(
+											this.line.p1
+										.eq(
+											callTgt.outline.center
+										)
+									)
+								.and(
+										this.line.p2
+									.eq(
+										this.outline.center
+									)
+								)
+							.and(
+									this.text.bottom.center
+								.eq(
+									this.line.center
+								)
+							)
+						))(s.call)
+					))(s.fragment);
+			}
+			</constraints>
+		</g>
+	</defs>
+
+	
+	<use id="participant.E_Switch" xlink:href="#actor" x="100" y="0">
+	<param name="name" value="E_Switch : "/>
+	</use>
+	
+	<use id="participant.led" xlink:href="#object" after="participant.E_Switch">
+	<param name="name" value="led : LED"/>
+	</use>
+	
+	<use id="participant.switch" xlink:href="#object" after="participant.led">
+	<param name="name" value="switch : Switch"/>
+	</use>
+	
+	<use id="participant.brain" xlink:href="#object" after="participant.switch">
+	<param name="name" value="brain : Brain"/>
+	</use>
+	
+	<use id="participant.battery" xlink:href="#object" after="participant.brain">
+	<param name="name" value="battery : Battery"/>
+	</use>
+	
+	<use id="participant.speaker" xlink:href="#object" after="participant.battery">
+	<param name="name" value="speaker : Speaker"/>
+	</use>
+	
+	<use id="participant.heater" xlink:href="#object" after="participant.speaker">
+	<param name="name" value="heater : Heater"/>
+	</use>
+	
+	<use id="participant.multimeter" xlink:href="#object" after="participant.heater">
+	<param name="name" value="multimeter : Multimeter"/>
+	</use>
+	
+	
+	
+	
+	<use id="event[0].call"
+	xlink:href="#call" 
+	
+	
+	>
+	<param name="on" value="participant.E_Switch"/>
+	
+	</use>
+	
+	<use id="event[0]"
+	xlink:href="#accept"
+	after="event[0].call"
+	call="event[0].call"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	<param name="signature" value="switchPressed()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[1].call"
+	xlink:href="#call" 
+	after="event[0]"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	
+	</use>
+	
+	<use id="event[1]"
+	xlink:href="#accept"
+	after="event[1].call"
+	call="event[1].call"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	<param name="signature" value="startVap()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[2].call"
+	xlink:href="#call" 
+	after="event[1]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[2]"
+	xlink:href="#accept"
+	after="event[2].call"
+	call="event[2].call"
+	
+	>
+	<param name="on" value="participant.battery"/>
+	<param name="signature" value="checkBattery()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[3].call"
+	xlink:href="#call" 
+	after="event[2]"
+	
+	>
+	<param name="on" value="participant.battery"/>
+	
+	</use>
+	
+	<use id="event[3]"
+	xlink:href="#accept"
+	after="event[3].call"
+	call="event[3].call"
+	
+	>
+	<param name="on" value="participant.multimeter"/>
+	<param name="signature" value="getBatteryVoltage()"/>
+	
+	</use>
+	
+	
+	<use id="event[4]"
+	xlink:href="#direct"
+	after="event[3]"
+	
+	from="participant.multimeter"
+	to="participant.battery"
+	class="dashed"
+	>
+	<param name="signature" value="batteryLevel"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[5].call"
+	xlink:href="#call" 
+	after="event[4]"
+	
+	>
+	<param name="on" value="participant.battery"/>
+	
+	</use>
+	
+	<use id="event[5]"
+	xlink:href="#accept"
+	after="event[5].call"
+	call="event[5].call"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="signature" value="storeBatteryLevel(batteryLevel)"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[6].call"
+	xlink:href="#call" 
+	after="event[5]"
+	
+	>
+	<param name="on" value="participant.battery"/>
+	
+	</use>
+	
+	<use id="event[6]"
+	xlink:href="#selfaccept"
+	after="event[6].call"
+	call="event[6].call"
+	
+	>
+	<param name="on" value="participant.battery"/>
+	<param name="signature" value="checkBatteryLevel(batteryLevel)"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[7].call"
+	xlink:href="#call" 
+	after="event[6]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[7]"
+	xlink:href="#accept"
+	after="event[7].call"
+	call="event[7].call"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	<param name="signature" value="checkParameters(powerReg)"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[8].call"
+	xlink:href="#call" 
+	after="event[7]"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	
+	</use>
+	
+	<use id="event[8]"
+	xlink:href="#accept"
+	after="event[8].call"
+	call="event[8].call"
+	
+	>
+	<param name="on" value="participant.multimeter"/>
+	<param name="signature" value="calculateResistanceValue()"/>
+	
+	</use>
+	
+	
+	<use id="event[9]"
+	xlink:href="#direct"
+	after="event[8]"
+	
+	from="participant.multimeter"
+	to="participant.heater"
+	class="dashed"
+	>
+	<param name="signature" value="resistanceValue"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[10].call"
+	xlink:href="#call" 
+	after="event[9]"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	
+	</use>
+	
+	<use id="event[10]"
+	xlink:href="#accept"
+	after="event[10].call"
+	call="event[10].call"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="signature" value="storeResistanceValue(resistanceValue)"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[11].call"
+	xlink:href="#call" 
+	after="event[10]"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	
+	</use>
+	
+	<use id="event[11]"
+	xlink:href="#selfaccept"
+	after="event[11].call"
+	call="event[11].call"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	<param name="signature" value="verifyParameters(cdm,powerReg)"/>
+	
+	</use>
+	
+	
+	<use id="event[12]"
+	xlink:href="#direct"
+	after="event[11]"
+	
+	from="participant.heater"
+	to="participant.brain"
+	class="dashed"
+	>
+	<param name="signature" value="Param Ok"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[13].call"
+	xlink:href="#call" 
+	after="event[12]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[13]"
+	xlink:href="#accept"
+	after="event[13].call"
+	call="event[13].call"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	<param name="signature" value="startVap(powerReg)"/>
+	
+	</use>
+	
+	
+	<use id="event[14]"
+	xlink:href="#fragment"
+	after="event[13]"
+	
+	>
+	<param name="on" value="participant.brain,participant.speaker,participant.heater,participant.multimeter"/>
+	<param name="label" value="ref"/>
+	<param name="condition" value=" "/>
+	</use>
+	<use id="event[14].text"
+	xlink:href="#textcompartment"
+	parent="event[14]"
+	>
+	<param name="label" value="Démarrer le vapotage"/>
+	</use>
+	
+	
+	
+	
+	<use id="event[15].call"
+	xlink:href="#call" 
+	after="event[14]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[15]"
+	xlink:href="#accept"
+	after="event[15].call"
+	call="event[15].call"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	<param name="signature" value="reportHeating()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[16].call"
+	xlink:href="#call" 
+	after="event[15]"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	
+	</use>
+	
+	<use id="event[16]"
+	xlink:href="#accept"
+	after="event[16].call"
+	call="event[16].call"
+	
+	>
+	<param name="on" value="participant.led"/>
+	<param name="signature" value="ledOn()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[17].call"
+	xlink:href="#call" 
+	after="event[16]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[17]"
+	xlink:href="#accept"
+	after="event[17].call"
+	call="event[17].call"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="signature" value="showScreen(Heating)"/>
+	
+	</use>
+	
+	
+	<use id="event[18]"
+	xlink:href="#fragment"
+	after="event[17]"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="label" value="ref"/>
+	<param name="condition" value=" "/>
+	</use>
+	<use id="event[18].text"
+	xlink:href="#textcompartment"
+	parent="event[18]"
+	>
+	<param name="label" value="Afficher un écran"/>
+	</use>
+	
+	
+	
+	
+	<use id="event[19].call"
+	xlink:href="#call" 
+	after="event[18]"
+	
+	>
+	<param name="on" value="participant.E_Switch"/>
+	
+	</use>
+	
+	<use id="event[19]"
+	xlink:href="#accept"
+	after="event[19].call"
+	call="event[19].call"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	<param name="signature" value="switchReleased()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[20].call"
+	xlink:href="#call" 
+	after="event[19]"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	
+	</use>
+	
+	<use id="event[20]"
+	xlink:href="#accept"
+	after="event[20].call"
+	call="event[20].call"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	<param name="signature" value="stopVap()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[21].call"
+	xlink:href="#call" 
+	after="event[20]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[21]"
+	xlink:href="#accept"
+	after="event[21].call"
+	call="event[21].call"
+	
+	>
+	<param name="on" value="participant.heater"/>
+	<param name="signature" value="stopVap()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[22].call"
+	xlink:href="#call" 
+	after="event[21]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[22]"
+	xlink:href="#accept"
+	after="event[22].call"
+	call="event[22].call"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	<param name="signature" value="reportNotHeating()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[23].call"
+	xlink:href="#call" 
+	after="event[22]"
+	
+	>
+	<param name="on" value="participant.switch"/>
+	
+	</use>
+	
+	<use id="event[23]"
+	xlink:href="#accept"
+	after="event[23].call"
+	call="event[23].call"
+	
+	>
+	<param name="on" value="participant.led"/>
+	<param name="signature" value="ledOff()"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[24].call"
+	xlink:href="#call" 
+	after="event[23]"
+	
+	>
+	<param name="on" value="participant.brain"/>
+	
+	</use>
+	
+	<use id="event[24]"
+	xlink:href="#accept"
+	after="event[24].call"
+	call="event[24].call"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="signature" value="showScreen(Welcome)"/>
+	
+	</use>
+	
+	
+	<use id="event[25]"
+	xlink:href="#fragment"
+	after="event[24]"
+	
+	>
+	<param name="on" value="participant.speaker"/>
+	<param name="label" value="ref"/>
+	<param name="condition" value=" "/>
+	</use>
+	<use id="event[25].text"
+	xlink:href="#textcompartment"
+	parent="event[25]"
+	>
+	<param name="label" value="Afficher un écran"/>
+	</use>
+	<marker id="arrowHead" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+		<polygon class="messageArrowHead" points="0,0,10,4,0,8,6,4"/>
+	</marker>
+	<pattern id="horizontalWhiteStripes" patternUnits="userSpaceOnUse" width="4" height="4">
+		<line x1="-5" y1="0" x2="9" y2="0" style="stroke-width: 4; stroke: white;"/>
+	</pattern>
+
+	<style><![CDATA[
+		svg {
+		    --main-fill: #FEFECE;
+		    --note-fill: #FBFB77;
+		    --main-stroke: #A80036;
+		    --text-fill: #000000;
+		    --fragment-stroke: #000000;
+		    --polygon-fill: #EEEEEE;
+		}
+		.participant {
+		    fill: var(--main-fill);
+		    stroke: var(--main-stroke);
+		    stroke-width: 1.5;
+		}
+		.participantName {
+		    stroke-width: 0;
+		}
+		.actor {
+		    fill: var(--main-fill);
+		    stroke: var(--main-stroke);
+		    stroke-width: 2;
+		}
+		.invariant {
+		    stroke: var(--main-stroke);
+		    fill: var(--note-fill);
+		}
+		.note {
+		    stroke: var(--main-stroke);
+		    fill: var(--note-fill);
+		}
+		.note polygon {
+		    fill: none;
+		}
+		.lifeline {
+		    stroke: var(--main-stroke);
+		    stroke-width: 1.0;
+		}
+		.messagePart {
+		    stroke: var(--main-stroke);
+		    stroke-width: 1.0;
+		}
+		.messageArrow {
+		    stroke: var(--main-stroke);
+		    stroke-width: 1.0;
+		    marker-end: url(#arrowHead);
+		}
+		.messageArrowHead {
+		    fill: var(--main-stroke);
+		    stroke: var(--main-stroke);
+		    stroke-width: 1.0;
+		}
+		.circle {
+		    stroke: var(--main-stroke);
+		}
+		.found circle {
+		    fill: none;
+		}
+		.set rect {
+		    fill: none;
+		}
+		.fragment rect {
+		    stroke: var(--fragment-stroke);
+		    stroke-width: 2.0;
+		    fill: none;
+		}
+		.fragment polygon {
+		    fill: var(--polygon-fill);
+		    stroke: var(--fragment-stroke);
+		    stroke-width: 1.0;
+		}
+		text {
+		    fill: var(--text-fill);
+		}
+		.fragment text, .compartment text {
+		    font-weight: bold;
+		}
+		.compartment line {
+		    stroke: black;
+		    stroke-dasharray: "2.0,2.0";
+		}
+		a[*|href] > text {
+		    fill: blue; text-decoration: underline;
+		}
+		.dashed {
+		    stroke-dasharray: 2.0,2.0;
+		}
+	]]></style>
+
+	<script href="http://127.0.0.1:8082/tcsvg/c.js"/>
+	<script href="http://127.0.0.1:8082/tcsvg/TCSVG.min.js"/>
+</svg>

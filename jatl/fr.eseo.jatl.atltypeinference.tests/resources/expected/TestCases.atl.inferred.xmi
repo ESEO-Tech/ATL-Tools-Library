@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:atl="http://www.eclipse.org/gmt/2005/ATL" xmlns:ocl="http://www.eclipse.org/gmt/2005/OCL">
+  <atl:Library location="2:1-52:59" name="TestCases">
+    <commentsBefore>-- @nsURI ATL=http://www.eclipse.org/gmt/2005/ATL</commentsBefore>
+    <helpers location="4:1-9:8">
+      <definition location="4:8-9:7">
+        <feature xsi:type="ocl:Attribute" location="4:13-9:7" name="test0">
+          <initExpression xsi:type="ocl:IfExp" location="5:2-9:7">
+            <type xsi:type="ocl:IntegerType"/>
+            <thenExpression xsi:type="ocl:IntegerExp" location="6:3-6:4" integerSymbol="1">
+              <type xsi:type="ocl:IntegerType"/>
+            </thenExpression>
+            <condition xsi:type="ocl:BooleanExp" location="5:5-5:9" booleanSymbol="true">
+              <type xsi:type="ocl:BooleanType"/>
+            </condition>
+            <elseExpression xsi:type="ocl:OperationCallExp" location="8:3-8:16" operationName="size">
+              <type xsi:type="ocl:IntegerType"/>
+              <source xsi:type="ocl:StringExp" location="8:3-8:9" stringSymbol="test">
+                <type xsi:type="ocl:StringType"/>
+              </source>
+            </elseExpression>
+          </initExpression>
+          <type xsi:type="ocl:IntegerType" location="4:21-4:28">
+            <type/>
+          </type>
+        </feature>
+      </definition>
+    </helpers>
+    <helpers location="11:1-12:8">
+      <definition location="11:8-12:7">
+        <feature xsi:type="ocl:Attribute" location="11:13-12:7" name="test1">
+          <initExpression xsi:type="ocl:OperatorCallExp" location="12:2-12:7" operationName="+">
+            <type xsi:type="ocl:IntegerType"/>
+            <source xsi:type="ocl:IntegerExp" location="12:2-12:3" integerSymbol="1">
+              <type xsi:type="ocl:IntegerType"/>
+            </source>
+            <arguments xsi:type="ocl:IntegerExp" location="12:6-12:7" integerSymbol="2">
+              <type xsi:type="ocl:IntegerType"/>
+            </arguments>
+          </initExpression>
+          <type xsi:type="ocl:IntegerType" location="11:21-11:28">
+            <type/>
+          </type>
+        </feature>
+      </definition>
+    </helpers>
+    <helpers location="14:1-19:12">
+      <definition location="14:8-19:11">
+        <feature xsi:type="ocl:Attribute" location="14:13-19:11" name="test2">
+          <initExpression xsi:type="ocl:OperatorCallExp" location="15:2-19:11" operationName="*">
+            <type xsi:type="ocl:IntegerType"/>
+            <source xsi:type="ocl:IfExp" location="15:2-19:7">
+              <type xsi:type="ocl:IntegerType"/>
+              <thenExpression xsi:type="ocl:IntegerExp" location="16:3-16:4" integerSymbol="1">
+                <type xsi:type="ocl:IntegerType"/>
+              </thenExpression>
+              <condition xsi:type="ocl:BooleanExp" location="15:5-15:9" booleanSymbol="true">
+                <type xsi:type="ocl:BooleanType"/>
+              </condition>
+              <elseExpression xsi:type="ocl:OperationCallExp" location="18:3-18:16" operationName="size">
+                <type xsi:type="ocl:IntegerType"/>
+                <source xsi:type="ocl:StringExp" location="18:3-18:9" stringSymbol="test">
+                  <type xsi:type="ocl:StringType"/>
+                </source>
+              </elseExpression>
+            </source>
+            <arguments xsi:type="ocl:IntegerExp" location="19:10-19:11" integerSymbol="2">
+              <type xsi:type="ocl:IntegerType"/>
+            </arguments>
+          </initExpression>
+          <type xsi:type="ocl:IntegerType" location="14:21-14:28">
+            <type/>
+          </type>
+        </feature>
+      </definition>
+    </helpers>
+    <helpers location="21:1-26:8">
+      <definition location="21:8-26:7">
+        <feature xsi:type="ocl:Attribute" location="21:35-26:7" name="test3">
+          <initExpression xsi:type="ocl:IfExp" location="22:2-26:7">
+            <type xsi:type="ocl:StringType"/>
+            <thenExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="23:3-23:60" name="stringSymbol">
+              <type xsi:type="ocl:StringType"/>
+              <source xsi:type="ocl:OperationCallExp" location="23:3-23:47" operationName="oclAsType">
+                <type xsi:type="ocl:OclModelElement" name="StringExp" model="/11"/>
+                <source xsi:type="ocl:NavigationOrAttributeCallExp" location="23:3-23:22" name="initExpression">
+                  <type xsi:type="ocl:OclModelElement" name="OclExpression" model="/11"/>
+                  <source xsi:type="ocl:VariableExp" location="23:3-23:7" referredVariable="/3">
+                    <type xsi:type="ocl:OclModelElement" name="Attribute" model="/11"/>
+                  </source>
+                </source>
+                <arguments xsi:type="ocl:OclModelElement" location="23:33-23:46" name="StringExp" model="/1">
+                  <type xsi:type="ocl:OclModelElement" name="StringExp" model="/11"/>
+                </arguments>
+              </source>
+            </thenExpression>
+            <condition xsi:type="ocl:OperationCallExp" location="22:5-22:51" operationName="oclIsKindOf">
+              <type xsi:type="ocl:BooleanType"/>
+              <source xsi:type="ocl:NavigationOrAttributeCallExp" location="22:5-22:24" name="initExpression">
+                <type xsi:type="ocl:OclModelElement" name="OclExpression" model="/11"/>
+                <source xsi:type="ocl:VariableExp" location="22:5-22:9" referredVariable="/2">
+                  <type xsi:type="ocl:OclModelElement" name="Attribute" model="/11"/>
+                </source>
+              </source>
+              <arguments xsi:type="ocl:OclModelElement" location="22:37-22:50" name="StringExp" model="/1">
+                <type xsi:type="ocl:OclModelElement" name="StringExp" model="/11"/>
+              </arguments>
+            </condition>
+            <elseExpression xsi:type="ocl:StringExp" location="25:3-25:14" stringSymbol="NOT FOUND">
+              <type xsi:type="ocl:StringType"/>
+            </elseExpression>
+          </initExpression>
+          <type xsi:type="ocl:StringType" location="21:43-21:49">
+            <type/>
+          </type>
+        </feature>
+        <context_ location="21:8-21:29">
+          <context_ xsi:type="ocl:OclModelElement" location="21:16-21:29" name="Attribute" model="/1">
+            <type xsi:type="ocl:OclModelElement" name="Attribute" model="/11"/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="28:1-30:4">
+      <definition location="28:8-30:3">
+        <feature xsi:type="ocl:Attribute" location="28:36-30:3" name="test4">
+          <initExpression xsi:type="ocl:LetExp" location="29:2-30:3">
+            <type xsi:type="ocl:CollectionType">
+              <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+            </type>
+            <variable location="29:6-29:59" varName="a" variableExp="/0/@helpers.4/@definition/@feature/@initExpression/@in_">
+              <type xsi:type="ocl:OrderedSetType" location="29:10-29:39">
+                <type/>
+                <elementType xsi:type="ocl:OclModelElement" location="29:21-29:38" name="EClassifier" model="/4">
+                  <type xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+                </elementType>
+              </type>
+              <initExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="29:42-29:59" name="eClassifiers">
+                <type xsi:type="ocl:CollectionType">
+                  <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+                </type>
+                <source xsi:type="ocl:VariableExp" location="29:42-29:46" referredVariable="/5">
+                  <type xsi:type="ocl:OclModelElement" name="EPackage" model="/12"/>
+                </source>
+              </initExpression>
+            </variable>
+            <in_ xsi:type="ocl:VariableExp" location="30:2-30:3" referredVariable="/0/@helpers.4/@definition/@feature/@initExpression/@variable">
+              <type xsi:type="ocl:CollectionType">
+                <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+              </type>
+            </in_>
+          </initExpression>
+          <type xsi:type="ocl:OrderedSetType" location="28:44-28:73">
+            <type/>
+            <elementType xsi:type="ocl:OclModelElement" location="28:55-28:72" name="EClassifier" model="/4">
+              <type xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+            </elementType>
+          </type>
+        </feature>
+        <context_ location="28:8-28:30">
+          <context_ xsi:type="ocl:OclModelElement" location="28:16-28:30" name="EPackage" model="/4">
+            <type xsi:type="ocl:OclModelElement" name="EPackage" model="/12"/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="32:1-34:4">
+      <definition location="32:8-34:3">
+        <feature xsi:type="ocl:Attribute" location="32:36-34:3" name="test5">
+          <initExpression xsi:type="ocl:LetExp" location="33:2-34:3">
+            <type xsi:type="ocl:CollectionType">
+              <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+            </type>
+            <variable location="33:6-33:40" varName="a" variableExp="/0/@helpers.5/@definition/@feature/@initExpression/@in_">
+              <type xsi:type="ocl:OclModelElement" location="33:10-33:20" name="TYPE" model="/6">
+                <type/>
+              </type>
+              <initExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="33:23-33:40" name="eClassifiers">
+                <type xsi:type="ocl:CollectionType">
+                  <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+                </type>
+                <source xsi:type="ocl:VariableExp" location="33:23-33:27" referredVariable="/7">
+                  <type xsi:type="ocl:OclModelElement" name="EPackage" model="/12"/>
+                </source>
+              </initExpression>
+            </variable>
+            <in_ xsi:type="ocl:VariableExp" location="34:2-34:3" referredVariable="/0/@helpers.5/@definition/@feature/@initExpression/@variable">
+              <type xsi:type="ocl:CollectionType">
+                <elementType xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+              </type>
+            </in_>
+          </initExpression>
+          <type xsi:type="ocl:OrderedSetType" location="32:44-32:73">
+            <type/>
+            <elementType xsi:type="ocl:OclModelElement" location="32:55-32:72" name="EClassifier" model="/4">
+              <type xsi:type="ocl:OclModelElement" name="EClassifier" model="/12"/>
+            </elementType>
+          </type>
+        </feature>
+        <context_ location="32:8-32:30">
+          <context_ xsi:type="ocl:OclModelElement" location="32:16-32:30" name="EPackage" model="/4">
+            <type xsi:type="ocl:OclModelElement" name="EPackage" model="/12"/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="36:1-39:6">
+      <definition location="36:8-39:5">
+        <feature xsi:type="ocl:Attribute" location="36:28-39:5" name="test6">
+          <initExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="37:2-39:5" name="s">
+            <type xsi:type="ocl:IntegerType"/>
+            <source xsi:type="ocl:TupleExp" location="37:2-39:3">
+              <type xsi:type="ocl:TupleType">
+                <attributes name="s">
+                  <type xsi:type="ocl:IntegerType"/>
+                </attributes>
+              </type>
+              <tuplePart location="38:3-38:8" varName="s">
+                <initExpression xsi:type="ocl:IntegerExp" location="38:7-38:8" integerSymbol="1">
+                  <type xsi:type="ocl:IntegerType"/>
+                </initExpression>
+              </tuplePart>
+            </source>
+          </initExpression>
+          <type xsi:type="ocl:IntegerType" location="36:36-36:43">
+            <type/>
+          </type>
+        </feature>
+        <context_ location="36:8-36:22">
+          <context_ xsi:type="ocl:StringType" location="36:16-36:22">
+            <type/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="41:1-42:75">
+      <commentsAfter>-- TODO: allow INFER!TYPE as helper return type</commentsAfter>
+      <commentsAfter>--helper context Collection(TupleType(name : String, value : TP!A)) def: find(name : String) : INFER!TYPE =</commentsAfter>
+      <commentsAfter>-- TODO: actually check return type variables? but that would be hard given that we drop the information</commentsAfter>
+      <commentsAfter>-- It currently works because the return TP!A is transformed into OclAny </commentsAfter>
+      <definition location="41:8-42:74">
+        <feature xsi:type="ocl:Operation" location="41:75-42:74" name="find1">
+          <parameters location="41:81-41:94" varName="name">
+            <type xsi:type="ocl:StringType" location="41:88-41:94">
+              <type/>
+            </type>
+          </parameters>
+          <returnType xsi:type="ocl:IntegerType" location="41:98-41:105">
+            <type/>
+          </returnType>
+          <body xsi:type="ocl:OperationCallExp" location="42:2-42:74" operationName="debug">
+            <type xsi:type="ocl:IntegerType"/>
+            <source xsi:type="ocl:NavigationOrAttributeCallExp" location="42:2-42:56" name="value">
+              <type xsi:type="ocl:IntegerType"/>
+              <source xsi:type="ocl:OperationCallExp" location="42:2-42:50" operationName="debug">
+                <type xsi:type="ocl:TupleType">
+                  <attributes name="name">
+                    <type xsi:type="ocl:StringType"/>
+                  </attributes>
+                  <attributes name="value">
+                    <type xsi:type="ocl:IntegerType"/>
+                  </attributes>
+                </type>
+                <source xsi:type="ocl:CollectionOperationCallExp" location="42:2-42:32" operationName="get">
+                  <type xsi:type="ocl:TupleType">
+                    <attributes name="name">
+                      <type xsi:type="ocl:StringType"/>
+                    </attributes>
+                    <attributes name="value">
+                      <type xsi:type="ocl:IntegerType"/>
+                    </attributes>
+                  </type>
+                  <source xsi:type="ocl:OperationCallExp" location="42:2-42:24" operationName="debug">
+                    <type xsi:type="ocl:CollectionType">
+                      <elementType xsi:type="ocl:TupleType">
+                        <attributes name="name">
+                          <type xsi:type="ocl:StringType"/>
+                        </attributes>
+                        <attributes name="value">
+                          <type xsi:type="ocl:IntegerType"/>
+                        </attributes>
+                      </elementType>
+                    </type>
+                    <source xsi:type="ocl:VariableExp" location="42:2-42:6" referredVariable="/8">
+                      <type xsi:type="ocl:CollectionType">
+                        <elementType xsi:type="ocl:TupleType">
+                          <attributes name="name">
+                            <type xsi:type="ocl:StringType"/>
+                          </attributes>
+                          <attributes name="value">
+                            <type xsi:type="ocl:IntegerType"/>
+                          </attributes>
+                        </elementType>
+                      </type>
+                    </source>
+                    <arguments xsi:type="ocl:StringExp" location="42:13-42:23" stringSymbol="SHOWTYPE">
+                      <type xsi:type="ocl:StringType"/>
+                    </arguments>
+                  </source>
+                  <arguments xsi:type="ocl:IntegerExp" location="42:30-42:31" integerSymbol="1">
+                    <type xsi:type="ocl:IntegerType"/>
+                  </arguments>
+                </source>
+                <arguments xsi:type="ocl:StringExp" location="42:39-42:49" stringSymbol="SHOWTYPE">
+                  <type xsi:type="ocl:StringType"/>
+                </arguments>
+              </source>
+            </source>
+            <arguments xsi:type="ocl:StringExp" location="42:63-42:73" stringSymbol="SHOWTYPE">
+              <type xsi:type="ocl:StringType"/>
+            </arguments>
+          </body>
+        </feature>
+        <context_ location="41:8-41:69">
+          <context_ xsi:type="ocl:CollectionType" location="41:16-41:69">
+            <type/>
+            <elementType xsi:type="ocl:TupleType" location="41:27-41:68">
+              <type/>
+              <attributes location="41:37-41:50" name="name">
+                <type xsi:type="ocl:StringType" location="41:44-41:50">
+                  <type/>
+                </type>
+              </attributes>
+              <attributes location="41:52-41:67" name="value">
+                <type xsi:type="ocl:IntegerType" location="41:60-41:67">
+                  <type/>
+                </type>
+              </attributes>
+            </elementType>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="48:1-49:37">
+      <commentsBefore>-- TODO: allow INFER!TYPE as helper return type</commentsBefore>
+      <commentsBefore>--helper context Collection(TupleType(name : String, value : TP!A)) def: find(name : String) : INFER!TYPE =</commentsBefore>
+      <commentsBefore>-- TODO: actually check return type variables? but that would be hard given that we drop the information</commentsBefore>
+      <commentsBefore>-- It currently works because the return TP!A is transformed into OclAny </commentsBefore>
+      <definition location="48:8-49:36">
+        <feature xsi:type="ocl:Operation" location="48:72-49:36" name="find2">
+          <parameters location="48:78-48:91" varName="name" variableExp="/0/@helpers.8/@definition/@feature/@body/@source/@body/@arguments.0">
+            <type xsi:type="ocl:StringType" location="48:85-48:91">
+              <type/>
+            </type>
+          </parameters>
+          <returnType xsi:type="ocl:OclModelElement" location="48:95-48:99" name="A" model="/9">
+            <type/>
+          </returnType>
+          <body xsi:type="ocl:NavigationOrAttributeCallExp" location="49:2-49:36" name="value">
+            <type/>
+            <source xsi:type="ocl:IteratorExp" location="49:2-49:30" name="any">
+              <type xsi:type="ocl:TupleType">
+                <attributes name="name">
+                  <type xsi:type="ocl:StringType"/>
+                </attributes>
+                <attributes name="value">
+                  <type/>
+                </attributes>
+              </type>
+              <source xsi:type="ocl:VariableExp" location="49:2-49:6" referredVariable="/10">
+                <type xsi:type="ocl:CollectionType">
+                  <elementType xsi:type="ocl:TupleType">
+                    <attributes name="name">
+                      <type xsi:type="ocl:StringType"/>
+                    </attributes>
+                    <attributes name="value">
+                      <type/>
+                    </attributes>
+                  </elementType>
+                </type>
+              </source>
+              <body xsi:type="ocl:OperatorCallExp" location="49:16-49:29" operationName="=">
+                <type xsi:type="ocl:BooleanType"/>
+                <source xsi:type="ocl:NavigationOrAttributeCallExp" location="49:16-49:22" name="name">
+                  <type xsi:type="ocl:StringType"/>
+                  <source xsi:type="ocl:VariableExp" location="49:16-49:17" referredVariable="/0/@helpers.8/@definition/@feature/@body/@source/@iterators.0">
+                    <type xsi:type="ocl:TupleType">
+                      <attributes name="name">
+                        <type xsi:type="ocl:StringType"/>
+                      </attributes>
+                      <attributes name="value">
+                        <type/>
+                      </attributes>
+                    </type>
+                  </source>
+                </source>
+                <arguments xsi:type="ocl:VariableExp" location="49:25-49:29" referredVariable="/0/@helpers.8/@definition/@feature/@parameters.0">
+                  <type xsi:type="ocl:StringType"/>
+                </arguments>
+              </body>
+              <iterators location="49:12-49:13" varName="e" variableExp="/0/@helpers.8/@definition/@feature/@body/@source/@body/@source/@source"/>
+            </source>
+          </body>
+        </feature>
+        <context_ location="48:8-48:66">
+          <context_ xsi:type="ocl:CollectionType" location="48:16-48:66">
+            <type/>
+            <elementType xsi:type="ocl:TupleType" location="48:27-48:65">
+              <type/>
+              <attributes location="48:37-48:50" name="name">
+                <type xsi:type="ocl:StringType" location="48:44-48:50">
+                  <type/>
+                </type>
+              </attributes>
+              <attributes location="48:52-48:64" name="value">
+                <type xsi:type="ocl:OclModelElement" location="48:60-48:64" name="A" model="/9">
+                  <type/>
+                </type>
+              </attributes>
+            </elementType>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="51:1-52:59">
+      <definition location="51:8-52:58">
+        <feature xsi:type="ocl:Attribute" location="51:13-52:58" name="testFind2">
+          <initExpression xsi:type="ocl:OperationCallExp" location="52:2-52:58" operationName="find2">
+            <type xsi:type="ocl:BooleanType"/>
+            <source xsi:type="ocl:SequenceExp" location="52:2-52:48">
+              <type xsi:type="ocl:CollectionType">
+                <elementType xsi:type="ocl:TupleType">
+                  <attributes name="name">
+                    <type xsi:type="ocl:StringType"/>
+                  </attributes>
+                  <attributes name="value">
+                    <type xsi:type="ocl:BooleanType"/>
+                  </attributes>
+                </elementType>
+              </type>
+              <elements xsi:type="ocl:TupleExp" location="52:12-52:47">
+                <type xsi:type="ocl:TupleType">
+                  <attributes name="name">
+                    <type xsi:type="ocl:StringType"/>
+                  </attributes>
+                  <attributes name="value">
+                    <type xsi:type="ocl:BooleanType"/>
+                  </attributes>
+                </type>
+                <tuplePart location="52:19-52:32" varName="name">
+                  <initExpression xsi:type="ocl:StringExp" location="52:26-52:32" stringSymbol="name">
+                    <type xsi:type="ocl:StringType"/>
+                  </initExpression>
+                </tuplePart>
+                <tuplePart location="52:34-52:46" varName="value">
+                  <initExpression xsi:type="ocl:BooleanExp" location="52:42-52:46" booleanSymbol="true">
+                    <type xsi:type="ocl:BooleanType"/>
+                  </initExpression>
+                </tuplePart>
+              </elements>
+            </source>
+            <arguments xsi:type="ocl:StringExp" location="52:55-52:57" stringSymbol="">
+              <type xsi:type="ocl:StringType"/>
+            </arguments>
+          </initExpression>
+          <type xsi:type="ocl:BooleanType" location="51:25-51:32">
+            <type/>
+          </type>
+        </feature>
+      </definition>
+    </helpers>
+  </atl:Library>
+  <ocl:OclModel location="21:16-21:19" name="ATL" elements="/0/@helpers.3/@definition/@context_/@context_ /0/@helpers.3/@definition/@feature/@initExpression/@condition/@arguments.0 /0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@arguments.0"/>
+  <ocl:VariableDeclaration location="22:5-22:9" varName="self" variableExp="/0/@helpers.3/@definition/@feature/@initExpression/@condition/@source/@source"/>
+  <ocl:VariableDeclaration location="23:3-23:7" varName="self" variableExp="/0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@source/@source"/>
+  <ocl:OclModel location="28:16-28:21" name="Ecore" elements="/0/@helpers.4/@definition/@context_/@context_ /0/@helpers.4/@definition/@feature/@type/@elementType /0/@helpers.4/@definition/@feature/@initExpression/@variable/@type/@elementType /0/@helpers.5/@definition/@context_/@context_ /0/@helpers.5/@definition/@feature/@type/@elementType"/>
+  <ocl:VariableDeclaration location="29:42-29:46" varName="self" variableExp="/0/@helpers.4/@definition/@feature/@initExpression/@variable/@initExpression/@source"/>
+  <ocl:OclModel location="33:10-33:15" name="INFER" elements="/0/@helpers.5/@definition/@feature/@initExpression/@variable/@type"/>
+  <ocl:VariableDeclaration location="33:23-33:27" varName="self" variableExp="/0/@helpers.5/@definition/@feature/@initExpression/@variable/@initExpression/@source"/>
+  <ocl:VariableDeclaration location="42:2-42:6" varName="self" variableExp="/0/@helpers.7/@definition/@feature/@body/@source/@source/@source/@source/@source"/>
+  <ocl:OclModel location="48:60-48:62" name="TP" elements="/0/@helpers.8/@definition/@context_/@context_/@elementType/@attributes.1/@type /0/@helpers.8/@definition/@feature/@returnType"/>
+  <ocl:VariableDeclaration location="49:2-49:6" varName="self" variableExp="/0/@helpers.8/@definition/@feature/@body/@source/@source"/>
+  <ocl:OclModel name="OCL" elements="/0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@type /0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@source/@type /0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@source/@source/@type /0/@helpers.3/@definition/@feature/@initExpression/@thenExpression/@source/@arguments.0/@type /0/@helpers.3/@definition/@feature/@initExpression/@condition/@source/@type /0/@helpers.3/@definition/@feature/@initExpression/@condition/@source/@source/@type /0/@helpers.3/@definition/@feature/@initExpression/@condition/@arguments.0/@type /0/@helpers.3/@definition/@context_/@context_/@type"/>
+  <ocl:OclModel name="ecore" elements="/0/@helpers.4/@definition/@feature/@initExpression/@type/@elementType /0/@helpers.4/@definition/@feature/@initExpression/@variable/@type/@elementType/@type /0/@helpers.4/@definition/@feature/@initExpression/@variable/@initExpression/@type/@elementType /0/@helpers.4/@definition/@feature/@initExpression/@variable/@initExpression/@source/@type /0/@helpers.4/@definition/@feature/@initExpression/@in_/@type/@elementType /0/@helpers.4/@definition/@feature/@type/@elementType/@type /0/@helpers.4/@definition/@context_/@context_/@type /0/@helpers.5/@definition/@feature/@initExpression/@type/@elementType /0/@helpers.5/@definition/@feature/@initExpression/@variable/@initExpression/@type/@elementType /0/@helpers.5/@definition/@feature/@initExpression/@variable/@initExpression/@source/@type /0/@helpers.5/@definition/@feature/@initExpression/@in_/@type/@elementType /0/@helpers.5/@definition/@feature/@type/@elementType/@type /0/@helpers.5/@definition/@context_/@context_/@type"/>
+</xmi:XMI>

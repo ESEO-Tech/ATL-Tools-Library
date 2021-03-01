@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:atl="http://www.eclipse.org/gmt/2005/ATL" xmlns:ocl="http://www.eclipse.org/gmt/2005/OCL">
+  <atl:Library location="1:1-27:8" name="ATLTypingHelpers">
+    <helpers location="3:1-8:8">
+      <definition location="3:8-8:7">
+        <feature xsi:type="ocl:Attribute" location="3:28-8:7" name="feature">
+          <initExpression xsi:type="ocl:IfExp" location="4:2-8:7">
+            <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+            <thenExpression xsi:type="ocl:OperationCallExp" location="5:3-5:57" operationName="oclAsType">
+              <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+              <source xsi:type="ocl:OperationCallExp" location="5:3-5:31" operationName="refImmediateComposite">
+                <type/>
+                <source xsi:type="ocl:VariableExp" location="5:3-5:7" referredVariable="/3">
+                  <type/>
+                </source>
+              </source>
+              <arguments xsi:type="ocl:OclModelElement" location="5:42-5:56" name="OclFeature" model="/1">
+                <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+              </arguments>
+            </thenExpression>
+            <condition xsi:type="ocl:OperationCallExp" location="4:5-4:61" operationName="oclIsKindOf">
+              <type xsi:type="ocl:BooleanType"/>
+              <source xsi:type="ocl:OperationCallExp" location="4:5-4:33" operationName="refImmediateComposite">
+                <type/>
+                <source xsi:type="ocl:VariableExp" location="4:5-4:9" referredVariable="/2">
+                  <type/>
+                </source>
+              </source>
+              <arguments xsi:type="ocl:OclModelElement" location="4:46-4:60" name="OclFeature" model="/1">
+                <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+              </arguments>
+            </condition>
+            <elseExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="7:3-7:57" name="feature">
+              <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+              <source xsi:type="ocl:OperationCallExp" location="7:3-7:49" operationName="oclAsType">
+                <type/>
+                <source xsi:type="ocl:OperationCallExp" location="7:3-7:31" operationName="refImmediateComposite">
+                  <type/>
+                  <source xsi:type="ocl:VariableExp" location="7:3-7:7" referredVariable="/4">
+                    <type/>
+                  </source>
+                </source>
+                <arguments xsi:type="ocl:OclAnyType" location="7:42-7:48">
+                  <type/>
+                </arguments>
+              </source>
+            </elseExpression>
+          </initExpression>
+          <type xsi:type="ocl:OclModelElement" location="3:37-3:51" name="OclFeature" model="/1">
+            <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+          </type>
+        </feature>
+        <context_ location="3:8-3:22">
+          <context_ xsi:type="ocl:OclAnyType" location="3:16-3:22">
+            <type/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="10:1-16:8">
+      <definition location="10:8-16:7">
+        <feature xsi:type="ocl:Attribute" location="10:36-16:7" name="contextType">
+          <initExpression xsi:type="ocl:LetExp" location="11:2-16:7">
+            <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+            <variable location="11:6-11:61" varName="c" variableExp="/0/@helpers.1/@definition/@feature/@initExpression/@in_/@condition/@source /0/@helpers.1/@definition/@feature/@initExpression/@in_/@elseExpression/@source">
+              <type xsi:type="ocl:OclModelElement" location="11:10-11:34" name="OclContextDefinition" model="/1">
+                <type xsi:type="ocl:OclModelElement" name="OclContextDefinition" model="/8"/>
+              </type>
+              <initExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="11:37-11:61" name="context_">
+                <type xsi:type="ocl:OclModelElement" name="OclContextDefinition" model="/8"/>
+                <source xsi:type="ocl:NavigationOrAttributeCallExp" location="11:37-11:52" name="definition">
+                  <type xsi:type="ocl:OclModelElement" name="OclFeatureDefinition" model="/8"/>
+                  <source xsi:type="ocl:VariableExp" location="11:37-11:41" referredVariable="/5">
+                    <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+                  </source>
+                </source>
+              </initExpression>
+            </variable>
+            <in_ xsi:type="ocl:IfExp" location="12:2-16:7">
+              <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+              <thenExpression xsi:type="ocl:OclUndefinedExp" location="13:3-13:15">
+                <type/>
+              </thenExpression>
+              <condition xsi:type="ocl:OperationCallExp" location="12:5-12:23" operationName="oclIsUndefined">
+                <type xsi:type="ocl:BooleanType"/>
+                <source xsi:type="ocl:VariableExp" location="12:5-12:6" referredVariable="/0/@helpers.1/@definition/@feature/@initExpression/@variable">
+                  <type xsi:type="ocl:OclModelElement" name="OclContextDefinition" model="/8"/>
+                </source>
+              </condition>
+              <elseExpression xsi:type="ocl:NavigationOrAttributeCallExp" location="15:3-15:13" name="context_">
+                <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+                <source xsi:type="ocl:VariableExp" location="15:3-15:4" referredVariable="/0/@helpers.1/@definition/@feature/@initExpression/@variable">
+                  <type xsi:type="ocl:OclModelElement" name="OclContextDefinition" model="/8"/>
+                </source>
+              </elseExpression>
+            </in_>
+          </initExpression>
+          <type xsi:type="ocl:OclModelElement" location="10:50-10:63" name="OclType" model="/1">
+            <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+          </type>
+        </feature>
+        <context_ location="10:8-10:30">
+          <context_ xsi:type="ocl:OclModelElement" location="10:16-10:30" name="OclFeature" model="/1">
+            <type xsi:type="ocl:OclModelElement" name="OclFeature" model="/8"/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+    <helpers location="18:1-27:8">
+      <definition location="18:8-27:7">
+        <feature xsi:type="ocl:Attribute" location="18:45-27:7" name="shouldInfer">
+          <initExpression xsi:type="ocl:IfExp" location="19:2-27:7">
+            <type xsi:type="ocl:BooleanType"/>
+            <thenExpression xsi:type="ocl:IfExp" location="20:3-24:8">
+              <type xsi:type="ocl:BooleanType"/>
+              <thenExpression xsi:type="ocl:BooleanExp" location="21:4-21:8" booleanSymbol="true">
+                <type xsi:type="ocl:BooleanType"/>
+              </thenExpression>
+              <condition xsi:type="ocl:OperatorCallExp" location="20:6-20:67" operationName="=">
+                <type xsi:type="ocl:BooleanType"/>
+                <source xsi:type="ocl:NavigationOrAttributeCallExp" location="20:6-20:57" name="name">
+                  <type xsi:type="ocl:StringType"/>
+                  <source xsi:type="ocl:NavigationOrAttributeCallExp" location="20:6-20:52" name="model">
+                    <type xsi:type="ocl:OclModelElement" name="OclModel" model="/8"/>
+                    <source xsi:type="ocl:OperationCallExp" location="20:6-20:46" operationName="oclAsType">
+                      <type xsi:type="ocl:OclModelElement" name="OclModelElement" model="/8"/>
+                      <source xsi:type="ocl:NavigationOrAttributeCallExp" location="20:6-20:15" name="type">
+                        <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+                        <source xsi:type="ocl:VariableExp" location="20:6-20:10" referredVariable="/7">
+                          <type xsi:type="ocl:OclModelElement" name="VariableDeclaration" model="/8"/>
+                        </source>
+                      </source>
+                      <arguments xsi:type="ocl:OclModelElement" location="20:26-20:45" name="OclModelElement" model="/1">
+                        <type xsi:type="ocl:OclModelElement" name="OclModelElement" model="/8"/>
+                      </arguments>
+                    </source>
+                  </source>
+                </source>
+                <arguments xsi:type="ocl:StringExp" location="20:60-20:67" stringSymbol="INFER">
+                  <type xsi:type="ocl:StringType"/>
+                </arguments>
+              </condition>
+              <elseExpression xsi:type="ocl:BooleanExp" location="23:4-23:9">
+                <type xsi:type="ocl:BooleanType"/>
+              </elseExpression>
+            </thenExpression>
+            <condition xsi:type="ocl:OperationCallExp" location="19:5-19:47" operationName="oclIsKindOf">
+              <type xsi:type="ocl:BooleanType"/>
+              <source xsi:type="ocl:NavigationOrAttributeCallExp" location="19:5-19:14" name="type">
+                <type xsi:type="ocl:OclModelElement" name="OclType" model="/8"/>
+                <source xsi:type="ocl:VariableExp" location="19:5-19:9" referredVariable="/6">
+                  <type xsi:type="ocl:OclModelElement" name="VariableDeclaration" model="/8"/>
+                </source>
+              </source>
+              <arguments xsi:type="ocl:OclModelElement" location="19:27-19:46" name="OclModelElement" model="/1">
+                <type xsi:type="ocl:OclModelElement" name="OclModelElement" model="/8"/>
+              </arguments>
+            </condition>
+            <elseExpression xsi:type="ocl:BooleanExp" location="26:3-26:8">
+              <type xsi:type="ocl:BooleanType"/>
+            </elseExpression>
+          </initExpression>
+          <type xsi:type="ocl:BooleanType" location="18:59-18:66">
+            <type/>
+          </type>
+        </feature>
+        <context_ location="18:8-18:39">
+          <context_ xsi:type="ocl:OclModelElement" location="18:16-18:39" name="VariableDeclaration" model="/1">
+            <type xsi:type="ocl:OclModelElement" name="VariableDeclaration" model="/8"/>
+          </context_>
+        </context_>
+      </definition>
+    </helpers>
+  </atl:Library>
+  <ocl:OclModel location="3:37-3:40" name="ATL" elements="/0/@helpers.0/@definition/@feature/@type /0/@helpers.0/@definition/@feature/@initExpression/@condition/@arguments.0 /0/@helpers.0/@definition/@feature/@initExpression/@thenExpression/@arguments.0 /0/@helpers.1/@definition/@context_/@context_ /0/@helpers.1/@definition/@feature/@type /0/@helpers.1/@definition/@feature/@initExpression/@variable/@type /0/@helpers.2/@definition/@context_/@context_ /0/@helpers.2/@definition/@feature/@initExpression/@condition/@arguments.0 /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@arguments.0"/>
+  <ocl:VariableDeclaration location="4:5-4:9" varName="self" variableExp="/0/@helpers.0/@definition/@feature/@initExpression/@condition/@source/@source"/>
+  <ocl:VariableDeclaration location="5:3-5:7" varName="self" variableExp="/0/@helpers.0/@definition/@feature/@initExpression/@thenExpression/@source/@source"/>
+  <ocl:VariableDeclaration location="7:3-7:7" varName="self" variableExp="/0/@helpers.0/@definition/@feature/@initExpression/@elseExpression/@source/@source/@source"/>
+  <ocl:VariableDeclaration location="11:37-11:41" varName="self" variableExp="/0/@helpers.1/@definition/@feature/@initExpression/@variable/@initExpression/@source/@source"/>
+  <ocl:VariableDeclaration location="19:5-19:9" varName="self" variableExp="/0/@helpers.2/@definition/@feature/@initExpression/@condition/@source/@source"/>
+  <ocl:VariableDeclaration location="20:6-20:10" varName="self" variableExp="/0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@source/@source"/>
+  <ocl:OclModel name="OCL" elements="/0/@helpers.0/@definition/@feature/@initExpression/@type /0/@helpers.0/@definition/@feature/@initExpression/@thenExpression/@type /0/@helpers.0/@definition/@feature/@initExpression/@thenExpression/@arguments.0/@type /0/@helpers.0/@definition/@feature/@initExpression/@condition/@arguments.0/@type /0/@helpers.0/@definition/@feature/@initExpression/@elseExpression/@type /0/@helpers.0/@definition/@feature/@type/@type /0/@helpers.1/@definition/@feature/@initExpression/@type /0/@helpers.1/@definition/@feature/@initExpression/@variable/@type/@type /0/@helpers.1/@definition/@feature/@initExpression/@variable/@initExpression/@type /0/@helpers.1/@definition/@feature/@initExpression/@variable/@initExpression/@source/@type /0/@helpers.1/@definition/@feature/@initExpression/@variable/@initExpression/@source/@source/@type /0/@helpers.1/@definition/@feature/@initExpression/@in_/@type /0/@helpers.1/@definition/@feature/@initExpression/@in_/@condition/@source/@type /0/@helpers.1/@definition/@feature/@initExpression/@in_/@elseExpression/@type /0/@helpers.1/@definition/@feature/@initExpression/@in_/@elseExpression/@source/@type /0/@helpers.1/@definition/@feature/@type/@type /0/@helpers.1/@definition/@context_/@context_/@type /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@source/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@thenExpression/@condition/@source/@source/@source/@arguments.0/@type /0/@helpers.2/@definition/@feature/@initExpression/@condition/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@condition/@source/@source/@type /0/@helpers.2/@definition/@feature/@initExpression/@condition/@arguments.0/@type /0/@helpers.2/@definition/@context_/@context_/@type"/>
+</xmi:XMI>

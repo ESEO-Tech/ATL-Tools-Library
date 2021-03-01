@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ATLType" nsURI="ATLType" nsPrefix="atlType">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+    <details key="ocl" value="http://www.eclipse.org/gmt/2005/OCL"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Context">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" ordered="false"
+        upperBound="-1" eType="#//Constraint">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constraint" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EQ" eSuperTypes="#//Constraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" ordered="false"
+        upperBound="-1" eType="#//Type" eOpposite="#//Type/equalities">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LT" eSuperTypes="#//Constraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Type" eOpposite="#//Type/strictUpperConstraints"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Type"
+        eOpposite="#//Type/strictLowerConstraints"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LE" eSuperTypes="#//Constraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Type" eOpposite="#//Type/nonStrictUpperConstraints"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Type"
+        eOpposite="#//Type/nonStrictLowerConstraints"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="equalities" ordered="false"
+        upperBound="-1" eType="#//EQ" eOpposite="#//EQ/types">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="strictUpperConstraints"
+        ordered="false" upperBound="-1" eType="#//LT" eOpposite="#//LT/left">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonStrictUpperConstraints"
+        ordered="false" upperBound="-1" eType="#//LE" eOpposite="#//LE/left">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="strictLowerConstraints"
+        ordered="false" upperBound="-1" eType="#//LT" eOpposite="#//LT/right">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nonStrictLowerConstraints"
+        ordered="false" upperBound="-1" eType="#//LE" eOpposite="#//LE/right">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" ordered="false"
+        upperBound="-1" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedType" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeVariable" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedExpression" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedVariable" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedProperty" eType="#//Property"
+        eOpposite="#//Property/type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedOperation" eType="#//Operation"
+        eOpposite="#//Operation/type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedTuplePart" eType="#//TuplePart"
+        eOpposite="#//TuplePart/type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="upperBounds" ordered="false"
+        upperBound="-1" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lowerBounds" ordered="false"
+        upperBound="-1" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OclAnyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OclType" eSuperTypes="#//OclAnyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanType" eSuperTypes="#//OclAnyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerType" eSuperTypes="#//OclAnyType">
+    <eOperations name="operator_PLUS" eType="#//IntegerType">
+      <eParameters name="o" eType="#//IntegerType"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringType" eSuperTypes="#//OclAnyType">
+    <eOperations name="size" eType="#//IntegerType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CollectionType" eSuperTypes="#//OclAnyType">
+    <eTypeParameters name="E"/>
+    <eOperations name="get">
+      <eGenericType eTypeParameter="#//CollectionType/E"/>
+      <eParameters name="idx" eType="#//IntegerType"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BagType">
+    <eTypeParameters name="E"/>
+    <eGenericSuperTypes eClassifier="#//CollectionType">
+      <eTypeArguments eTypeParameter="#//BagType/E"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedSetType">
+    <eTypeParameters name="E"/>
+    <eGenericSuperTypes eClassifier="#//CollectionType">
+      <eTypeArguments eTypeParameter="#//OrderedSetType/E"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SequenceType">
+    <eTypeParameters name="E"/>
+    <eGenericSuperTypes eClassifier="#//CollectionType">
+      <eTypeArguments eTypeParameter="#//SequenceType/E"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SetType">
+    <eTypeParameters name="E"/>
+    <eGenericSuperTypes eClassifier="#//CollectionType">
+      <eTypeArguments eTypeParameter="#//SetType/E"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TupleType" eSuperTypes="#//OclAnyType #//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parts" ordered="false"
+        upperBound="-1" eType="#//TuplePart">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TuplePart">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeVariable"
+        eOpposite="#//TypeVariable/typedTuplePart"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeVariable"
+        eOpposite="#//TypeVariable/typedProperty"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation" eSuperTypes="#//Feature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="argumentTypes" ordered="false"
+        upperBound="-1" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeVariable"
+        eOpposite="#//TypeVariable/typedOperation"/>
+  </eClassifiers>
+</ecore:EPackage>

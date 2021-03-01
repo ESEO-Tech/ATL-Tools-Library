@@ -1,0 +1,79 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  version 1.0
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+module graf2jfx;
+
+create OUT: JFX, constraints : Constraints from IN: Graf;
+
+unique lazy rule Graph {
+	from
+		gr: Graf!Graph
+	to
+		t : JFX!Figure (
+			children <- gr.arcs->collectTo('Arc').t->concat(
+					gr.nodes->collectTo('Node').t
+				)
+		)
+}
+
+unique lazy rule Node {
+	from
+		s : Graf!Node
+	to
+		t : JFX!Figure (
+			nodes <- Sequence {circle, label},
+			constraints <- Sequence {constraints}
+		),
+		circle : JFX!Circle (
+			fill <- '0x0dbaffff',
+			stroke <- '0x000000ff',
+			movable <- true,
+			cx <- s.xinit,
+			cy <- s.yinit
+		),
+		label : JFX!Text (
+			text <- s.label
+		),
+		constraints: Constraints!Constraint (
+			value <-
+					circle.r >= 20
+				and	circle.r >= label.width.toConstant() * 0.7
+				and	circle.r >= label.height.toConstant() * 0.7
+				and	circle.cx = label.x + label.width.toConstant() / 2
+				and	circle.cy = label.y + label.height.toConstant() / 2
+				and	circle.cx.stay('MEDIUM')
+				and	circle.cy.stay('MEDIUM')
+		)
+}
+
+unique lazy rule Arc {
+	from
+		s: Graf!Arc
+	to
+		t : JFX!Figure (
+			nodes <- Sequence {line},
+			constraints <- Sequence {__constraints__}
+		),
+		line : JFX!Line (
+		),
+		__constraints__: Constraints!Constraint (
+			value <-
+					line.x1 = thisModule.Node(s.source).circle.cx
+				and	line.y1 = thisModule.Node(s.source).circle.cy
+				and	line.x2 = thisModule.Node(s.target).circle.cx
+				and	line.y2 = thisModule.Node(s.target).circle.cy
+		)
+}

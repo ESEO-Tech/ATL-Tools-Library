@@ -17,7 +17,7 @@
 package fr.eseo.atol.gen
 
 import com.google.common.collect.HashBasedTable
-import java.util.HashMap
+import java.util.IdentityHashMap
 import java.util.function.DoubleSupplier
 import java.util.function.Supplier
 import javafx.beans.property.BooleanProperty
@@ -45,7 +45,7 @@ import org.eclipse.xtend.lib.annotations.Data
 
 class JFXUtils {
 	//TODO: no cache on toBox methods, is it OK ?
-	static val cache = new HashMap<Object, IBox<?>>
+	static val cache = new IdentityHashMap<Object, IBox<?>>
 
 	def static <E> toBox(ObservableList<E> ol) {
 		if (cache.containsKey(ol)) {

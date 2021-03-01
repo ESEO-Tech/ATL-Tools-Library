@@ -1,0 +1,144 @@
+-- @atlcompiler emftvm
+-- ATL Type Inference support for Ecore Platform by Frédéric Jouault
+-- @nsURI ATL=http://www.eclipse.org/gmt/2005/OCL
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+library ATLTypeInferenceToEcore;
+
+-- Warning: the metamodels used in the analyzed ATL should be loaded as models that have the same names, e.g.:
+--	Given a transformation with : create OUT : TargetMM from IN : SourceMM
+--	The metamodels should be loaded as: SourceMM : Ecore & TargetMM : Ecore.
+
+helper def: primitiveTypes : Map(String, Ecore!EClassifier) =
+	let boolean : Ecore!EClassifier = Ecore!EDataType.allInstancesFrom('Ecore')->any(e | e.name = 'EBoolean') in
+	let integer : Ecore!EClassifier = Ecore!EDataType.allInstancesFrom('Ecore')->any(e | e.name = 'EIntegerObject') in
+	let double : Ecore!EClassifier = Ecore!EDataType.allInstancesFrom('Ecore')->any(e | e.name = 'EDouble') in
+	let string : Ecore!EClassifier = Ecore!EDataType.allInstancesFrom('Ecore')->any(e | e.name = 'EString') in
+	Map {
+		('boolean', boolean),
+		('Boolean', boolean),
+		('EBoolean', boolean),
+		('EBooleanObject', boolean),
+		('int', integer),
+		('Integer', integer),
+		('EInt', integer),
+		('EIntegerObject', integer),
+		('double', double),
+		('Double', double),
+		('EDouble', double),
+		('EDoubleObject', double),
+		('String', string),
+		('EString', string)
+	};
+
+helper context String def: primitiveType : Ecore!EClassifier =
+	thisModule.primitiveTypes.get(self);
+
+--helper context UML!Behavior def: type : UML!Type =
+--	let p : UML!Parameter = self.ownedParameter->any(e |
+--								e.direction = #return
+--							)
+--	in
+--	if p.oclIsUndefined() then
+--		OclUndefined
+--	else
+--		p.type
+--	endif;
+
+-- TODO: make it return a String once the type checker considers OclUndefined a valid String value
+helper context Ecore!EClassifier def: ttype : OclAny = OclUndefined;
+
+helper context ATL!OclModelElement def: toPlatform : OclAny =
+	if self.model.name = 'TP' or self.model.name = 'INFER' then	-- TODO: make this configurable to avoid naming conflicts with actual metamodel names?
+		-- a type variable
+		OclAny.toPlatform
+	else
+		let ret : OclAny = Ecore!EClassifier.allInstancesFrom(
+			self.model.name
+		)->any(e | 
+			e.name = self.name
+		) in
+		if ret.oclIsUndefined() then
+			let test : String = ('warning: could not find ' + self.model.name + '!' + self.name).debug() in
+			--thisModule.undefinedType
+			OclUndefined
+		else
+			ret
+		endif
+	endif;
+
+helper context Ecore!EClass def: navigableProperties : OrderedSet(OclAny) =
+	self.eAllStructuralFeatures->asOrderedSet();
+
+helper context Ecore!EStructuralFeature def: upper : Integer =
+	self.upperBound;
+helper context Ecore!EStructuralFeature def: type : OclAny= --Ecore!EClassifier =
+	self.eType;
+helper context Ecore!EAttribute def: type : OclAny = --Ecore!EClassifier =
+	if self.eType.oclIsKindOf(Ecore!EEnum) then
+		self.eType
+	else
+		-- to make sure we have the canonic one
+		self.eType.instanceClass.name.oclAsType(String).debug('-type of attribute ' + self.name).primitiveType
+--		self.eType.name.primitiveType
+	endif;
+
+--helper context String def: class: OclAny =
+--	Ecore!EClass.allInstances() -> any(e | e.name = self);
+
+--helper context UML!Element def: origin : String =
+--	' from ' + self.eResource().toString();
+
+helper context ATL!OperationCallExp def: platformSpecificOperation : Ecore!EOperation =
+	let sourceType : OclAny = self.source.inferredType in
+	let mmOps : Collection(Ecore!EOperation) =
+		if sourceType.oclIsKindOf(Ecore!EClass) then
+			sourceType.oclAsType(Ecore!EClass).eAllOperations->select(op |
+				op.name = self.operationName
+			)->select(op |
+				self.arguments.size() = op.eParameters->size()
+			)->select(op |
+				self.arguments->zip(op.eParameters)->forAll(p |
+					p.right.eType.toPlatform.isAssignableFrom(
+						p.left.inferredType.debug('-argType')
+					)
+				)
+			).debug('mmop-ALL Ecore OPS')
+		else
+			OrderedSet {}
+		endif
+	in
+	if mmOps->notEmpty() then
+		-- TODO: error if more than one? or select most specific
+		mmOps->any(e | true).oclAsType(Ecore!EOperation)
+	else
+			OclUndefined
+	endif;
+
+helper context ATL!OperationCallExp def: platformSpecificInferredType : OclAny =
+	let ret : Ecore!EOperation = self.platformSpecificOperation in
+	let _ : String = if ret.oclIsUndefined() and not self.sourceType.oclIsUndefined() then
+		(
+			'warning: ' + self.location + ': operation "' + self.operationName + '" not found on ' + self.sourceType.toString() +
+			' with argument types ' + self.arguments->collect(arg |
+				if arg.inferredType.oclIsUndefined() then
+					'NULL'
+				else
+					arg.inferredType.toString()
+				endif + ', '
+			).prepend('').sum()).debug()
+		else
+			''
+		endif
+	in
+	if ret.oclIsUndefined() then
+		thisModule.undefinedType
+	else
+		ret.eType
+	endif;
+-- TODO: add warning when operation not found
+
+helper context Ecore!EModelElement def: origin : String =
+	' from ' + self.eResource().getURI().toString();
+
+helper context Ecore!EClassifier def: isClass : Boolean =
+	self.oclIsKindOf(Ecore!EClass);

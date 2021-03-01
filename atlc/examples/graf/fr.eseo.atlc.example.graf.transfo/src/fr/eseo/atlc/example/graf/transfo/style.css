@@ -1,0 +1,14 @@
+.node {
+    -fx-fill: #0dbaff;
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+
+.arc {
+    -fx-stroke-width: 1px;
+    -fx-stroke: black;
+}
+
+Text {
+    -fx-text-origin: top;
+}

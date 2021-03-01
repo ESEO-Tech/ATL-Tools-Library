@@ -1,0 +1,592 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+module Sequence2TCSVG;
+
+create OUT: SVG, constraints : Constraints from IN: Seq;
+
+helper def: HEAD_R : Integer = 8;
+helper def: BODY_LENGTH : Integer = 27;
+helper def: ARM_LENGTH : Integer = 26;
+helper def: HEAD2ARMS : Integer = 8;
+helper def: LEG_HEIGHT : Integer = 15;
+
+helper def: INTER_OBJECT_MARGIN: Integer = 100;
+helper def: INTER_MESSAGE_MARGIN: Integer = 50;
+helper def: MARGIN: Integer = 10;
+
+helper def: scale: Real = 10.0;
+
+
+
+-- @constraints
+helper context SVG!Rectangle def: mustContainX(other : Integer): Boolean =
+		other >= self.x
+	and	other <= self.x + self.width;
+
+-- @constraints
+helper context SVG!Rectangle def: mustContainX(other : SVG!Point): Boolean =
+		other.x >= self.x
+	and	other.x <= self.x + self.width;
+
+-- @constraints
+helper context SVG!Rectangle def: mustContainY(other : SVG!Point): Boolean =
+		other.y >= self.y
+	and	other.y <= self.y + self.height;
+
+-- @constraints
+helper context SVG!Rectangle def: mustContain(other : SVG!Point): Boolean =
+		self.mustContainX(other)
+	and	self.mustContainY(other);
+
+-- @constraints
+helper context SVG!Rectangle def: mustContain(other : SVG!Rectangle): Boolean =
+		self.mustContain(other.topLeft)
+	and	self.mustContain(other.bottomRight);
+
+-- @constraints
+helper def: textOutline(outline: SVG!Rectangle, name: SVG!Text) : Boolean =
+		outline.width >= name.width + thisModule.MARGIN * 2
+	and name.center = outline.center
+	and	outline.height >= name.height + thisModule.MARGIN;
+
+-- @constraints
+helper def: participantConstraints(part : Seq!Participant) : Boolean =
+	let tgt : INFER!TYPE = thisModule.Participant(part) in
+	let afterTgt : INFER!TYPE = thisModule.Participant(part.after)
+	in
+	((not part.x.oclIsUndefined()) implies (
+			tgt.outline.x = part.x
+		and tgt.outline.y = part.y
+	))
+	and ((not part.after.oclIsUndefined()) implies (
+			tgt.outline.bottom.p1.y = afterTgt.outline.bottom.p1.y
+		and tgt.outline.center.x >= afterTgt.outline.center.x + (tgt.outline.width + afterTgt.outline.width) / 2 + thisModule.INTER_OBJECT_MARGIN
+		and tgt.line.p2.y = afterTgt.line.p2.y
+	))
+	and tgt.line.p1 = tgt.outline.bottom.center
+	and tgt.line.p2.x = tgt.line.p1.x
+	and tgt.line.p2.y >= tgt.line.p1.y + 20
+	and thisModule.textOutline(tgt.outline, tgt.name)
+	and thisModule.textOutline(tgt.outline2, tgt.name2)
+	and tgt.line2.p1 = tgt.line.p2
+	and tgt.line2.p2 = tgt.line2.p1.dy(40)
+	and tgt.line2.p2 = tgt.outline2.top.center;
+
+
+unique lazy abstract rule Participant {
+	from
+		s : Seq!Participant
+	to
+		t : SVG!Group
+}
+
+unique lazy rule Object extends Participant {
+	from
+		s: Seq!Object
+	to
+		t: SVG!Group (
+			content <- '
+				<line class="lifeline" id=".line"/>
+
+				<rect class="participant" id=".outline"/>
+				<text class="participantName" id=".name">${s.name}</text>
+
+				<line class="lifeline" id=".line2"/>
+
+				<rect class="participant" id=".outline2"/>
+				<text class="participantName" id=".name2">${s.name}</text>
+			'
+		),
+		__constraints: Constraints!ExpressionGroup (
+			expressions <- Sequence {
+				thisModule.participantConstraints(s)
+			}
+		)
+}
+
+-- @constraints
+helper def: actor(head: SVG!Circle, body: SVG!Line, arms: SVG!Line, leftLeg: SVG!Line, rightLeg: SVG!Line) : Boolean =
+		head.r = thisModule.HEAD_R
+	and body.p1 = head.center.dy(thisModule.HEAD_R)
+	and body.p2 = body.p1.dy(thisModule.BODY_LENGTH)
+	and arms.p1 = body.p1.plus(-thisModule.ARM_LENGTH/2, thisModule.HEAD2ARMS)
+	and arms.p2 = body.p1.plus(thisModule.ARM_LENGTH/2, thisModule.HEAD2ARMS)
+	and leftLeg.p1 = body.p2
+	and leftLeg.p2 = leftLeg.p1.plus(-thisModule.ARM_LENGTH/2, thisModule.LEG_HEIGHT)
+	and rightLeg.p1 = body.p2
+	and rightLeg.p2 = rightLeg.p1.plus(thisModule.ARM_LENGTH/2, thisModule.LEG_HEIGHT);
+
+unique lazy rule Actor extends Participant {
+	from
+		s: Seq!Actor
+	to
+		t: SVG!Group (
+			class <- 'actor',
+			content <- '
+				<line class="lifeline" id=".line"/>
+
+				<rect id=".outline" display="none"/>
+				<text class="participantName" id=".name">${s.name}</text>
+				<circle id=".head" />
+				<line id=".body"/>
+				<line id=".arms"/>
+				<line id=".leftLeg"/>
+				<line id=".rightLeg"/>
+
+				<line class="lifeline" id=".line2" />
+
+				<rect id=".outline2" fill="none" display="none"/>
+				<text class="participantName" id=".name2">${s.name}</text>
+				<circle id=".head2"/>
+				<line id=".body2"/>
+				<line id=".arms2"/>
+				<line id=".leftLeg2"/>
+				<line id=".rightLeg2"/>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			participant <- thisModule.participantConstraints(s),
+			actorTop <- thisModule.actor(head, body, arms, leftLeg, rightLeg)
+					and	outline.top.center = body.p2.dy(thisModule.LEG_HEIGHT),
+			actorBot <- thisModule.actor(head2, body2, arms2, leftLeg2, rightLeg2)
+					and	outline2.bottom.center = head2.center.dy(-thisModule.HEAD_R)
+		)
+}
+
+-- @constraints
+helper def: eventConstraints(e: Seq!Event, on: Seq!Participant) : Boolean =
+	let tgt : INFER!TYPE = thisModule.Event(e)
+	in
+		thisModule.eventConstraints2(e, on, tgt.outline);
+
+-- @constraints
+helper def: eventConstraints2(e: Seq!Event, on: Seq!Participant, outline: SVG!Rectangle) : Boolean =
+	let tgt : INFER!TYPE = thisModule.Participant(on)
+	in
+		outline.center.x = tgt.line.p1.x
+	and thisModule.eventConstraintsY2(e, on, outline);
+
+
+-- @constraints
+helper def: eventConstraintsY(e: Seq!Event, on: Seq!Participant) : Boolean =
+	let tgt : INFER!TYPE = thisModule.Event(e)
+	in
+		thisModule.eventConstraintsY2(e, on, tgt.outline);
+
+
+-- @constraints
+helper def: eventConstraintsY2(e: Seq!Event, on: Seq!Participant, outline: SVG!Rectangle) : Boolean =
+	let scale : Real = thisModule.scale in
+	let onTgt : INFER!TYPE = thisModule.Participant(on) in
+	let afterTgt : INFER!TYPE =	thisModule.Event(e.after) in
+	let parentTgt : INFER!TYPE = thisModule.Fragment(e.parent)
+	in
+		onTgt.line.p2.y >= outline.bottomLeft.y
+	and	if not e.after.oclIsUndefined() then
+		outline.y = afterTgt.outline.bottomLeft.y + scale
+	else if not e.parent.oclIsUndefined() then
+		if not parentTgt.label.oclIsUndefined() then
+			outline.y = parentTgt.label.bottomLeft.y + scale
+		else
+			outline.y = parentTgt.outline.y + scale
+		endif
+	else
+		outline.y = onTgt.line.p1.y + scale * 2
+	endif endif
+	and (not e.parent.oclIsUndefined() implies
+		parentTgt.outline.mustContain(outline.enlarge(5))
+	);
+
+unique lazy abstract rule Event {
+	from
+		s: Seq!Event
+	to
+		t: SVG!Group (
+		)
+}
+
+unique lazy rule Call extends Event {
+	from
+		s: Seq!Call
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" width="10" height="10" display="${s.cursor?none}"/>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr <- thisModule.eventConstraints(s, s.on)
+		)
+}
+
+unique lazy rule Accept extends Event {
+	from
+		s: Seq!Accept
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" width="10" height="10" display="${s.cursor?none}"/>
+				<line class="messageArrow" id=".line" />
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr 	<- thisModule.eventConstraints(s, s.on),
+			acceptCstr 	<-
+				let callTgt : INFER!TYPE = thisModule.Call(s.call)
+				in
+					line.p1 = callTgt.outline.center
+				and	line.p2 = outline.center
+				and text.bottom.center = line.center
+		)
+}
+
+unique lazy rule Direct extends Event {
+	from
+		s: Seq!Direct
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" width="10" height="10" display="${s.cursor?none}"/>
+				<rect id=".source" fill="none" width="10" height="10" display="${s.cursor?none}"/>
+				<line class="messageArrow" id=".line"/>
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstrFrom 	<- thisModule.eventConstraints2(s, s.from, source),
+			eventCstrTo 	<- thisModule.eventConstraints2(s, s.to, outline),
+			directCstr 		<-
+					line.p1 = source.center
+				and	line.p2 = outline.center
+				and text.bottom.center = line.center
+		)
+}
+
+unique lazy rule SelfAccept extends Event {
+	from
+		s: Seq!SelfAccept
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" width="10" height="10" display="none"/>
+				<line class="messagePart" id=".line1"/>
+				<line class="messagePart" id=".line2"/>
+				<line class="messageArrow" id=".line3"/>
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr 	<- thisModule.eventConstraints(s, s.on),
+			selfAcceptCstr 		<-
+				let DX : Integer = 20 in
+				let callTgt : INFER!TYPE = thisModule.Call(s.call)
+				in
+					line1.p1 = callTgt.outline.center
+				and	line1.p2 = line1.p1.dx(DX)
+				and	line2.p1 = line1.p2
+				and	line3.p1 = line2.p2
+				and line3.p2 = line3.p1.dx(-DX)
+				and line3.p2 = outline.center
+				and text.left.center = line2.center.dx(5)
+		)
+}
+
+unique lazy rule Unaccepted {
+	from
+		s: Seq!Unaccepted
+	to
+		t : SVG!Group (
+			content <- '
+				<line class="messageArrow" id=".line"/>
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			unacceptedCstr 		<-
+				let callTgt : INFER!TYPE = thisModule.Call(s.call) in
+				let rightmostTgt : INFER!TYPE = thisModule.Participant(s.rightmost)
+				in
+					line.p1 = callTgt.outline.center
+				and	line.p2.y = line.p1.y
+				and	line.p2.x = rightmostTgt.line.p1.x + 150
+				and	text.bottom.center = line.center
+		)
+}
+
+unique lazy rule Found extends Event {
+	from
+		s: Seq!Found
+	to
+		t : SVG!Group (
+			class <- 'found',
+			content <- '
+				<rect id=".outline" width="10" height="10" display="none"/>
+				<line class="messageArrow" id=".line"/>
+				<text class="messageSignature" id=".text">${s.signature}</text>
+				<circle class="circle" id=".circle" r="5" display="${s.circle?yes}"/>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr 	<- thisModule.eventConstraints(s, s.on),
+			unacceptedCstr 		<-
+				let leftmostTgt : INFER!TYPE = thisModule.Participant(s.leftmost)
+				in
+					line.p1.x = leftmostTgt.line.p1.x - 150
+				and	line.p1.y = line.p2.y
+				and	line.p2 = outline.center
+				and circle.center.dx(5) = line.p1
+				and	text.bottom.center = line.center
+		)
+}
+
+unique lazy rule SetEvent extends Event { -- ATL parser doesn't like rule named Set
+	from
+		s: Seq!SetEvent	-- ATL parser doesn't like metalcass named Set
+	to
+		t : SVG!Group (
+			class <- 'set',
+			content <- '
+				<rect id=".outline" width="10" height="10" display="none"/>
+				<line class="messagePart" id=".line1"/>
+				<line class="messagePart" id=".line2"/>
+				<line class="messageArrow" id=".line3"/>
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr 	<- thisModule.eventConstraints(s, s.on),
+			selfAcceptCstr 		<-
+				let DX : Integer = 20 in
+				let DY : Integer = 15
+				in
+					line1.p1 = outline.center
+				and	line1.p2 = line1.p1.dx(DX)
+				and	line2.p1 = line1.p2
+				and line2.p2 = line2.p1.dy(DY)
+				and	line3.p1 = line2.p2
+				and	line3.p2 = line3.p1.dx(-DX)
+				and text.left.center = line2.center.dx(5)
+		)
+}
+
+unique lazy rule After extends Event {
+	from
+		s: Seq!After
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" fill="url(#horizontalWhiteStripes)" stroke="none" />
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			onCstr 	<-
+				s.on->collect(o |
+					let oTgt : INFER!TYPE = thisModule.Participant(o)
+					in
+						thisModule.eventConstraintsY(s, o)
+					and	oTgt.outline.center.x >= outline.x + 5
+					and	oTgt.outline.center.x <= outline.topRight.x - 5
+				)->iterate(c; acc : Boolean = true | acc and c),
+			cstr <-
+					outline.height >= text.height * 2
+				and	text.center = outline.center
+		)
+}
+
+unique lazy rule Note extends Event {
+	from
+		s: Seq!Note
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" class="note" display="none"/>
+				<polygon class="note" id=".polygon" />
+				<text id=".text">
+					${s.note}
+					<title>${s.title?no title}</title>
+				</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr <- thisModule.eventConstraintsY(s, s.on->first()),
+			outlCstr <-
+				let first : INFER!Type = thisModule.Event(s.on->first()) in
+				let last : INFER!Type = thisModule.Event(s.on->last())
+				in
+					outline.center.x = (last.outline.center.x + first.outline.center.x) / 2
+				and	text.center = outline.center,
+			polyCstr <-
+				let DELTA : Integer = 10 in
+				let M : Real = thisModule.MARGIN / 3
+				in
+					outline.mustContain(text.enlarge(M, M, M + DELTA, M))
+				and	polygon.pointEq(0, outline.topLeft)
+				and	polygon.pointEq(1, outline.topRight.dx(-DELTA))
+				and	polygon.pointEq(2, outline.topRight.plus(-DELTA, DELTA))
+				and	polygon.pointEq(3, outline.topRight.dx(-DELTA))
+				and	polygon.pointEq(4, outline.topRight.dy(DELTA))
+				and	polygon.pointEq(5, outline.topRight.plus(-DELTA, DELTA))
+				and	polygon.pointEq(6, outline.topRight.dy(DELTA))
+				and	polygon.pointEq(7, outline.bottomRight)
+				and	polygon.pointEq(8, outline.bottomLeft)
+		)
+}
+
+unique lazy rule Invariant extends Event {
+	from
+		s: Seq!Invariant
+	to
+		t : SVG!Group (
+			content <- '
+				<rect id=".outline" width="10" display="none"/>
+				<rect id=".helpr" width="10" height="10" display="none"/>
+				<polygon class="invariant" id=".polygon" />
+				<a href="${s.link}">
+					<text class="invariantText" id=".text">${s.invariant}</text>
+				</a>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr <- thisModule.eventConstraints(s, s.on),
+			invCstr <-
+				let width : Real = text.width in
+				let height : Real = text.height + thisModule.MARGIN * 2
+				in
+					outline.height = height
+				and	polygon.constrainTEllipse(helpr.x, helpr.y, width + height / 2, width)
+				and	polygon.center = outline.center
+				and	text.center = outline.center
+		)
+}
+
+unique lazy rule Fragment extends Event {
+	from
+		s: Seq!Fragment
+	to
+		t : SVG!Group (
+			class<- 'fragment',
+			content <- '
+				<rect id=".outline"/>
+				<polygon id=".polygon"/>
+				<text id=".label">${s.label}</text>
+				<text id=".condition">${s.condition}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			eventCstr <- thisModule.eventConstraintsY(s, s.on->first()),
+			outlCstr <-
+				let lblOutline : SVG!Rectangle = label.enlarge(thisModule.MARGIN, 0) in
+				let first : INFER!Type = thisModule.Event(s.on->first()) in
+				let last : INFER!Type = thisModule.Event(s.on->last())
+				in
+					outline.center.x = (last.outline.center.x + first.outline.center.x) / 2
+				and	s.on->collect(o |
+						let DX : Integer = 5 in
+						let oTgt : INFER!TYPE = thisModule.Participant(o)
+						in
+								outline.mustContainX(oTgt.line.p1.x + DX)
+							and	outline.mustContainX(oTgt.line.p1.x - DX)
+					)->iterate(c; acc : Boolean = true | acc and c)
+				and	lblOutline.topLeft = outline.topLeft
+				and	polygon.pointEq(0, lblOutline.topLeft)
+				and	polygon.pointEq(1, lblOutline.topRight.dx(10))
+				and	polygon.pointEq(2, lblOutline.topRight.plus(10,10))
+				and	polygon.pointEq(3, lblOutline.bottomRight)
+				and	polygon.pointEq(4, lblOutline.bottomLeft)
+				and	condition.topLeft = lblOutline.topRight.dx(20)
+				and	outline.mustContain(condition)
+		)
+}
+
+unique lazy rule Compartment extends Event {
+	from
+		s: Seq!Compartment
+	to
+		t: SVG!Group (
+			class <- 'compartment',
+			content <- '
+				<rect id=".outline" display="none"/>
+				<line id=".line"/>
+				<text id=".label">${s.condition}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			compCstr <-
+				let parTgt : INFER!TYPE = thisModule.Fragment(s.parent) in
+				let afterTgt : INFER!TYPE = thisModule.Event(s.after)
+				in
+					outline.x = parTgt.outline.x
+				and	outline.width = parTgt.outline.width
+				and	if (s.after.oclIsUndefined()) then
+						outline.y = parTgt.outline.y
+					else
+						outline.y = afterTgt.outline.bottomLeft.y + thisModule.scale
+					endif
+				and	line = outline.top
+				and label.topLeft.x = parTgt.label.enlarge(thisModule.MARGIN, 0).topRight.x + 20
+				and	outline.mustContain(label)
+				and	parTgt.outline.mustContain(outline)
+		)
+}
+
+unique lazy rule TextCompartment extends Event {
+	from
+		s: Seq!TextCompartment
+	to
+		t: SVG!Group (
+			class <- 'textcompartment',
+			content <- '
+				<rect id=".outline" display="none"/>
+				<text id=".label">${s.label}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			compCstr <-
+				let parTgt : INFER!TYPE = thisModule.Fragment(s.parent)
+				in
+					outline.x = parTgt.outline.x
+				and	outline.width = parTgt.outline.width
+				and	outline.y = parTgt.label.bottomLeft.y
+				and	label.center = outline.center
+				and	outline.mustContain(label.enlarge(10))
+				and	parTgt.outline.mustContain(outline)
+		)
+}
+
+unique lazy rule ActualGate extends Event {
+	from
+		s: Seq!ActualGate
+	to
+		t: SVG!Group (
+			class <- 'fragment',
+			content <- '
+				<rect id=".outline" width="10" height="10" display="${s.cursor?none}"/>
+				<line class="messageArrow" id=".line" />
+				<text class="messageSignature" id=".text">${s.signature}</text>
+			'
+		),
+		constraints: Constraints!ExpressionGroup (
+			compCstr <-
+				let fragTgt : INFER!TYPE = thisModule.Fragment(s.fragment) in
+				let callTgt : INFER!TYPE = thisModule.Call(s.call)
+				in
+					outline.center.onSegment(fragTgt.outline.left)
+				and	line.p1 = callTgt.outline.center
+				and	line.p2 = outline.center
+				and text.bottom.center = line.center
+		)
+}

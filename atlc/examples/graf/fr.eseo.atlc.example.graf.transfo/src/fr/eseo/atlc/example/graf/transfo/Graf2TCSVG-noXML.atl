@@ -1,0 +1,66 @@
+-----------------------------------------------------------------
+--  Copyright (C) 2020 ESEO, Université d'Angers 
+--
+--  This program and the accompanying materials are made
+--  available under the terms of the Eclipse Public License 2.0
+--  which is available at https://www.eclipse.org/legal/epl-2.0/
+--
+--  Contributors:
+--    - Frédéric Jouault
+--    - Théo Le Calvar
+--
+--
+--  SPDX-License-Identifier: EPL-2.0
+------------------------------------------------------------------
+
+module graf2tcsvg;
+
+create OUT: SVG, constraints : Constraints from IN: Graf;
+
+unique lazy rule Node {
+	from
+		s : Graf!Node
+	to
+        t: SVG!Group (
+            children <- Sequence {circle, label}
+        ),
+        circle: SVG!Circle (
+			class <- 'node',
+			movable <- true,
+			cx <- s.xinit,
+			cy <- s.yinit
+		),
+        label: SVG!Text (
+            mouseTransparent <- true,
+            content <- s.label
+        ),
+		cstr: Constraints!Constraint (
+			value <- 
+					circle.r >= 20
+				and	circle.r >= label.width.toConstant() * 0.7
+				and	circle.r >= label.height.toConstant() * 0.7
+				and	circle.cx.stay('medium')
+				and	circle.cy.stay('medium')
+				and	circle.cx = label.x + label.width.toConstant() / 2
+				and	circle.cy = label.y + label.height.toConstant() / 2
+		)
+}
+
+unique lazy rule Arc {
+	from
+		s: Graf!Arc
+	to
+		t: SVG!Group (
+            children <- Sequence {line}
+		),
+        line: SVG!Line (
+			class <- 'arc'
+		),
+		cstr: Constraints!Constraint (
+			value <- 
+					line.x1 = thisModule.Node(s.source).circle.cx
+				and	line.y1 = thisModule.Node(s.source).circle.cy
+				and	line.x2 = thisModule.Node(s.target).circle.cx
+				and	line.y2 = thisModule.Node(s.target).circle.cy
+		)
+}

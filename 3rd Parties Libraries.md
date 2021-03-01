@@ -30,3 +30,9 @@ Sources are availables at : https://github.com/xcsp3team/XCSP3-Java-Tools
 
 This code is licensed under the MIT licences, a copy of the licence is available at https://github.com/xcsp3team/XCSP3-Java-Tools/blob/master/LICENSE.
 Another copy of the license is available in the `3rd parties licenses/LICENSE-xcsp3` file in this repository.
+
+## Jcommander
+
+Sources are available at : https://github.com/cbeust/jcommander/
+
+This code is licensed unser the Apache License 2.0, a copy of the license is available in `3rd parties licenses/LICENSE-jcommander` in this repository.

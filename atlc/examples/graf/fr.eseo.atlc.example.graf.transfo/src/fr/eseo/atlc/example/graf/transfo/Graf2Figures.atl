@@ -1,0 +1,38 @@
+module Graf2Figures;
+create OUT : JFX from IN : Graf;
+
+unique lazy rule Graph {
+	from
+		s : Graf!Graph
+	to
+		t : JFX!Figure (
+			children <-	s.arcs->collect(e |
+						thisModule.ArcFigure(e).t
+					)->concat(
+						s.nodes->collect(e |
+						thisModule.NodeFigure(e).t
+						)
+					)
+		)
+}
+
+unique lazy rule NodeFigure {
+	from
+		s : Graf!Node
+	to
+		t : JFX!Figure (
+			nodes <- Sequence {thisModule.Node(s).t},
+			constraints <- Sequence {thisModule.Node(s).cstr}
+		)
+}
+
+unique lazy rule ArcFigure {
+	from
+		s : Graf!Arc
+	to
+		t : JFX!Figure (
+			nodes <- Sequence {thisModule.Arc(s).t},
+			constraints <- Sequence {thisModule.Arc(s).cstr}
+		)
+}
+

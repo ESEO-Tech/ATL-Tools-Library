@@ -1,0 +1,6 @@
+<marker id="arrowHead" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+	<polygon class="messageArrowHead" points="0,0,10,4,0,8,6,4"/>
+</marker>
+<pattern id="horizontalWhiteStripes" patternUnits="userSpaceOnUse" width="4" height="4">
+	<line x1="-5" y1="0" x2="9" y2="0" style="stroke-width: 4; stroke: white;"/>
+</pattern>

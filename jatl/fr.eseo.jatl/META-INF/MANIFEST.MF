@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jatl
+Bundle-SymbolicName: fr.eseo.jatl
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: fr.eseo.jatl
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.antlr.runtime;bundle-version="[3.0.0,3.3.0)",
+ org.eclipse.xtend.lib,
+ org.eclipse.m2m.atl.emftvm.compiler;bundle-version="4.1.0",
+ org.eclipse.m2m.atl.common;bundle-version="4.1.0",
+ org.eclipse.m2m.atl.dsls;bundle-version="4.1.0"
+Export-Package: fr.eseo.jatl

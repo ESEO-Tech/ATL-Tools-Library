@@ -16,13 +16,14 @@
 
 package fr.eseo.atol.javafx
 
-import fr.eseo.atlc.constraints.ExpressionGroup
+import fr.eseo.atlc.constraints.Expression
 import fr.eseo.atol.gen.AbstractRule
 import fr.eseo.atol.gen.Metaclass
 import java.util.HashMap
 import java.util.Map
 import javafx.beans.property.ObjectProperty
 import javafx.geometry.VPos
+import javafx.scene.Group
 import javafx.scene.Node
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Circle
@@ -42,7 +43,8 @@ import static fr.eseo.atol.gen.MetamodelUtils.*
 
 import static extension fr.eseo.atol.gen.JFXUtils.*
 
-public class JFX {
+class JFX {
+	public static val Metaclass<Group> Group = [new Group()]
 	public static val Metaclass<Text> Text = [new Text()]
 	public static val Metaclass<Line> Line = [new Line()]
 	public static val Metaclass<Arrow> Arrow = [new Arrow()]
@@ -56,12 +58,16 @@ public class JFX {
 	@Data
 	static class Figure {
 		val nodes = AOFFactory.INSTANCE.<Node>createSequence
-		val constraints = AOFFactory.INSTANCE.<ExpressionGroup>createSequence
+		val constraints = AOFFactory.INSTANCE.<Expression>createSequence
 		val children = AOFFactory.INSTANCE.<Figure>createSequence
 	}
 
 	def _id(Node e) {
 		e.idProperty
+	}
+
+	def _content(Text e) {
+		e.textProperty
 	}
 
 	def _text(Text e) {
@@ -108,7 +114,9 @@ public class JFX {
 		it.fillProperty
 	}
 
-	public val __movable = [_movable]
+	public val __movable = [Node it |
+		_movable
+	]
 
 	val movableNodes = new HashMap<Node, IOne<Boolean>>
 
@@ -167,6 +175,22 @@ public class JFX {
 		points.toBox
 	}
 
+	def x1Property(Line it) {
+		startXProperty
+	}
+
+	def x2Property(Line it) {
+		endXProperty
+	}
+
+	def y1Property(Line it) {
+		startYProperty
+	}
+
+	def y2Property(Line it) {
+		endYProperty
+	}
+
 	def _startX(Line it) {
 		startXProperty.toBox as IOption<?> as IOption<Double>
 	}
@@ -199,12 +223,32 @@ public class JFX {
 		collectMutable[it?._y ?: AbstractRule.emptyOption]
 	}
 
+	def cxProperty(Circle it) {
+		centerXProperty
+	}
+
+	def _cx(Circle it) {
+		_centerX
+	}
+
 	def _centerX(Circle it) {
 		centerXProperty.toBox as IOption<?> as IOption<Double>
 	}
 
+	def cyProperty(Circle it) {
+		centerYProperty
+	}
+
+	def _cy(Circle it) {
+		_centerY
+	}
+
 	def _centerY(Circle it) {
 		centerYProperty.toBox as IOption<?> as IOption<Double>
+	}
+
+	def rProperty(Circle it) {
+		radiusProperty
 	}
 
 	def _radius(Circle it) {
@@ -217,5 +261,21 @@ public class JFX {
 
 	def centerY(IBox<Circle> it) {
 		collectMutable[it?._centerY ?: AbstractRule.emptyOption]
+	}
+
+	def _children(Group it) {
+		children.toBox
+	}
+
+	def children(IBox<Group> it) {
+		collectMutable[it?._children ?: AbstractRule.emptySequence]
+	}
+
+	public val __class = [Node it |
+		_class
+	]
+
+	def _class(Node it) {
+		styleClass.toBox
 	}
 }
