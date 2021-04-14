@@ -1,0 +1,414 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:c="http://myconstraints">
+	<script><![CDATA[
+		
+		var OCLLibrary = {
+		    __asArray(x) {
+		        if (Array.isArray(x)) {
+		            return x;
+		        }
+		        else {
+		            return [x];
+		        }
+		    },
+		
+		    size(collection) {
+		        return this.__asArray(collection).length;
+		    },
+		
+		    notEmpty(collection) {
+		        return this.size(collection) != 0;
+		    },
+		
+		    empty(collection) {
+		        return this.size(collection) == 0;
+		    },
+		
+		    union(lhs, rhs) {
+		        return lhs.concat(rhs);
+		    },
+		
+		    at(collection, idx) {
+		        return this.__asArray(collection)[idx - 1];
+		    },
+		
+		    subSequence(collection, start, end) {
+		        return this.__asArray(collection).slice(start - 1, end);
+		    },
+		
+		    sum(collection) {
+		        return this.__asArray(collection).reduce((acc, val) => acc + val);
+		    },
+		
+		    iterate(collection, seed, lambda) {
+		        return this.__asArray(collection).reduce(lambda, seed);
+		    },
+		
+		    collect(collection, lambda) {
+		        return this.__asArray(collection).map(lambda);
+		    },
+		
+		    zipWith(left, right, lambda) {
+			const length = Math.min(left.length, right.length);
+		        return left.slice(0, length).map((v, idx) => lambda(v, right[idx]));
+		    },
+		
+		    prepend(collection, element) {
+		        return [element].concat(collection);
+		    },
+		
+		    includes(collection, element) {
+		        return this.__asArray(collection).includes(element);
+		    },
+		
+		    oclIsUndefined(val) {
+		        return val ? false : true;
+		    },
+		
+		    oclType(val) {
+		        //TODO implement oclType
+		    },
+		
+		    oclIsKindOf(val, type) {
+		        //TODO implement oclIsKindOf
+		    },
+		
+		    toString(val) {
+		        return val.toString();
+		    },
+		
+		    asOrderedSet(collection) {
+		        return new Set(collection);
+		    },
+		
+		    startWiths(str, prefix) {
+		        return str.startWiths(prefix);
+		    },
+		
+		    first(collection) {
+		        return this.__asArray(collection)[0];
+		    },
+		
+		    last(collection) {
+		        let c = this.__asArray(collection);
+		        return c[c.length - 1];
+		    },
+		
+		    toInteger(string) {
+		        return string * 1;
+		    },
+		}
+		
+		
+
+		// 19:1-19:38
+		function __attribute__MARGIN() {
+			return 20
+			;
+		}
+		// 20:1-20:51
+		function __attribute__VERTICAL_SEPARATION() {
+			return 50
+			;
+		}
+		// 21:1-21:53
+		function __attribute__HORIZONTAL_SEPARATION() {
+			return 50
+			;
+		}
+	]]></script>
+	<defs>
+		<!-- 23:1-58:2 -->
+		<g id="Feature" class="feature" movable="outline">
+			<rect fill="none" id=".box" stroke="none"/>
+			<rect fill="white" id=".outline" stroke="black"/>
+			<text content-value="param(label)" id=".label" pointer-events="none">default</text>
+			<!-- constraints -->
+			<constraints name="constraints">
+				{
+					let s = this;
+					return 										this.outline.width
+														.eq(
+																this.label.width
+															.plus(
+																(new tcsvg.Expression(__attribute__MARGIN()))
+															)
+														)
+													.and(
+															this.outline.height
+														.eq(
+																this.label.height
+															.plus(
+																(new tcsvg.Expression(__attribute__MARGIN()))
+															)
+														)
+													)
+												.and(
+														this.outline.center
+													.eq(
+														this.label.center
+													)
+												)
+											.and(
+												this.outline.topLeft.st(c.Strength.medium)
+											)
+										.and(
+											this.box.mustContain(this.outline)
+										)
+									.and(
+											this.box.center.x
+										.eq(
+											this.outline.center.x
+										)
+									)
+								.and(
+										this.box.width
+									.eq(
+										(new tcsvg.Expression(0))
+									).setPriority(c.Strength.strong,  undefined)
+								)
+							.and(
+									this.box.height
+								.eq(
+									(new tcsvg.Expression(0))
+								).setPriority(c.Strength.strong,  undefined)
+							)
+						.and(
+								this.box.x
+							.ge(
+								(new tcsvg.Expression(0))
+							)
+						)
+					.and(
+							this.box.y
+						.ge(
+							(new tcsvg.Expression(0))
+						)
+					);
+			}
+			</constraints>
+		</g>
+		<!-- 60:1-88:2 -->
+		<g id="Arc" class="arc">
+			<line id=".line" stroke="black"/>
+			<circle fill="param(circleFill) default" id=".circle" stroke="param(circleStroke) default"/>
+			<!-- constraints -->
+			<constraints name="constraints">
+				{
+					let s = this;
+					return ((r) => (
+						((parent) => (
+							((child) => (
+														this.line.p1
+													.eq(
+														parent.outline.bottom.center
+													)
+												.and(
+														this.line.p2
+													.eq(
+														this.circle.top
+													)
+												)
+											.and(
+													this.circle.bottom
+												.eq(
+													child.outline.top.center
+												)
+											)
+										.and(
+												this.circle.r
+											.eq(
+												r
+											)
+										)
+									.and(
+										parent.box.mustContain(child.outline)
+									)
+								.and(
+										child.outline.y
+									.eq(
+											parent.outline.bottomRight.y
+										.plus(
+											(new tcsvg.Expression(__attribute__VERTICAL_SEPARATION()))
+										)
+									)
+								)
+							))(s.child)
+						))(s.parent)
+					))((OCLLibrary.oclIsUndefined(s.r)) ? (
+						(new tcsvg.Expression(0))
+					) : (
+						OCLLibrary.toInteger(s.r)
+					));
+			}
+			</constraints>
+		</g>
+		<!-- 90:1-139:2 -->
+		<g id="Alternative" class="arc">
+			<clipPath id=".clipPath">
+									<polygon fill="pink" fill-rule="nonzero" id=".poly" opacity="30%" stroke="red"/>
+								</clipPath>
+			<circle clip-path="url(#%this%.clipPath)" fill="param(fill) default" id=".outline" stroke="param(stroke) default"/>
+			<!-- constraints -->
+			<constraints name="constraints">
+				{
+					let s = this;
+					return ((parent) => (
+						((firstChild) => (
+							((lastChild) => (
+																this.outline.center
+															.eq(
+																parent.outline.bottom.center
+															)
+														.and(
+																this.outline.r
+															.eq(
+																parent.outline.height
+															)
+														)
+													.and(
+														this.poly.pointEq((new tcsvg.Expression(0)), parent.outline.bottom.center)
+													)
+												.and(
+													this.poly.pointEq((new tcsvg.Expression(1)), firstChild.outline.top.center)
+												)
+											.and(
+												this.poly.pointEq((new tcsvg.Expression(2)), lastChild.outline.top.center)
+											)
+										.and(
+												firstChild.outline.x
+											.eq(
+												parent.box.x
+											)
+										)
+									.and(
+											lastChild.outline.topRight.x
+										.eq(
+											parent.box.topRight.x
+										)
+									)
+								.and(
+									((childArcs) => (
+										OCLLibrary.iterate(OCLLibrary.zipWith(childArcs, OCLLibrary.subSequence(childArcs, 2, OCLLibrary.size(childArcs)) ,(cur, next) => (		cur.box.topRight.x
+											.plus(
+												(new tcsvg.Expression(__attribute__HORIZONTAL_SEPARATION()))
+											)
+										.eq(
+											next.box.x
+										))), new Constraints(), (cur, acc) => cur.and(acc))
+									))(OCLLibrary.collect(s.arcs, (arc) => arc.child))
+								)
+							))(OCLLibrary.last(s.arcs).child)
+						))(OCLLibrary.first(s.arcs).child)
+					))(OCLLibrary.first(s.arcs).parent);
+			}
+			</constraints>
+		</g>
+	</defs>
+
+	<!-- Sample model (inspired from https://en.wikipedia.org/wiki/Feature_model#/media/File:E-shopFM.jpg)
+	
+	"E-Shop" {
+		mandatory Catalogue
+	
+		mandatory Payment {
+			or {
+				"Bank transfer"
+				"Credit card"
+			}
+		}
+		mandatory Security {
+			xor {
+				High
+				Standard
+				High
+			}
+		}
+	
+		optional Search
+	}
+	
+	-->
+			<use id="E-ShopCatalogue" xlink:href="#Arc" parent="E-Shop" child="Catalogue" r="5">
+				<param name="label" value="none"/>
+				<param name="circleStroke" value="black"/>
+				<param name="circleFill" value="black"/>
+			</use>
+			<use id="E-ShopPayment" xlink:href="#Arc" parent="E-Shop" child="Payment" r="5">
+				<param name="label" value="none"/>
+				<param name="circleStroke" value="black"/>
+				<param name="circleFill" value="black"/>
+			</use>
+				<use id="PaymentBankTransfer" xlink:href="#Arc" parent="Payment" child="BankTransfer">
+					<param name="label" value="none"/>
+				</use>
+				<use id="PaymentCreditCard" xlink:href="#Arc" parent="Payment" child="CreditCard">
+					<param name="label" value="none"/>
+				</use>
+			<use id="E-ShopSecurity" xlink:href="#Arc" parent="E-Shop" child="Security" r="5">
+				<param name="label" value="none"/>
+				<param name="circleStroke" value="black"/>
+				<param name="circleFill" value="black"/>
+			</use>
+				<use id="SecurityLow" xlink:href="#Arc" parent="Security" child="Low">
+					<param name="label" value="none"/>
+				</use>
+				<use id="SecurityHigh" xlink:href="#Arc" parent="Security" child="High">
+					<param name="label" value="none"/>
+				</use>
+				<use id="SecurityStandard" xlink:href="#Arc" parent="Security" child="Standard">
+					<param name="label" value="none"/>
+				</use>
+			<use id="E-ShopSearch" xlink:href="#Arc" parent="E-Shop" child="Search" r="5">
+				<param name="label" value="none"/>
+				<param name="circleStroke" value="black"/>
+				<param name="circleFill" value="none"/>
+			</use>
+	
+		<use id="E-Shop" xlink:href="#Feature">
+			<param name="label" value="E-Shop"/>
+		</use>
+			<use id="E-ShopAlt" xlink:href="#Alternative" arcs="E-ShopCatalogue,E-ShopPayment,E-ShopSecurity,E-ShopSearch">
+				<param name="label" value="none"/>
+				<param name="fill" value="none"/>
+				<param name="stroke" value="none"/>
+			</use>
+				<use id="Catalogue" xlink:href="#Feature">
+					<param name="label" value="Catalogue"/>
+				</use>
+				<use id="Payment" xlink:href="#Feature">
+					<param name="label" value="Payment"/>
+				</use>
+					<use id="PaymentAlt" xlink:href="#Alternative" arcs="PaymentBankTransfer,PaymentCreditCard">
+						<param name="label" value="PaymentAlt"/>
+					</use>
+						<use id="BankTransfer" xlink:href="#Feature">
+							<param name="label" value="Bank transfer"/>
+						</use>
+						<use id="CreditCard" xlink:href="#Feature">
+							<param name="label" value="Credit card"/>
+						</use>
+				<use id="Security" xlink:href="#Feature">
+					<param name="label" value="Security"/>
+				</use>
+					<use id="SecurityAlt" xlink:href="#Alternative" arcs="SecurityHigh,SecurityStandard,SecurityLow">
+						<param name="label" value="SecurityAlt"/>
+						<param name="fill" value="white"/>
+						<param name="stroke" value="black"/>
+					</use>
+						<use id="Low" xlink:href="#Feature">
+							<param name="label" value="Low"/>
+						</use>
+						<use id="High" xlink:href="#Feature">
+							<param name="label" value="High"/>
+						</use>
+						<use id="Standard" xlink:href="#Feature">
+							<param name="label" value="Standard"/>
+						</use>
+				<use id="Search" xlink:href="#Feature">
+					<param name="label" value="Search"/>
+				</use>
+
+
+	<script href="/ecmfa2021-atlc-web/tcsvg/c.js"/>
+	<script href="/ecmfa2021-atlc-web/tcsvg/TCSVG.min.js"/>
+</svg>

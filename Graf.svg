@@ -1,0 +1,344 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:c="http://myconstraints">
+	<script><![CDATA[
+		
+		var OCLLibrary = {
+		    __asArray(x) {
+		        if (Array.isArray(x)) {
+		            return x;
+		        }
+		        else {
+		            return [x];
+		        }
+		    },
+		
+		    size(collection) {
+		        return this.__asArray(collection).length;
+		    },
+		
+		    notEmpty(collection) {
+		        return this.size(collection) != 0;
+		    },
+		
+		    empty(collection) {
+		        return this.size(collection) == 0;
+		    },
+		
+		    union(lhs, rhs) {
+		        return lhs.concat(rhs);
+		    },
+		
+		    at(collection, idx) {
+		        return this.__asArray(collection)[idx - 1];
+		    },
+		
+		    subSequence(collection, start, end) {
+		        return this.__asArray(collection).slice(start - 1, end);
+		    },
+		
+		    sum(collection) {
+		        return this.__asArray(collection).reduce((acc, val) => acc + val);
+		    },
+		
+		    iterate(collection, seed, lambda) {
+		        return this.__asArray(collection).reduce(lambda, seed);
+		    },
+		
+		    collect(collection, lambda) {
+		        return this.__asArray(collection).map(lambda);
+		    },
+		
+		    zipWith(left, right, lambda) {
+			const length = Math.min(left.length, right.length);
+		        return left.slice(0, length).map((v, idx) => lambda(v, right[idx]));
+		    },
+		
+		    prepend(collection, element) {
+		        return [element].concat(collection);
+		    },
+		
+		    includes(collection, element) {
+		        return this.__asArray(collection).includes(element);
+		    },
+		
+		    oclIsUndefined(val) {
+		        return val ? false : true;
+		    },
+		
+		    oclType(val) {
+		        //TODO implement oclType
+		    },
+		
+		    oclIsKindOf(val, type) {
+		        //TODO implement oclIsKindOf
+		    },
+		
+		    toString(val) {
+		        return val.toString();
+		    },
+		
+		    asOrderedSet(collection) {
+		        return new Set(collection);
+		    },
+		
+		    startWiths(str, prefix) {
+		        return str.startWiths(prefix);
+		    },
+		
+		    first(collection) {
+		        return this.__asArray(collection)[0];
+		    },
+		
+		    last(collection) {
+		        let c = this.__asArray(collection);
+		        return c[c.length - 1];
+		    },
+		
+		    toInteger(string) {
+		        return string * 1;
+		    },
+		}
+		
+		
+
+	]]></script>
+	<defs>
+		<!-- 20:1-47:2 -->
+		<g id="node"  movable="circle">
+			<circle id=".circle" class="node"  cx-value="param(xinit) 0" cy-value="param(yinit) 0"/>
+			<text id=".label" content-value="param(label)" pointer-events="none"  >
+				default
+			</text>
+			<!-- constraints -->
+			<constraints name="value">
+				{
+					let s = this;
+					return 							this.circle.r
+											.ge(
+												(new tcsvg.Expression(20))
+											)
+										.and(
+												this.circle.r
+											.ge(
+													this.label.width
+												.times(
+													(new tcsvg.Expression(0.7))
+												)
+											)
+										)
+									.and(
+											this.circle.r
+										.ge(
+												this.label.height
+											.times(
+												(new tcsvg.Expression(0.7))
+											)
+										)
+									)
+								.and(
+									this.circle.cx.st(c.Strength.medium)
+								)
+							.and(
+								this.circle.cy.st(c.Strength.medium)
+							)
+						.and(
+								this.circle.cx
+							.eq(
+									this.label.x
+								.plus(
+										this.label.width
+									.div(
+										(new tcsvg.Expression(2))
+									)
+								)
+							)
+						)
+					.and(
+							this.circle.cy
+						.eq(
+								this.label.y
+							.plus(
+									this.label.height
+								.div(
+									(new tcsvg.Expression(2))
+								)
+							)
+						)
+					);
+			}
+			</constraints>
+		</g>
+		<!-- 49:1-66:2 -->
+		<g id="arc" >
+			<line id=".line" class="arc" />
+			<!-- constraints -->
+			<constraints name="value">
+				{
+					let s = this;
+					return 				this.line.x1
+								.eq(
+									s.source.circle.cx
+								)
+							.and(
+									this.line.y1
+								.eq(
+									s.source.circle.cy
+								)
+							)
+						.and(
+								this.line.x2
+							.eq(
+								s.target.circle.cx
+							)
+						)
+					.and(
+							this.line.y2
+						.eq(
+							s.target.circle.cy
+						)
+					);
+			}
+			</constraints>
+		</g>
+	</defs>
+
+
+	<style><![CDATA[
+		.node {
+		    fill: #0dbaff;
+		    stroke: black;
+		    stroke-width: 1px;
+		}
+		
+		.arc {
+		    stroke-width: 1px;
+		    stroke: black;
+		}
+	]]></style>
+
+	<script href="/ecmfa2021-atlc-web/tcsvg/c.js"/>
+	<script href="/ecmfa2021-atlc-web/tcsvg/TCSVG.min.js"/>
+	<script><![CDATA[
+		var clickedElements = new Array;
+		var nodeCounter = 1;
+		var mousePosition = {x: 0, y: 0};
+		var svgRoot = document.getElementsByTagName('svg')[0];
+		
+		window.addEventListener('mousemove', ev => {
+		    mousePosition.x = ev.pageX;
+		    mousePosition.y = ev.pageY;
+		});
+		
+		window.addEventListener('click', ev => {
+		    let nodeName = ev.target.localName;
+		    if (nodeName == "circle" ||  nodeName == "line") {
+		        let nodeId = ev.target.id.split('.')
+		        nodeId.pop();
+		        clickedElements.push(nodeId.join('.'));
+		    }
+		});
+		
+		window.addEventListener("keypress", ev => {
+		    switch (ev.key) {
+		        case 'i': incNode(); break;
+		        case 'n': createNode(); break;
+		        case 'e': createArc(); break;
+		        case 'd': deleteLatest(); break;
+		    }
+		}, false);
+		
+		function createNode() {
+		    let nodeName = 'node'+nodeCounter;
+		    nodeCounter++;
+		
+		    let use = document.createSVGElement('use');
+		    use.setAttribute('id', nodeName);
+		    use.setAttribute('href', '#node');
+		    use.appendChild(createParam('label', nodeName));
+		    use.appendChild(createParam('xinit', mousePosition.x));
+		    use.appendChild(createParam('yinit', mousePosition.y));
+		
+		    nodes.appendChild(use);
+		    tcsvg.addedUse(use);
+		}
+		
+		function incNode() {
+		    if (clickedElements.length >= 1) {
+		        const nodeId = clickedElements.pop();
+		        const nodeUse = document.getElementById(nodeId);
+		        for(const p of nodeUse.children) {
+		            if(p.attributes.name.value === "label") {
+		                p.attributes.value.value += 1;
+		            }
+		        }
+		        tcsvg.addedUse(nodeUse);
+		    }
+		}
+		
+		function createArc() {
+		    if (clickedElements.length >= 2) {
+		        let tgt = clickedElements.pop();
+		        if (tgt.includes('arc')) return;
+		        let src = clickedElements.pop();
+		        if (src.includes('arc')) return;
+		        if (src == tgt) return;
+		        let arcId = 'arc_' + src + '_' + tgt;
+		
+		        if (document.getElementById(arcId) !== null) return;
+		
+		        let use = document.createSVGElement('use');
+		        use.setAttribute('id', arcId);
+		        use.setAttribute('href', '#arc');
+		        use.appendChild(createParam('source', src));
+		        use.appendChild(createParam('target', tgt));
+		
+		        arcs.appendChild(use);
+		        tcsvg.addedUse(use);
+		    }
+		}
+		
+		function deleteLatest() {
+		    if (clickedElements.length >= 1) {
+		        let eltId = clickedElements.pop();
+		        let use = document.getElementById(eltId);
+		
+		        clickedElements = clickedElements.filter(it => it !== eltId);
+		
+		        if (eltId.includes('arc')) { // clicked element is a node
+		            arcs.removeChild(use);
+		            tcsvg.removedUse(use);
+		        }
+		        else {
+		            arcs.getElementsByTagName('use')
+		            .filter(node => node.id.includes(eltId))
+		            .forEach(node => {
+		                arcs.removeChild(node);
+		                tcsvg.removedUse(node);
+		                clickedElements = clickedElements.filter(it => it !== node.id);
+		            });
+		            nodes.removeChild(use);
+		            tcsvg.removedUse(use);
+		        }
+		    }
+		}
+		
+		document.createSVGElement = function(name) {
+		    return document.createElementNS("http://www.w3.org/2000/svg", name);
+		}
+		
+		function createParam(name, value) {
+		    let param = document.createSVGElement('param');
+		        param.setAttribute('name', name);
+		        param.setAttribute('value', value);
+		
+		    return param;
+		}
+		
+		var arcs = document.createSVGElement('g')
+		arcs.setAttribute('id', 'arcs');
+		svgRoot.appendChild(arcs);
+		
+		var nodes = document.createSVGElement('g')
+		nodes.setAttribute('id', 'nodes');
+		svgRoot.appendChild(nodes);
+	]]></script>
+</svg>
