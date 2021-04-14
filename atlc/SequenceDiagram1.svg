@@ -1390,570 +1390,255 @@
 	<pattern id="horizontalWhiteStripes" patternUnits="userSpaceOnUse" width="4" height="4">
 		<line x1="-5" y1="0" x2="9" y2="0" style="stroke-width: 4; stroke: white;"/>
 	</pattern>
-	
-	<use id="participant.E_Switch" xlink:href="#actor" x="100" y="0">
-	<param name="name" value="E_Switch : "/>
-	</use>
-	
-	<use id="participant.led" xlink:href="#object" after="participant.E_Switch">
-	<param name="name" value="led : LED"/>
-	</use>
-	
-	<use id="participant.switch" xlink:href="#object" after="participant.led">
-	<param name="name" value="switch : Switch"/>
-	</use>
-	
-	<use id="participant.brain" xlink:href="#object" after="participant.switch">
-	<param name="name" value="brain : Brain"/>
-	</use>
-	
-	<use id="participant.battery" xlink:href="#object" after="participant.brain">
-	<param name="name" value="battery : Battery"/>
-	</use>
-	
-	<use id="participant.speaker" xlink:href="#object" after="participant.battery">
+	<use id="participant.speaker" xlink:href="#object" x="100" y="0">
 	<param name="name" value="speaker : Speaker"/>
 	</use>
 	
-	<use id="participant.heater" xlink:href="#object" after="participant.speaker">
-	<param name="name" value="heater : Heater"/>
+	<use id="participant.interpret" xlink:href="#object" after="participant.speaker">
+	<param name="name" value="interpret : Interpret"/>
 	</use>
 	
-	<use id="participant.multimeter" xlink:href="#object" after="participant.heater">
-	<param name="name" value="multimeter : Multimeter"/>
+	<use id="participant.lcd" xlink:href="#object" after="participant.interpret">
+	<param name="name" value="lcd : LCD"/>
 	</use>
 	
 	
-	
-	
-	<use id="event[0].call"
-	xlink:href="#call" 
-	
-	
-	>
-	<param name="on" value="participant.E_Switch"/>
-	
-	</use>
 	
 	<use id="event[0]"
-	xlink:href="#accept"
-	after="event[0].call"
-	call="event[0].call"
+	xlink:href="#found"
 	
+	
+	leftmost="participant.speaker"
 	>
-	<param name="on" value="participant.switch"/>
-	<param name="signature" value="switchPressed()"/>
+	<param name="on" value="participant.speaker"/>
+	<param name="signature" value="showScreen(IDScreen)"/>
+	<param name="circle" value="none"/>
 	
 	</use>
 	
 	
-	
-	<use id="event[1].call"
-	xlink:href="#call" 
+	<use id="event[1]"
+	xlink:href="#fragment"
 	after="event[0]"
 	
 	>
-	<param name="on" value="participant.switch"/>
+	<param name="on" value="participant.speaker,participant.interpret,participant.lcd"/>
+	<param name="label" value="loop"/>
+	<param name="condition" value="[Prend les informations à afficher pour l'écran(IDScreen)]"/>
 	
 	</use>
 	
-	<use id="event[1]"
-	xlink:href="#accept"
-	after="event[1].call"
-	call="event[1].call"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	<param name="signature" value="startVap()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[2].call"
+	<use id="event[1.0]"
 	xlink:href="#call" 
-	after="event[1]"
 	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[2]"
-	xlink:href="#accept"
-	after="event[2].call"
-	call="event[2].call"
-	
-	>
-	<param name="on" value="participant.battery"/>
-	<param name="signature" value="checkBattery()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[3].call"
-	xlink:href="#call" 
-	after="event[2]"
-	
-	>
-	<param name="on" value="participant.battery"/>
-	
-	</use>
-	
-	<use id="event[3]"
-	xlink:href="#accept"
-	after="event[3].call"
-	call="event[3].call"
-	
-	>
-	<param name="on" value="participant.multimeter"/>
-	<param name="signature" value="getBatteryVoltage()"/>
-	
-	</use>
-	
-	
-	<use id="event[4]"
-	xlink:href="#direct"
-	after="event[3]"
-	
-	from="participant.multimeter"
-	to="participant.battery"
-	class="dashed"
-	>
-	<param name="signature" value="batteryLevel"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[5].call"
-	xlink:href="#call" 
-	after="event[4]"
-	
-	>
-	<param name="on" value="participant.battery"/>
-	
-	</use>
-	
-	<use id="event[5]"
-	xlink:href="#accept"
-	after="event[5].call"
-	call="event[5].call"
-	
+	parent="event[1]"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="signature" value="storeBatteryLevel(batteryLevel)"/>
 	
 	</use>
 	
 	
 	
-	<use id="event[6].call"
-	xlink:href="#call" 
-	after="event[5]"
-	
-	>
-	<param name="on" value="participant.battery"/>
-	
-	</use>
-	
-	<use id="event[6]"
+	<use id="event[1.1]"
 	xlink:href="#selfaccept"
-	after="event[6].call"
-	call="event[6].call"
-	
-	>
-	<param name="on" value="participant.battery"/>
-	<param name="signature" value="checkBatteryLevel(batteryLevel)"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[7].call"
-	xlink:href="#call" 
-	after="event[6]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[7]"
-	xlink:href="#accept"
-	after="event[7].call"
-	call="event[7].call"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	<param name="signature" value="checkParameters(powerReg)"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[8].call"
-	xlink:href="#call" 
-	after="event[7]"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	
-	</use>
-	
-	<use id="event[8]"
-	xlink:href="#accept"
-	after="event[8].call"
-	call="event[8].call"
-	
-	>
-	<param name="on" value="participant.multimeter"/>
-	<param name="signature" value="calculateResistanceValue()"/>
-	
-	</use>
-	
-	
-	<use id="event[9]"
-	xlink:href="#direct"
-	after="event[8]"
-	
-	from="participant.multimeter"
-	to="participant.heater"
-	class="dashed"
-	>
-	<param name="signature" value="resistanceValue"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[10].call"
-	xlink:href="#call" 
-	after="event[9]"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	
-	</use>
-	
-	<use id="event[10]"
-	xlink:href="#accept"
-	after="event[10].call"
-	call="event[10].call"
-	
+	after="event[1.0]"
+	call="event[1.0]"
+	parent="event[1]"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="signature" value="storeResistanceValue(resistanceValue)"/>
+	<param name="signature" value="Prendre informations pour la ieme ligne()"/>
 	
 	</use>
 	
 	
-	
-	<use id="event[11].call"
-	xlink:href="#call" 
-	after="event[10]"
-	
+	<use id="event[1.2]"
+	xlink:href="#fragment"
+	after="event[1.1]"
+	parent="event[1]"
 	>
-	<param name="on" value="participant.heater"/>
+	<param name="on" value="participant.speaker,participant.interpret"/>
+	<param name="label" value="loop"/>
+	<param name="condition" value="[Pour chaque ligne, parcours les différents éléments (box) à afficher]"/>
 	
 	</use>
 	
-	<use id="event[11]"
+	<use id="event[1.2.0]"
+	xlink:href="#fragment"
+	
+	parent="event[1.2]"
+	>
+	<param name="on" value="participant.speaker,participant.interpret"/>
+	<param name="label" value="alt"/>
+	<param name="condition" value=" "/>
+	</use>
+	
+	<use id="1.2.0.0"
+	xlink:href="#compartment"
+	
+	parent="event[1.2.0]"
+	>
+	<param name="condition" value="box.typeBox == Message à afficher"/>
+	</use>
+	
+	<use id="event[1.2.0.0.0]"
+	xlink:href="#call" 
+	
+	parent="1.2.0.0"
+	>
+	<param name="on" value="participant.speaker"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[1.2.0.0.1]"
+	xlink:href="#accept"
+	after="event[1.2.0.0.0]"
+	call="event[1.2.0.0.0]"
+	parent="1.2.0.0"
+	>
+	<param name="on" value="participant.interpret"/>
+	<param name="signature" value="getMsg(currentLine,box.msg)"/>
+	
+	</use>
+	
+	
+	<use id="event[1.2.0.0.2]"
+	xlink:href="#direct"
+	after="event[1.2.0.0.1]"
+	parent="1.2.0.0"
+	from="participant.interpret"
+	to="participant.speaker"
+	class="dashed"
+	>
+	<param name="signature" value="string"/>
+	
+	</use>
+	
+	
+	
+	<use id="1.2.0.1"
+	xlink:href="#compartment"
+	after="1.2.0.0"
+	parent="event[1.2.0]"
+	>
+	<param name="condition" value="box.typeBox == Symbole à afficher"/>
+	</use>
+	
+	<use id="event[1.2.0.1.0]"
+	xlink:href="#call" 
+	
+	parent="1.2.0.1"
+	>
+	<param name="on" value="participant.speaker"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[1.2.0.1.1]"
+	xlink:href="#accept"
+	after="event[1.2.0.1.0]"
+	call="event[1.2.0.1.0]"
+	parent="1.2.0.1"
+	>
+	<param name="on" value="participant.interpret"/>
+	<param name="signature" value="getSymbol(box.symb)"/>
+	
+	</use>
+	
+	
+	<use id="event[1.2.0.1.2]"
+	xlink:href="#direct"
+	after="event[1.2.0.1.1]"
+	parent="1.2.0.1"
+	from="participant.interpret"
+	to="participant.speaker"
+	class="dashed"
+	>
+	<param name="signature" value="string"/>
+	
+	</use>
+	
+	
+	
+	<use id="1.2.0.2"
+	xlink:href="#compartment"
+	after="1.2.0.1"
+	parent="event[1.2.0]"
+	>
+	<param name="condition" value="box.typeBox == Valeur a afficher"/>
+	</use>
+	
+	<use id="event[1.2.0.2.0]"
+	xlink:href="#call" 
+	
+	parent="1.2.0.2"
+	>
+	<param name="on" value="participant.speaker"/>
+	
+	</use>
+	
+	
+	
+	<use id="event[1.2.0.2.1]"
 	xlink:href="#selfaccept"
-	after="event[11].call"
-	call="event[11].call"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	<param name="signature" value="verifyParameters(cdm,powerReg)"/>
-	
-	</use>
-	
-	
-	<use id="event[12]"
-	xlink:href="#direct"
-	after="event[11]"
-	
-	from="participant.heater"
-	to="participant.brain"
-	class="dashed"
-	>
-	<param name="signature" value="Param Ok"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[13].call"
-	xlink:href="#call" 
-	after="event[12]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[13]"
-	xlink:href="#accept"
-	after="event[13].call"
-	call="event[13].call"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	<param name="signature" value="startVap(powerReg)"/>
-	
-	</use>
-	
-	
-	<use id="event[14]"
-	xlink:href="#fragment"
-	after="event[13]"
-	
-	>
-	<param name="on" value="participant.brain,participant.speaker,participant.heater,participant.multimeter"/>
-	<param name="label" value="ref"/>
-	<param name="condition" value=" "/>
-	</use>
-	<use id="event[14].text"
-	xlink:href="#textcompartment"
-	parent="event[14]"
-	>
-	<param name="label" value="Démarrer le vapotage"/>
-	</use>
-	
-	
-	
-	
-	<use id="event[15].call"
-	xlink:href="#call" 
-	after="event[14]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[15]"
-	xlink:href="#accept"
-	after="event[15].call"
-	call="event[15].call"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	<param name="signature" value="reportHeating()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[16].call"
-	xlink:href="#call" 
-	after="event[15]"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	
-	</use>
-	
-	<use id="event[16]"
-	xlink:href="#accept"
-	after="event[16].call"
-	call="event[16].call"
-	
-	>
-	<param name="on" value="participant.led"/>
-	<param name="signature" value="ledOn()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[17].call"
-	xlink:href="#call" 
-	after="event[16]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[17]"
-	xlink:href="#accept"
-	after="event[17].call"
-	call="event[17].call"
-	
+	after="event[1.2.0.2.0]"
+	call="event[1.2.0.2.0]"
+	parent="1.2.0.2"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="signature" value="showScreen(Heating)"/>
+	<param name="signature" value="translateIndex(box.id)"/>
 	
 	</use>
 	
 	
-	<use id="event[18]"
-	xlink:href="#fragment"
-	after="event[17]"
 	
+	
+	<use id="event[1.2.1]"
+	xlink:href="#call" 
+	after="event[1.2.0]"
+	parent="event[1.2]"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="label" value="ref"/>
-	<param name="condition" value=" "/>
-	</use>
-	<use id="event[18].text"
-	xlink:href="#textcompartment"
-	parent="event[18]"
-	>
-	<param name="label" value="Afficher un écran"/>
-	</use>
-	
-	
-	
-	
-	<use id="event[19].call"
-	xlink:href="#call" 
-	after="event[18]"
-	
-	>
-	<param name="on" value="participant.E_Switch"/>
-	
-	</use>
-	
-	<use id="event[19]"
-	xlink:href="#accept"
-	after="event[19].call"
-	call="event[19].call"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	<param name="signature" value="switchReleased()"/>
 	
 	</use>
 	
 	
 	
-	<use id="event[20].call"
-	xlink:href="#call" 
-	after="event[19]"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	
-	</use>
-	
-	<use id="event[20]"
-	xlink:href="#accept"
-	after="event[20].call"
-	call="event[20].call"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	<param name="signature" value="stopVap()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[21].call"
-	xlink:href="#call" 
-	after="event[20]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[21]"
-	xlink:href="#accept"
-	after="event[21].call"
-	call="event[21].call"
-	
-	>
-	<param name="on" value="participant.heater"/>
-	<param name="signature" value="stopVap()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[22].call"
-	xlink:href="#call" 
-	after="event[21]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[22]"
-	xlink:href="#accept"
-	after="event[22].call"
-	call="event[22].call"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	<param name="signature" value="reportNotHeating()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[23].call"
-	xlink:href="#call" 
-	after="event[22]"
-	
-	>
-	<param name="on" value="participant.switch"/>
-	
-	</use>
-	
-	<use id="event[23]"
-	xlink:href="#accept"
-	after="event[23].call"
-	call="event[23].call"
-	
-	>
-	<param name="on" value="participant.led"/>
-	<param name="signature" value="ledOff()"/>
-	
-	</use>
-	
-	
-	
-	<use id="event[24].call"
-	xlink:href="#call" 
-	after="event[23]"
-	
-	>
-	<param name="on" value="participant.brain"/>
-	
-	</use>
-	
-	<use id="event[24]"
-	xlink:href="#accept"
-	after="event[24].call"
-	call="event[24].call"
-	
+	<use id="event[1.2.2]"
+	xlink:href="#selfaccept"
+	after="event[1.2.1]"
+	call="event[1.2.1]"
+	parent="event[1.2]"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="signature" value="showScreen(Welcome)"/>
+	<param name="signature" value="fabrique la ligne à afficher(string)"/>
 	
 	</use>
 	
 	
-	<use id="event[25]"
-	xlink:href="#fragment"
-	after="event[24]"
 	
+	<use id="event[1.3]"
+	xlink:href="#call" 
+	after="event[1.2]"
+	parent="event[1]"
 	>
 	<param name="on" value="participant.speaker"/>
-	<param name="label" value="ref"/>
-	<param name="condition" value=" "/>
+	
 	</use>
-	<use id="event[25].text"
-	xlink:href="#textcompartment"
-	parent="event[25]"
+	
+	
+	
+	<use id="event[1.4]"
+	xlink:href="#accept"
+	after="event[1.3]"
+	call="event[1.3]"
+	parent="event[1]"
 	>
-	<param name="label" value="Afficher un écran"/>
+	<param name="on" value="participant.lcd"/>
+	<param name="signature" value="writeLine(string)"/>
+	
 	</use>
 
 	<style><![CDATA[
@@ -2044,6 +1729,6 @@
 		}
 	]]></style>
 
-	<script href="https://eseo-tech.github.io/ecmfa2021-atlc-web/tcsvg/c.js"/>
-	<script href="https://eseo-tech.github.io/ecmfa2021-atlc-web/tcsvg/TCSVG.min.js"/>
+	<script href="./tcsvg/c.js"/>
+	<script href="./tcsvg/TCSVG.min.js"/>
 </svg>

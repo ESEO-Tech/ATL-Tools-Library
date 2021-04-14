@@ -409,6 +409,6 @@
 				</use>
 
 
-	<script href="/ecmfa2021-atlc-web/tcsvg/c.js"/>
-	<script href="/ecmfa2021-atlc-web/tcsvg/TCSVG.min.js"/>
+	<script href="./tcsvg/c.js"/>
+	<script href="./tcsvg/TCSVG.min.js"/>
 </svg>
